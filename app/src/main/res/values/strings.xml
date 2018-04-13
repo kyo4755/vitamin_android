@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">WecanTalk</string>
+
+    <string name="login_title_text">로그인</string>
+    <string name="login_id_hint">아이디</string>
+    <string name="login_pw_hint">비밀번호</string>
+    <string name="login_register">회원 가입하기</string>
+
+    <string name="main_fragment_btn_friends">친구목록</string>
+    <string name="main_fragment_btn_community">대화목록</string>
+    <string name="main_fragment_btn_study">라이브</string>
+    <string name="main_fragment_btn_setting">설정</string>
+</resources>
