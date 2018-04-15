@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.vitamin.wecantalk.R;
 
@@ -14,9 +15,22 @@ import com.vitamin.wecantalk.R;
 
 public class StudyFragment extends Fragment {
 
+    TextView testView;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
-        return inflater.inflate(R.layout.activity_study, container, false);
+        View view = inflater.inflate(R.layout.activity_study, null);
+
+        testView = view.findViewById(R.id.fragment_study_testText);
+        testView.setText("이것은 라이브 프래그먼트 입니다");
+
+        return view;
     }
 }
