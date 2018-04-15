@@ -23,6 +23,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     ImageView logo_img;
     ConstraintLayout login_panel;
 
+    ImageView logo_pop;
+
     String id, pw;
 
     @Override
@@ -49,6 +51,16 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 startAnimation();
             }
         }, 3000);
+
+
+        ImageView logo_pop= (ImageView) findViewById(R.id.start_logo_image);
+        logo_pop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(StartActivity.this, Pop.class));
+            }
+        });
+
     }
 
     @Override
