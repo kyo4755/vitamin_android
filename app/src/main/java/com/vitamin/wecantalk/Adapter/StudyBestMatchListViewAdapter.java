@@ -11,7 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.vitamin.wecantalk.POJO.CommunityListViewPOJO;
+import com.vitamin.wecantalk.POJO.StudyBestMatchListViewPOJO;
 import com.vitamin.wecantalk.R;
 
 import java.util.ArrayList;
@@ -20,11 +20,11 @@ import java.util.ArrayList;
  * Created by JongHwa on 2018-04-15.
  */
 
-public class CommunityListViewAdapter extends BaseAdapter {
+public class StudyBestMatchListViewAdapter extends BaseAdapter {
 
-    private ArrayList<CommunityListViewPOJO> list;
+    private ArrayList<StudyBestMatchListViewPOJO> list;
 
-    public CommunityListViewAdapter(ArrayList<CommunityListViewPOJO> list){
+    public StudyBestMatchListViewAdapter(ArrayList<StudyBestMatchListViewPOJO> list){
         this.list = list;
     }
 
@@ -49,13 +49,15 @@ public class CommunityListViewAdapter extends BaseAdapter {
 
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.community_listview_prefab, viewGroup, false);
+            view = inflater.inflate(R.layout.study_best_match_prefab, viewGroup, false);
         }
 
-        ImageView img = view.findViewById(R.id.community_img);
-        TextView room_title = view.findViewById(R.id.community_room_title);
-        TextView recent_msg = view.findViewById(R.id.community_last_msg);
-        TextView recent_time = view.findViewById(R.id.community_last_time);
+        ImageView img = view.findViewById(R.id.study_best_match_img);
+        TextView name = view.findViewById(R.id.study_best_match_name);
+        TextView language = view.findViewById(R.id.study_best_match_language);
+        TextView location = view.findViewById(R.id.study_best_match_location);
+        TextView login_time = view.findViewById(R.id.study_best_match_login_time);
+        TextView local_time = view.findViewById(R.id.study_best_match_local_time);
 
         img.setImageDrawable(list.get(i).getImg());
         img.setBackground(new ShapeDrawable(new OvalShape()));
@@ -63,14 +65,12 @@ public class CommunityListViewAdapter extends BaseAdapter {
             img.setClipToOutline(true);
         }
 
-        room_title.setText(list.get(i).getTitle());
-        recent_msg.setText(list.get(i).getRecent_msg());
-        recent_time.setText(list.get(i).getRecent_time());
+        name.setText(list.get(i).getName());
+        language.setText(list.get(i).getLanguage());
+        location.setText(list.get(i).getLocation());
+        login_time.setText(list.get(i).getLogin_time());
+        local_time.setText(list.get(i).getLocal_time());
 
         return view;
-    }
-
-    public void addItem(CommunityListViewPOJO pojo){
-        list.add(pojo);
     }
 }
