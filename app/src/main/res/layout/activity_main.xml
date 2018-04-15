@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <FrameLayout
@@ -23,7 +22,7 @@
                 android:id="@+id/main_fragment_btn_friends"
                 android:text="@string/main_fragment_btn_friends"
                 android:background="@color/white"
-                style="?android:attr/buttonBarButtonStyle"
+                style="?android:buttonBarButtonStyle"
                 android:layout_weight="1"/>
 
             <Button
@@ -32,7 +31,7 @@
                 android:id="@+id/main_fragment_btn_community"
                 android:text="@string/main_fragment_btn_community"
                 android:background="@color/white"
-                style="?android:attr/buttonBarButtonStyle"
+                style="?android:buttonBarButtonStyle"
                 android:layout_weight="1"/>
 
             <Button
@@ -41,7 +40,7 @@
                 android:id="@+id/main_fragment_btn_study"
                 android:text="@string/main_fragment_btn_study"
                 android:background="@color/white"
-                style="?android:attr/buttonBarButtonStyle"
+                style="?android:buttonBarButtonStyle"
                 android:layout_weight="1"/>
 
             <Button
@@ -50,7 +49,7 @@
                 android:id="@+id/main_fragment_btn_setting"
                 android:text="@string/main_fragment_btn_setting"
                 android:background="@color/white"
-                style="?android:attr/buttonBarButtonStyle"
+                style="?android:buttonBarButtonStyle"
                 android:layout_weight="1"/>
 
         </LinearLayout>
