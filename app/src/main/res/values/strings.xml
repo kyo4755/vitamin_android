@@ -12,4 +12,6 @@
     <string name="main_fragment_btn_setting">설정</string>
 
     <string name="community_title">대화방</string>
+
+    <string name="study_many_use_title">많이 사용한 단어</string>
 </resources>

@@ -23,8 +23,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     ImageView logo_img;
     ConstraintLayout login_panel;
 
-    ImageView logo_pop;
-
     String id, pw;
 
     @Override
@@ -40,6 +38,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         register_btn.setText(Html.fromHtml("<u>" + getResources().getString(R.string.login_register) + "</u>"));
 
         logo_img = findViewById(R.id.start_logo_image);
+        logo_img.setOnClickListener(this);
+
         login_panel = findViewById(R.id.start_input_panel);
 
         login_btn.setOnClickListener(this);
@@ -51,16 +51,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 startAnimation();
             }
         }, 3000);
-
-
-        ImageView logo_pop= (ImageView) findViewById(R.id.start_logo_image);
-        logo_pop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(StartActivity.this, Pop.class));
-            }
-        });
-
     }
 
     @Override
@@ -72,6 +62,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.start_input_register:
+                break;
+            case R.id.start_logo_image:
+                startActivity(new Intent(StartActivity.this, Pop.class));
                 break;
         }
     }
