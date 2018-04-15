@@ -15,8 +15,6 @@ import com.vitamin.wecantalk.R;
 
 public class CommunityFragment extends Fragment {
 
-    TextView testView;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +25,6 @@ public class CommunityFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         View view = inflater.inflate(R.layout.activity_community,null);
-
-        testView = view.findViewById(R.id.fragment_community_testText);
-        testView.setText("이것은 대화방 프래그먼트 입니다.");
 
         return view;
     }
