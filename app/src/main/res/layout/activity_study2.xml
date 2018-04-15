@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_study">
+    <TextView
+        android:layout_width="95dp"
+        android:layout_height="80dp"
+        android:text="단어"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:id="@+id/word"
+        />
+
+    <TextView
+        android:id="@+id/word_meaning"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_alignTop="@+id/word"
+        android:layout_toEndOf="@+id/word"
+        android:layout_toRightOf="@+id/word"
+        android:gravity="center"
+        android:text="단어뜻" />
+
+
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:id="@+id/ex1"
+        android:text="문장예시1"
+        android:layout_marginTop="150dp"
+        android:layout_marginRight="90dp"
+        android:gravity="center" />
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:id="@+id/ex1meaning"
+        android:text="문장예시1해석"
+        android:layout_below="@+id/ex1"
+        android:gravity="center" />
+
+</RelativeLayout>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_study"
@@ -7,12 +7,36 @@
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="프래그먼트3"
-        android:id="@+id/fragment_study_testText"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_height="50dp"
+        android:text="혹시 이 단어 아세요?"
+        android:layout_above="@+id/word_meaning"
+        android:layout_centerHorizontal="true"
+        />
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:id="@+id/word_meaning"
+        android:text="단어뜻"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/LButton"
+        android:layout_below="@+id/word_meaning"
+        android:text="Pim"
+        android:layout_alignLeft="@+id/word_meaning"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/RButton"
+        android:text="Pig"
+        android:layout_below="@+id/word_meaning"
+        android:layout_alignRight="@+id/word_meaning"/>
+
+
+</RelativeLayout>

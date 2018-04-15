@@ -21,6 +21,9 @@
 
         <activity android:name=".MainFragmentActivity">
 
+        </activity>
+
+        <activity android:name=".StudyActivity">
 
         </activity>
     </application>
