@@ -1,6 +1,8 @@
 package com.vitamin.wecantalk.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +11,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.vitamin.wecantalk.POJO.FriendsListViewPOJO;
 import com.vitamin.wecantalk.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class FriendsListViewAdapter extends BaseAdapter {
 
@@ -42,8 +48,19 @@ public class FriendsListViewAdapter extends BaseAdapter {
 
         FriendsListViewPOJO friendsListViewPOJO = listViewItemList.get(position);
 
+        Bitmap bitmap = ((BitmapDrawable) friendsListViewPOJO.getIcon()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] bitmapdata = stream.toByteArray();
 
-        iconImageView.setImageDrawable(friendsListViewPOJO.getIcon());
+        Glide.with(context)
+                .load(bitmapdata)
+                .centerCrop()
+                .bitmapTransform(new CropCircleTransformation(context))
+                .into(iconImageView);
+
+
+        //iconImageView.setImageDrawable(friendsListViewPOJO.getIcon());
         titleTextView.setText(friendsListViewPOJO.getTitle());
         descTextView.setText(friendsListViewPOJO.getDesc());
 
