@@ -64,7 +64,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             case R.id.start_input_register:
                 break;
             case R.id.start_logo_image:
-                startActivity(new Intent(StartActivity.this, Pop.class));
+                startActivity(new Intent(StartActivity.this, PopActivity.class));
                 break;
         }
     }

@@ -1,9 +1,8 @@
 package com.vitamin.wecantalk.Adapter;
 
 import android.content.Context;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
-import android.os.Build;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +10,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.vitamin.wecantalk.POJO.StudyBestMatchListViewPOJO;
 import com.vitamin.wecantalk.R;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by JongHwa on 2018-04-15.
@@ -49,7 +52,7 @@ public class StudyBestMatchListViewAdapter extends BaseAdapter {
 
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.study_best_match_prefab, viewGroup, false);
+            view = inflater.inflate(R.layout.prefab_study_best_match_listview, viewGroup, false);
         }
 
         ImageView img = view.findViewById(R.id.study_best_match_img);
@@ -59,11 +62,22 @@ public class StudyBestMatchListViewAdapter extends BaseAdapter {
         TextView login_time = view.findViewById(R.id.study_best_match_login_time);
         TextView local_time = view.findViewById(R.id.study_best_match_local_time);
 
-        img.setImageDrawable(list.get(i).getImg());
-        img.setBackground(new ShapeDrawable(new OvalShape()));
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            img.setClipToOutline(true);
-        }
+        Bitmap bitmap = ((BitmapDrawable)list.get(i).getImg()).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] bitmapdata = stream.toByteArray();
+
+        Glide.with(mContext)
+                .load(bitmapdata)
+                .centerCrop()
+                .bitmapTransform(new CropCircleTransformation(mContext))
+                .into(img);
+
+//        img.setImageDrawable(list.get(i).getImg());
+//        img.setBackground(new ShapeDrawable(new OvalShape()));
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            img.setClipToOutline(true);
+//        }
 
         name.setText(list.get(i).getName());
         language.setText(list.get(i).getLanguage());
