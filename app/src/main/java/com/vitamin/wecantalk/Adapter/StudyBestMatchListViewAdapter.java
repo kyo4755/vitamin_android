@@ -73,12 +73,6 @@ public class StudyBestMatchListViewAdapter extends BaseAdapter {
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .into(img);
 
-//        img.setImageDrawable(list.get(i).getImg());
-//        img.setBackground(new ShapeDrawable(new OvalShape()));
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            img.setClipToOutline(true);
-//        }
-
         name.setText(list.get(i).getName());
         language.setText(list.get(i).getLanguage());
         location.setText(list.get(i).getLocation());

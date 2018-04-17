@@ -71,12 +71,6 @@ public class CommunityListViewAdapter extends BaseAdapter {
                 .bitmapTransform(new CropCircleTransformation(mContext))
                 .into(img);
 
-//        img.setImageDrawable(list.get(i).getImg());
-//        img.setBackground(new ShapeDrawable(new OvalShape()));
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            img.setClipToOutline(true);
-//        }
-
         room_title.setText(list.get(i).getTitle());
         recent_msg.setText(list.get(i).getRecent_msg());
         recent_time.setText(list.get(i).getRecent_time());
