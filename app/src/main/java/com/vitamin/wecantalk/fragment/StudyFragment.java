@@ -31,7 +31,7 @@ public class StudyFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
-        View view = inflater.inflate(R.layout.activity_study, null);
+        View view = inflater.inflate(R.layout.fragment_study, null);
 
         listView = view.findViewById(R.id.study_best_match_listview);
         adapter = new StudyBestMatchListViewAdapter(createPojo());
