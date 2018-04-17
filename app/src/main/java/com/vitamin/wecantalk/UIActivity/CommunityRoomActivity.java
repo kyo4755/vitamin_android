@@ -1,4 +1,4 @@
-package com.vitamin.wecantalk;
+package com.vitamin.wecantalk.UIActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.vitamin.wecantalk.Adapter.CommunityRoomListViewAdapter;
 import com.vitamin.wecantalk.POJO.CommunityRoomListViewPOJO;
+import com.vitamin.wecantalk.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

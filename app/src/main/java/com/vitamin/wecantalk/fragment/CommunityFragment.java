@@ -12,8 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.vitamin.wecantalk.Adapter.CommunityListViewAdapter;
-import com.vitamin.wecantalk.CommunityRoomActivity;
-import com.vitamin.wecantalk.MainFragmentActivity;
+import com.vitamin.wecantalk.UIActivity.CommunityRoomActivity;
 import com.vitamin.wecantalk.POJO.CommunityListViewPOJO;
 import com.vitamin.wecantalk.R;
 

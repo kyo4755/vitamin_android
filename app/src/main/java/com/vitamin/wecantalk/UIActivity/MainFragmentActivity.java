@@ -1,4 +1,4 @@
-package com.vitamin.wecantalk;
+package com.vitamin.wecantalk.UIActivity;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.vitamin.wecantalk.R;
 import com.vitamin.wecantalk.fragment.*;
 
 /**

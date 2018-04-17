@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/StartTheme">
-        <activity android:name=".StartActivity">
+        <activity android:name=".UIActivity.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,19 +17,19 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".PopActivity">
+        <activity android:name=".UIActivity.PopActivity">
 
         </activity>
 
-        <activity android:name=".MainFragmentActivity">
+        <activity android:name=".UIActivity.MainFragmentActivity">
 
         </activity>
 
-        <activity android:name=".StudyActivity">
+        <activity android:name=".UIActivity.StudyActivity">
 
         </activity>
 
-        <activity android:name=".CommunityRoomActivity">
+        <activity android:name=".UIActivity.CommunityRoomActivity">
 
         </activity>
     </application>
