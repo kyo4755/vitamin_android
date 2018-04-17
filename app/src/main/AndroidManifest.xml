@@ -17,13 +17,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Pop"></activity>
+        <activity android:name=".PopActivity">
+
+
+        </activity>
 
         <activity android:name=".MainFragmentActivity">
 
         </activity>
 
         <activity android:name=".StudyActivity">
+
+        </activity>
+
+        <activity android:name=".CommunityRoomActivity">
 
         </activity>
     </application>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/prefab_community_room_receive_img"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/prefab_community_room_receive_name"
+        android:text="name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintLeft_toRightOf="@+id/prefab_community_room_receive_img"
+        app:layout_constraintTop_toTopOf="@+id/prefab_community_room_receive_img"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="250dp"
+        android:id="@+id/prefab_community_room_receive_msg"
+        android:text="hello"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:padding="8dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/rounded_ractangle_green"
+        app:layout_constraintTop_toBottomOf="@+id/prefab_community_room_receive_name"
+        app:layout_constraintLeft_toRightOf="@+id/prefab_community_room_receive_img"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/prefab_community_room_receive_time"
+        android:text="11:59"
+        android:textSize="14sp"
+        android:textColor="@color/dark_gray"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        app:layout_constraintLeft_toRightOf="@+id/prefab_community_room_receive_msg"
+        app:layout_constraintBottom_toBottomOf="@+id/prefab_community_room_receive_msg"/>
+
+
+
+</android.support.constraint.ConstraintLayout>
