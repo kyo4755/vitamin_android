@@ -1,7 +1,9 @@
-package com.vitamin.wecantalk;
+package com.vitamin.wecantalk.UIActivity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.vitamin.wecantalk.R;
 
 /**
  * Created by anemo on 2018-04-15.

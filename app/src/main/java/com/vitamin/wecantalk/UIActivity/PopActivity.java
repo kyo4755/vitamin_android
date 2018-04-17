@@ -1,8 +1,10 @@
-package com.vitamin.wecantalk;
+package com.vitamin.wecantalk.UIActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+
+import com.vitamin.wecantalk.R;
 
 public class PopActivity extends Activity {
 

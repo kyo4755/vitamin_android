@@ -1,4 +1,4 @@
-package com.vitamin.wecantalk;
+package com.vitamin.wecantalk.UIActivity;
 
 import android.content.Intent;
 import android.os.Handler;
@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.vitamin.wecantalk.R;
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
