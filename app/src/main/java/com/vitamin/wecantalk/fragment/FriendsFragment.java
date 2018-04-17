@@ -1,10 +1,12 @@
 package com.vitamin.wecantalk.fragment;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.vitamin.wecantalk.Adapter.FriendsListViewAdapter;
@@ -41,6 +43,13 @@ public class FriendsFragment extends Fragment {
         adapter.addItem(getResources().getDrawable(R.drawable.temp_face4),"김관희","나는 가끔 눈물을 흘린다..");
         adapter.addItem(getResources().getDrawable(R.drawable.temp_face5),"김철수","카톡x");
 
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                FriendsProfileFragment fragment = FriendsProfileFragment.newInstance(10, 5, false, false);
+                fragment.show(getFragmentManager(), "blur_sample");
+            }
+        });
 
         return view;
     }
