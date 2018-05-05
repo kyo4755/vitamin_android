@@ -32,6 +32,9 @@
         <activity android:name=".UIActivity.CommunityRoomActivity">
 
         </activity>
+        <activity android:name=".UIActivity.RegisterActivity">
+
+        </activity>
     </application>
 
 </manifest>
