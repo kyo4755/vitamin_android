@@ -7,10 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.vitamin.wecantalk.Adapter.FriendsListViewAdapter;
+import com.vitamin.wecantalk.Common.GlobalInfo;
 import com.vitamin.wecantalk.R;
+
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by JongHwa on 2018-04-13.
@@ -20,6 +26,8 @@ public class FriendsFragment extends Fragment {
 
     ListView listview;
     FriendsListViewAdapter adapter;
+    ImageView my_img;
+    TextView my_name, my_status_msg;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,11 +45,6 @@ public class FriendsFragment extends Fragment {
         listview = view.findViewById(R.id.listview1);
         listview.setAdapter(adapter);
 
-        adapter.addItem(getResources().getDrawable(R.drawable.temp_face1),"김관희","나는 가끔 눈물을 흘린다..");
-        adapter.addItem(getResources().getDrawable(R.drawable.temp_face2),"김철수","카톡x");
-        adapter.addItem(getResources().getDrawable(R.drawable.temp_face3),"박철","안드과제/졸작과제");
-        adapter.addItem(getResources().getDrawable(R.drawable.temp_face4),"김관희","나는 가끔 눈물을 흘린다..");
-        adapter.addItem(getResources().getDrawable(R.drawable.temp_face5),"김철수","카톡x");
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -50,6 +53,24 @@ public class FriendsFragment extends Fragment {
                 fragment.show(getFragmentManager(), "blur_sample");
             }
         });
+
+        my_img = view.findViewById(R.id.friend_my_img);
+        my_name = view.findViewById(R.id.friend_my_name);
+        my_status_msg = view.findViewById(R.id.friend_my_status_msg);
+
+        if(GlobalInfo.my_profile.getImage().equals("null")) {
+            Glide.with(container.getContext())
+                    .load(R.drawable.default_user)
+                    .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(container.getContext()))
+                    .into(my_img);
+        }
+
+        my_name.setText(GlobalInfo.my_profile.getName());
+
+        if(GlobalInfo.my_profile.getStatus_msg().equals("null")) {
+            my_status_msg.setVisibility(View.INVISIBLE);
+        }
 
         return view;
     }

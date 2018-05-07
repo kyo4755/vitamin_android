@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.vitamin.wecantalk.Common.GlobalInfo;
 import com.vitamin.wecantalk.POJO.FriendsListViewPOJO;
 import com.vitamin.wecantalk.R;
 
@@ -25,7 +26,7 @@ public class FriendsListViewAdapter extends BaseAdapter {
     private ArrayList<FriendsListViewPOJO> listViewItemList = new ArrayList<FriendsListViewPOJO>();
 
     public FriendsListViewAdapter(){
-
+        listViewItemList = GlobalInfo.friends_list;
     }
 
     @Override
@@ -48,21 +49,32 @@ public class FriendsListViewAdapter extends BaseAdapter {
 
         FriendsListViewPOJO friendsListViewPOJO = listViewItemList.get(position);
 
-        Bitmap bitmap = ((BitmapDrawable) friendsListViewPOJO.getIcon()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] bitmapdata = stream.toByteArray();
+        if(friendsListViewPOJO.getImage().equals("null")){
+            Glide.with(context)
+                    .load(R.drawable.default_user)
+                    .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(context))
+                    .into(iconImageView);
+        }
 
-        Glide.with(context)
-                .load(bitmapdata)
-                .centerCrop()
-                .bitmapTransform(new CropCircleTransformation(context))
-                .into(iconImageView);
+//        Bitmap bitmap = ((BitmapDrawable) friendsListViewPOJO.getImage()).getBitmap();
+//        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+//        byte[] bitmapdata = stream.toByteArray();
+
+//        Glide.with(context)
+//                .load(bitmapdata)
+//                .centerCrop()
+//                .bitmapTransform(new CropCircleTransformation(context))
+//                .into(iconImageView);
 
 
         //iconImageView.setImageDrawable(friendsListViewPOJO.getIcon());
-        titleTextView.setText(friendsListViewPOJO.getTitle());
-        descTextView.setText(friendsListViewPOJO.getDesc());
+        titleTextView.setText(friendsListViewPOJO.getName());
+        if(friendsListViewPOJO.getStatus_msg().equals("null")){
+            descTextView.setVisibility(View.INVISIBLE);
+        }
+        else   descTextView.setText(friendsListViewPOJO.getStatus_msg());
 
         return convertView;
 
@@ -78,13 +90,4 @@ public class FriendsListViewAdapter extends BaseAdapter {
         return listViewItemList.get(position);
     }
 
-    public void addItem(Drawable icon,String title, String desc){
-        FriendsListViewPOJO item = new FriendsListViewPOJO();
-
-        item.setIcon(icon);
-        item.setTitle(title);
-        item.setDesc(desc);
-
-        listViewItemList.add(item);
-    }
 }
