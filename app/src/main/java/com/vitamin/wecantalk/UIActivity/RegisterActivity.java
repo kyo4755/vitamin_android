@@ -95,7 +95,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         });
 
         id_check = findViewById(R.id.id_check);
+        id_check.setOnClickListener(this);
         register = findViewById(R.id.register_button);
+        register.setOnClickListener(this);
 
         phone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
@@ -106,7 +108,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_check:
-                    idCheck();
+                idCheck();
                 break;
             case R.id.register_button:
                 if(id.getText().toString().isEmpty()){
@@ -150,8 +152,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 String result = requestTask.execute().get();
                 JSONObject jsonObject = new JSONObject(result);
                 String result_code = jsonObject.get("result").toString();
-                if(result_code.equals("0001")){Toast.makeText(RegisterActivity.this, "아이디를 입력해 주세요.", Toast.LENGTH_SHORT).show();}
-
+                if(result_code.equals("0001")){
+                    Toast.makeText(RegisterActivity.this, "아이디를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                }
+                else if(result_code.equals("0002")){
+                    Toast.makeText(RegisterActivity.this, "중복되는 아이디가 존재합니다.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "사용 가능한 아이디 입니다.", Toast.LENGTH_SHORT).show();
+                }
             } catch (Exception e){
                 Toast.makeText(RegisterActivity.this, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
                 Log.e("IdTask", e.toString());

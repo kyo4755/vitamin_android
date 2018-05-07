@@ -130,7 +130,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                             pojo.setLocation(jObject.getString("location"));
                             pojo.setPrefer_language(jObject.getString("prefer_language"));
                             pojo.setStatus_msg(jObject.getString("status_msg"));
-                            pojo.setImage(jObject.getString("image"));
+                            pojo.setImage(jObject.get("image").toString());
 
                             GlobalInfo.friends_list.add(pojo);
                         }

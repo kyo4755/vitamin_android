@@ -9,19 +9,28 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Debug;
 import android.provider.MediaStore;
+import android.util.Base64;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.vitamin.wecantalk.Common.GlobalInfo;
 import com.vitamin.wecantalk.Network.RequestTask;
 import com.vitamin.wecantalk.R;
 import com.vitamin.wecantalk.Setting.ChangeInfoSetting;
 import com.vitamin.wecantalk.Setting.ChangePWSetting;
 import com.vitamin.wecantalk.Setting.SettingDialog;
+import com.vitamin.wecantalk.UIActivity.RegisterActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -140,29 +149,38 @@ public class SettingFragment extends Fragment{
                     ByteArrayOutputStream  byteArray = new ByteArrayOutputStream();
                     bm.compress(Bitmap.CompressFormat.JPEG, 50, byteArray);
                     byte[] imgbytes = byteArray.toByteArray();
+                    String imgStr = new String(Base64.encodeToString(imgbytes, Base64.DEFAULT));
 
-//                    String url = "http://13.124.62.147:10230/change_photo";
-//                    ContentValues values = new ContentValues();
-//                    values.put("id", id값);
-//                    values.put("image", imgbytes);
-//                    RequestTask requestTask = new RequestTask(url, values);
-//                    String abc = requestTask.execute().get();
-//
-//                    Glide.with(context)
-//                            .load(imgbytes)
-//                            .centerCrop()
-//                            .bitmapTransform(new CropCircleTransformation(context))
-//                            .into(pro1);
+                    String url = "http://13.124.62.147:10230/change_photo";
+                    ContentValues values = new ContentValues();
+                    values.put("id", GlobalInfo.my_profile.getId());
+                    values.put("image", imgStr);
+                    RequestTask requestTask = new RequestTask(url, values);
+                    String result = requestTask.execute().get();
+
+                    JSONObject jsonObject = new JSONObject(result);
+                    String result_value = jsonObject.get("result").toString();
+
+                    if(result_value.equals("0000")){
+                        GlobalInfo.my_profile.setImage(imgStr);
+                        Glide.with(context)
+                                .load(imgbytes)
+                                .centerCrop()
+                                .bitmapTransform(new CropCircleTransformation(context))
+                                .into(pro1);
+                    } else {
+                        Toast.makeText(context, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                    }
 
                 } catch (IOException e) {
                     e.printStackTrace();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                } catch (ExecutionException e) {
-//                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-
-
             }
         }
     }
