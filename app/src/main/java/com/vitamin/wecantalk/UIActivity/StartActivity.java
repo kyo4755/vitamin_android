@@ -70,13 +70,10 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.start_input_login_button:
-                //tryLogin();
-                Intent it = new Intent(StartActivity.this, MainFragmentActivity.class);
-                startActivity(it);
-                finish();
+                tryLogin();
                 break;
             case R.id.start_input_register:
-                it = new Intent(StartActivity.this, RegisterActivity.class);
+                Intent it = new Intent(StartActivity.this, RegisterActivity.class);
                 startActivity(it);
                 finish();
                 break;
