@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D:\20184584\vitamin_android\WeCanTalk.iml" filepath="D:\20184584\vitamin_android\WeCanTalk.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/vitamin_android.iml" filepath="$PROJECT_DIR$/vitamin_android.iml" />
-      <module fileurl="file://D:\Workspace\College\WeCanTalk\vitamin_android.iml" filepath="D:\Workspace\College\WeCanTalk\vitamin_android.iml" />
     </modules>
   </component>
 </project>
