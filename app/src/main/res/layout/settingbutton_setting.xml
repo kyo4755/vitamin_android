@@ -7,11 +7,11 @@
     <ImageView
         android:src="@drawable/wecantalk_logo"
         android:layout_gravity="center"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:id="@+id/imageView2" />
 
     <Button
@@ -26,7 +26,7 @@
         android:background="@drawable/rectangle_green"
         android:id="@+id/changePW"
         android:text="패스워드변경"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
     <Button
@@ -37,7 +37,7 @@
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:id="@+id/changeInfo"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/changePW"
         android:layout_alignLeft="@+id/changePW"
         android:layout_alignStart="@+id/changePW" />
@@ -49,10 +49,11 @@
         android:layout_width="150dp"
         android:layout_height="60dp"
         android:id="@+id/back"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/changePW"
         android:layout_alignLeft="@+id/changePW"
-        android:layout_alignStart="@+id/changePW" />
+        android:layout_alignStart="@+id/changePW"
+        android:layout_marginBottom="10dp"/>
 
 
 

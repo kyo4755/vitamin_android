@@ -97,19 +97,33 @@
             android:layout_gravity="center"
             android:background="#F2F2F2" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp">
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:textColor="#ffffff"
+            android:text="변경"
+            android:id="@+id/change"
+            android:layout_width="70dp"
+            android:background="@drawable/rectangle_green"
+            android:layout_height="30dp"
+            android:layout_marginRight="10dp"/>
 
         <Button
-
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="50dp"
-            android:layout_height="30dp"
-            android:id="@+id/change"
-            android:text="변경"
-            android:background="@drawable/rectangle_green"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
             android:textColor="#ffffff"
-
-            android:textSize="16dp"
-            android:layout_gravity="center" />
+            android:text="뒤로"
+            android:id="@+id/back"
+            android:layout_width="70dp"
+            android:background="@drawable/rectangle_green"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
 
 </LinearLayout>

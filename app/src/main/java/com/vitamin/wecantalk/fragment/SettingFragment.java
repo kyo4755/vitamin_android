@@ -13,11 +13,15 @@ import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.vitamin.wecantalk.Network.RequestTask;
 import com.vitamin.wecantalk.R;
+import com.vitamin.wecantalk.Setting.ChangeInfoSetting;
+import com.vitamin.wecantalk.Setting.ChangePWSetting;
+import com.vitamin.wecantalk.Setting.SettingDialog;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -34,10 +38,13 @@ import static android.app.Activity.RESULT_OK;
 
 public class SettingFragment extends Fragment{
     ImageView pro1;
+    ImageView pro2;
     private static final int SELECT_PICTURE = 1;
     private String selectedImagePath;
     Context context = null;
-
+    SettingDialog settingDialog;
+    ChangePWSetting changePWSetting;
+    ChangeInfoSetting changeInfoSetting;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +69,62 @@ public class SettingFragment extends Fragment{
                     }
                 });
 
+
+        pro2 = (ImageView) view.findViewById(R.id.setting);
+        pro2.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View arg0) {
+//                Intent intent = new Intent(context, ChangeInfoSetting.class);
+//                startActivity(intent);
+
+                settingDialog = new SettingDialog(getActivity());
+                settingDialog.show();
+                Button changePW = (Button)settingDialog.findViewById(R.id.changePW);
+                final Button changeInfo = (Button)settingDialog.findViewById(R.id.changeInfo);
+                Button back = (Button)settingDialog.findViewById(R.id.back);
+
+
+                changePW.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        changePWSetting = new ChangePWSetting(getActivity());
+                        changePWSetting.show();
+                        Button back = (Button)changePWSetting.findViewById(R.id.back);
+                        back.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                changePWSetting.hide();
+                            }
+                        });
+                    }
+                });
+
+                changeInfo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        changeInfoSetting = new ChangeInfoSetting(getActivity());
+                        changeInfoSetting.show();
+                        Button back = (Button)changeInfoSetting.findViewById(R.id.back);
+                        back.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                changeInfoSetting.hide();
+                            }
+                        });
+                    }
+                });
+
+                back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        settingDialog.hide();
+                    }
+                });
+
+            }
+        });
+
+
         return view;
     }
 
@@ -78,25 +141,25 @@ public class SettingFragment extends Fragment{
                     bm.compress(Bitmap.CompressFormat.JPEG, 50, byteArray);
                     byte[] imgbytes = byteArray.toByteArray();
 
-                    String url = "http://13.124.62.147:10230/change_photo";
-                    ContentValues values = new ContentValues();
-                    values.put("id", id값);
-                    values.put("image", imgbytes);
-                    RequestTask requestTask = new RequestTask(url, values);
-                    String abc = requestTask.execute().get();
-
-                    Glide.with(context)
-                            .load(imgbytes)
-                            .centerCrop()
-                            .bitmapTransform(new CropCircleTransformation(context))
-                            .into(pro1);
+//                    String url = "http://13.124.62.147:10230/change_photo";
+//                    ContentValues values = new ContentValues();
+//                    values.put("id", id값);
+//                    values.put("image", imgbytes);
+//                    RequestTask requestTask = new RequestTask(url, values);
+//                    String abc = requestTask.execute().get();
+//
+//                    Glide.with(context)
+//                            .load(imgbytes)
+//                            .centerCrop()
+//                            .bitmapTransform(new CropCircleTransformation(context))
+//                            .into(pro1);
 
                 } catch (IOException e) {
                     e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                } catch (ExecutionException e) {
+//                    e.printStackTrace();
                 }
 
 
