@@ -61,6 +61,13 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp">
     <Button
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
@@ -69,5 +76,18 @@
         android:id="@+id/change"
         android:layout_width="70dp"
         android:background="@drawable/rectangle_green"
-        android:layout_height="30dp" />
+        android:layout_height="30dp"
+        android:layout_marginRight="10dp"/>
+
+        <Button
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:textColor="#ffffff"
+            android:text="뒤로"
+            android:id="@+id/back"
+            android:layout_width="70dp"
+            android:background="@drawable/rectangle_green"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
 </LinearLayout>

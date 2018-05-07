@@ -76,7 +76,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 finish();
                 break;
             case R.id.start_input_register:
-                Intent it = new Intent(StartActivity.this, RegisterActivity.class);
+                it = new Intent(StartActivity.this, RegisterActivity.class);
                 startActivity(it);
                 finish();
                 break;
