@@ -32,7 +32,8 @@
             android:layout_gravity="center"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:src="@drawable/pro"/>
+            android:src="@drawable/pro"
+            android:id="@+id/pro"/>
 
         <LinearLayout
             android:layout_marginTop="10dp"

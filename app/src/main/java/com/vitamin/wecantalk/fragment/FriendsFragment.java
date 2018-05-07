@@ -53,24 +53,24 @@ public class FriendsFragment extends Fragment {
                 fragment.show(getFragmentManager(), "blur_sample");
             }
         });
-
-        my_img = view.findViewById(R.id.friend_my_img);
-        my_name = view.findViewById(R.id.friend_my_name);
-        my_status_msg = view.findViewById(R.id.friend_my_status_msg);
-
-        if(GlobalInfo.my_profile.getImage().equals("null")) {
-            Glide.with(container.getContext())
-                    .load(R.drawable.default_user)
-                    .centerCrop()
-                    .bitmapTransform(new CropCircleTransformation(container.getContext()))
-                    .into(my_img);
-        }
-
-        my_name.setText(GlobalInfo.my_profile.getName());
-
-        if(GlobalInfo.my_profile.getStatus_msg().equals("null")) {
-            my_status_msg.setVisibility(View.INVISIBLE);
-        }
+//
+//        my_img = view.findViewById(R.id.friend_my_img);
+//        my_name = view.findViewById(R.id.friend_my_name);
+//        my_status_msg = view.findViewById(R.id.friend_my_status_msg);
+//
+//        if(GlobalInfo.my_profile.getImage().equals("null")) {
+//            Glide.with(container.getContext())
+//                    .load(R.drawable.default_user)
+//                    .centerCrop()
+//                    .bitmapTransform(new CropCircleTransformation(container.getContext()))
+//                    .into(my_img);
+//        }
+//
+//        my_name.setText(GlobalInfo.my_profile.getName());
+//
+//        if(GlobalInfo.my_profile.getStatus_msg().equals("null")) {
+//            my_status_msg.setVisibility(View.INVISIBLE);
+//        }
 
         return view;
     }

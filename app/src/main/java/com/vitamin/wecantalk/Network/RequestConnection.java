@@ -1,6 +1,7 @@
 package com.vitamin.wecantalk.Network;
 
 import android.content.ContentValues;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -53,6 +54,8 @@ public class RequestConnection {
             urlConn.setRequestProperty("Accept-Chatset", "UTF-8");
             urlConn.setRequestProperty("Context_Type", "application/x-www-form-urlencoded;charset=UTF-8");
 
+            String i = urlConn.getResponseCode() + " -----";
+            Log.d("network", i);
             if (urlConn.getResponseCode() != HttpURLConnection.HTTP_OK){
                 return null;
             }
