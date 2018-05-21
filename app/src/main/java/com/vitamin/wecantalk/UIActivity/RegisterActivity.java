@@ -1,6 +1,8 @@
 package com.vitamin.wecantalk.UIActivity;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -38,6 +40,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     String email_form = "naver.com";
     String nation_select, location_select, prefer_language_select;
+
+    int check = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,15 +135,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(RegisterActivity.this, "이메일을 입력해 주세요.", Toast.LENGTH_SHORT).show();
                     break;
                 }
-                else
+                else if (check==0){
+                    Toast.makeText(RegisterActivity.this, "중복확인을 해주세요.", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                else if (check==1){
+                    Toast.makeText(RegisterActivity.this, "중복확인을 해주세요.", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                else if (check==2){
                     register();
-                break;
+                    break;
+                }
+
         }
     }
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void idCheck() {
         String register_id = id.getText().toString();
-
+        check = 1;
         if(register_id.length() == 0)    Toast.makeText(RegisterActivity.this, "아이디를 입력해 주세요.", Toast.LENGTH_SHORT).show();
         else {
             String id_check_url = "http://13.124.62.147:10230/id_check";
@@ -158,7 +172,25 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 else if(result_code.equals("0002")){
                     Toast.makeText(RegisterActivity.this, "중복되는 아이디가 존재합니다.", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(RegisterActivity.this, "사용 가능한 아이디 입니다.", Toast.LENGTH_SHORT).show();
+                    check = 2;
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    alert.setTitle("중복확인");
+                    alert.setMessage("사용 가능한 아이디 입니다." + register_id +"를 사용하시겠습니까?");
+                    alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            id.setClickable(false);
+                            id.setFocusable(false);
+                        }
+                    });
+                    alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            check = 1;
+                        }
+                    });
+                    alert.show();
+
                 }
             } catch (Exception e){
                 Toast.makeText(RegisterActivity.this, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
