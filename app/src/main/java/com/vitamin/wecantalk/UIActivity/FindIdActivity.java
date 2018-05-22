@@ -90,7 +90,6 @@ public class FindIdActivity extends AppCompatActivity {
                                 String id = detail_info.getString("id");
                                 String name = detail_info.getString("name");
                                 String img = detail_info.getString("image");
-
                                 findName.setText(name);
 
                                 String imgStr = Config.Server_URL + "user_photo?id=" + img;
