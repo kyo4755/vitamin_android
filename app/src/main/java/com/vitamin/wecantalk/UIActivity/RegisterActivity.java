@@ -157,7 +157,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             Map<String, Object> params = new LinkedHashMap<>();
 
-            final ContentValues values = new ContentValues();
             params.put("id", id);
 
             aQuery.ajax(id_check_url, params, String.class, new AjaxCallback<String>(){
@@ -241,9 +240,11 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         else if(result_code.equals("0006")){Toast.makeText(RegisterActivity.this, "국가를 입력해 주세요.", Toast.LENGTH_SHORT).show();}
                         else if(result_code.equals("0007")){Toast.makeText(RegisterActivity.this, "지역을 입력해 주세요.", Toast.LENGTH_SHORT).show();}
                         else if(result_code.equals("0008")){Toast.makeText(RegisterActivity.this, "언어를 입력해 주세요.", Toast.LENGTH_SHORT).show();}
-                        Intent it = new Intent(RegisterActivity.this, StartActivity.class);
-                        startActivity(it);
-                        finish();
+                        else {
+                            Intent it = new Intent(RegisterActivity.this, StartActivity.class);
+                            startActivity(it);
+                            finish();
+                        }
                     } catch (Exception e){
                         Toast.makeText(RegisterActivity.this, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
                         Log.e("RegisgerTask", e.toString());

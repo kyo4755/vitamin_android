@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vitamin.wecantalk.Adapter.FriendsListViewAdapter;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
@@ -65,11 +66,13 @@ public class FriendsFragment extends Fragment {
                     .bitmapTransform(new CropCircleTransformation(container.getContext()))
                     .into(my_img);
         } else {
-            String imgStr = Config.Server_URL + "image?id=" + GlobalInfo.my_profile.getImage();
+            String imgStr = Config.Server_URL + "user_photo?id=" + GlobalInfo.my_profile.getImage();
             Glide.with(container.getContext())
                     .load(imgStr)
                     .centerCrop()
                     .bitmapTransform(new CropCircleTransformation(container.getContext()))
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(my_img);
         }
 

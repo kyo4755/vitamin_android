@@ -18,6 +18,7 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
 import com.vitamin.wecantalk.R;
@@ -69,7 +70,16 @@ public class SettingFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_setting, null);
 
-        pro1 = (ImageView) view.findViewById(R.id.pro);
+        pro1 = view.findViewById(R.id.pro);
+        String imgStr = Config.Server_URL + "user_photo?id=" + GlobalInfo.my_profile.getImage();
+        Glide.with(context)
+                .load(imgStr)
+                .centerCrop()
+                .bitmapTransform(new CropCircleTransformation(context))
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .error(R.drawable.default_user)
+                .into(pro1);
         pro1.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View arg0) {
@@ -87,9 +97,6 @@ public class SettingFragment extends Fragment{
         pro2.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View arg0) {
-//                Intent intent = new Intent(context, ChangeInfoSetting.class);
-//                startActivity(intent);
-
                 settingDialog = new SettingDialog(getActivity());
                 settingDialog.show();
                 Button changePW = (Button)settingDialog.findViewById(R.id.changePW);
@@ -165,12 +172,14 @@ public class SettingFragment extends Fragment{
                                 String image_code = jsonObject.get("image").toString();
 
                                 if(result_value.equals("0000")){
-                                    String imgStr = Config.Server_URL + "image?id=" + image_code;
-                                    GlobalInfo.my_profile.setImage(imgStr);
+                                    String imgStr = Config.Server_URL + "user_photo?id=" + image_code;
+                                    GlobalInfo.my_profile.setImage(image_code);
                                     Glide.with(context)
                                             .load(imgStr)
                                             .centerCrop()
                                             .bitmapTransform(new CropCircleTransformation(context))
+                                            .skipMemoryCache(true)
+                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
                                             .into(pro1);
                                 } else {
                                     Toast.makeText(context, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
@@ -182,47 +191,6 @@ public class SettingFragment extends Fragment{
                         }
                     });
                 }
-
-                /*selectedImagePath = getPath(selectedImageUri);
-
-                Bitmap bm = null; //Bitmap 로드
-                try {
-                    bm = MediaStore.Images.Media.getBitmap(context.getContentResolver(), selectedImageUri);
-                    ByteArrayOutputStream  byteArray = new ByteArrayOutputStream();
-                    bm.compress(Bitmap.CompressFormat.JPEG, 50, byteArray);
-                    byte[] imgbytes = byteArray.toByteArray();
-                    String imgStr = new String(Base64.encodeToString(imgbytes, Base64.DEFAULT));
-
-                    String url = "http://13.124.62.147:10230/change_photo";
-                    ContentValues values = new ContentValues();
-                    values.put("id", GlobalInfo.my_profile.getId());
-                    values.put("image", imgStr);
-                    RequestTask requestTask = new RequestTask(url, values);
-                    String result = requestTask.execute().get();
-
-                    JSONObject jsonObject = new JSONObject(result);
-                    String result_value = jsonObject.get("result").toString();
-
-                    if(result_value.equals("0000")){
-                        GlobalInfo.my_profile.setImage(imgStr);
-                        Glide.with(context)
-                                .load(imgbytes)
-                                .centerCrop()
-                                .bitmapTransform(new CropCircleTransformation(context))
-                                .into(pro1);
-                    } else {
-                        Toast.makeText(context, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
-                    }
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }*/
             }
         }
     }
