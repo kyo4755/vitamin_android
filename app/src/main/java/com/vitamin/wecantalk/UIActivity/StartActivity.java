@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.RequiresApi;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,13 +18,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
+import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
-import com.vitamin.wecantalk.Network.RequestTask;
 import com.vitamin.wecantalk.POJO.FriendsListViewPOJO;
 import com.vitamin.wecantalk.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -65,7 +70,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         }, 3000);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -92,7 +96,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         login_panel.setAnimation(animation);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void tryLogin() {
         String id = user_id.getText().toString();
         String pw = user_pw.getText().toString();
@@ -104,12 +107,71 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         else {
             if(pw.length() == 0)    Toast.makeText(StartActivity.this, "비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
             else {
-                String login_url = "http://13.124.62.147:10230/login";
-                ContentValues values = new ContentValues();
-                values.put("id", id);
-                values.put("passwd", pw);
+                AQuery aQuery = new AQuery(StartActivity.this);
+                String login_url = Config.Server_URL + "login";
 
-                RequestTask requestTask = new RequestTask(login_url, values);
+                Map<String, Object> params = new LinkedHashMap<>();
+
+                params.put("id", id);
+                params.put("passwd", pw);
+
+                aQuery.ajax(login_url, params, String.class, new AjaxCallback<String>() {
+                    @Override
+                    public void callback(String url, String result, AjaxStatus status) {
+                        try{
+                            JSONObject jsonObject = new JSONObject(result);
+                            String result_code = jsonObject.get("result").toString();
+
+                            if(result_code.equals("0001"))      Toast.makeText(StartActivity.this, "아이디를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                            else if(result_code.equals("0002")) Toast.makeText(StartActivity.this, "비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                            else if(result_code.equals("0003")) Toast.makeText(StartActivity.this, "아이디와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                            else {
+                                JSONArray jsonArray = new JSONArray(jsonObject.get("friends_list").toString());
+                                for(int i=0; i<jsonArray.length(); i++) {
+                                    JSONObject jObject = jsonArray.getJSONObject(i);
+                                    FriendsListViewPOJO pojo = new FriendsListViewPOJO();
+                                    pojo.setId(jObject.getString("id"));
+                                    pojo.setName(jObject.getString("name"));
+                                    pojo.setEmail(jObject.getString("email"));
+                                    pojo.setNation(jObject.getString("nation"));
+                                    pojo.setLocation(jObject.getString("location"));
+                                    pojo.setPrefer_language(jObject.getString("prefer_language"));
+                                    pojo.setStatus_msg(jObject.getString("status_msg"));
+                                    pojo.setImage(jObject.get("image").toString());
+
+                                    GlobalInfo.friends_list.add(pojo);
+                                }
+
+                                JSONObject myJsonObject = new JSONObject(jsonObject.get("my_profile").toString());
+                                GlobalInfo.my_profile.setId(myJsonObject.get("id").toString());
+                                GlobalInfo.my_profile.setName(myJsonObject.get("name").toString());
+                                GlobalInfo.my_profile.setEmail(myJsonObject.get("email").toString());
+                                GlobalInfo.my_profile.setNation(myJsonObject.get("nation").toString());
+                                GlobalInfo.my_profile.setLocation(myJsonObject.get("location").toString());
+                                GlobalInfo.my_profile.setPrefer_language(myJsonObject.get("prefer_language").toString());
+                                GlobalInfo.my_profile.setStatus_msg(myJsonObject.get("status_msg").toString());
+                                GlobalInfo.my_profile.setImage(myJsonObject.get("image").toString());
+
+                                Intent it = new Intent(StartActivity.this, MainFragmentActivity.class);
+                                startActivity(it);
+                                finish();
+                            }
+
+                        } catch (Exception e){
+                            Toast.makeText(StartActivity.this, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                            Log.e("LoginTask", e.toString());
+                        }
+                    }
+                });
+
+
+
+
+                /*ContentValues values = new ContentValues();
+                values.put("id", id);
+                values.put("passwd", pw);*/
+
+                /*RequestTask requestTask = new RequestTask(login_url, values);
                 try{
                     String result = requestTask.execute().get();
                     JSONObject jsonObject = new JSONObject(result);
@@ -153,7 +215,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 } catch (Exception e){
                     Toast.makeText(StartActivity.this, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
                     Log.e("LoginTask", e.toString());
-                }
+                }*/
 
             }
         }
