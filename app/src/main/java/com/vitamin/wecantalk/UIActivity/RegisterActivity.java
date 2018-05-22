@@ -22,10 +22,14 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.vitamin.wecantalk.Common.Config;
+import com.vitamin.wecantalk.Common.GlobalInfo;
+import com.vitamin.wecantalk.POJO.FriendsListViewPOJO;
 import com.vitamin.wecantalk.R;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -139,6 +143,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(RegisterActivity.this, "중복확인을 해주세요.", Toast.LENGTH_SHORT).show();
                     break;
                 }
+                else if (check==1){
+                    Toast.makeText(RegisterActivity.this, "이미 가입하였습니다.", Toast.LENGTH_SHORT).show();
+                    break;
+                }
                 else if (check==2){
                     register();
                     break;
@@ -157,7 +165,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
             Map<String, Object> params = new LinkedHashMap<>();
 
-            params.put("id", id);
+            final ContentValues values = new ContentValues();
+            params.put("id", register_id);
 
             aQuery.ajax(id_check_url, params, String.class, new AjaxCallback<String>(){
                 @Override
@@ -240,11 +249,10 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         else if(result_code.equals("0006")){Toast.makeText(RegisterActivity.this, "국가를 입력해 주세요.", Toast.LENGTH_SHORT).show();}
                         else if(result_code.equals("0007")){Toast.makeText(RegisterActivity.this, "지역을 입력해 주세요.", Toast.LENGTH_SHORT).show();}
                         else if(result_code.equals("0008")){Toast.makeText(RegisterActivity.this, "언어를 입력해 주세요.", Toast.LENGTH_SHORT).show();}
-                        else {
-                            Intent it = new Intent(RegisterActivity.this, StartActivity.class);
-                            startActivity(it);
-                            finish();
-                        }
+
+                        check = 3;
+                        auto_login();
+
                     } catch (Exception e){
                         Toast.makeText(RegisterActivity.this, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
                         Log.e("RegisgerTask", e.toString());
@@ -253,4 +261,82 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             });
         }
     }
+    private void auto_login() {
+        String auto_id = id.getText().toString();
+        String auto_pw = pw.getText().toString();
+        System.out.print("------------------------------------------------------");
+        System.out.print(auto_id);
+        System.out.print(auto_pw);
+        if (auto_id.length() == 0) {
+            if (auto_pw.length() == 0)
+                Toast.makeText(RegisterActivity.this, "아이디와 비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            else Toast.makeText(RegisterActivity.this, "아이디를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+        } else {
+            if (auto_pw.length() == 0)
+                Toast.makeText(RegisterActivity.this, "비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            else {
+                AQuery aQuery = new AQuery(RegisterActivity.this);
+                String login_url = Config.Server_URL + "login";
+
+                Map<String, Object> params = new LinkedHashMap<>();
+
+                params.put("id", auto_id);
+                params.put("passwd", auto_pw);
+
+                aQuery.ajax(login_url, params, String.class, new AjaxCallback<String>() {
+                    @Override
+                    public void callback(String url, String result, AjaxStatus status) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            String result_code = jsonObject.get("result").toString();
+
+                            if (result_code.equals("0001"))
+                                Toast.makeText(RegisterActivity.this, "아이디를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                            else if (result_code.equals("0002"))
+                                Toast.makeText(RegisterActivity.this, "비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                            else if (result_code.equals("0003"))
+                                Toast.makeText(RegisterActivity.this, "아이디와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
+                            else {
+                                GlobalInfo.friends_list = new ArrayList<>();
+                                JSONArray jsonArray = new JSONArray(jsonObject.get("friends_list").toString());
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jObject = jsonArray.getJSONObject(i);
+                                    FriendsListViewPOJO pojo = new FriendsListViewPOJO();
+                                    pojo.setId(jObject.getString("id"));
+                                    pojo.setName(jObject.getString("name"));
+                                    pojo.setEmail(jObject.getString("email"));
+                                    pojo.setNation(jObject.getString("nation"));
+                                    pojo.setLocation(jObject.getString("location"));
+                                    pojo.setPrefer_language(jObject.getString("prefer_language"));
+                                    pojo.setStatus_msg(jObject.getString("status_msg"));
+                                    pojo.setImage(jObject.get("image").toString());
+
+                                    GlobalInfo.friends_list.add(pojo);
+                                }
+
+                                JSONObject myJsonObject = new JSONObject(jsonObject.get("my_profile").toString());
+                                GlobalInfo.my_profile.setId(myJsonObject.get("id").toString());
+                                GlobalInfo.my_profile.setName(myJsonObject.get("name").toString());
+                                GlobalInfo.my_profile.setEmail(myJsonObject.get("email").toString());
+                                GlobalInfo.my_profile.setNation(myJsonObject.get("nation").toString());
+                                GlobalInfo.my_profile.setLocation(myJsonObject.get("location").toString());
+                                GlobalInfo.my_profile.setPrefer_language(myJsonObject.get("prefer_language").toString());
+                                GlobalInfo.my_profile.setStatus_msg(myJsonObject.get("status_msg").toString());
+                                GlobalInfo.my_profile.setImage(myJsonObject.get("image").toString());
+
+                                Intent it = new Intent(RegisterActivity.this, MainFragmentActivity.class);
+                                startActivity(it);
+                                finish();
+                            }
+
+                        } catch (Exception e) {
+                            Toast.makeText(RegisterActivity.this, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                            Log.e("LoginTask", e.toString());
+                        }
+                    }
+                });
+            }
+        }
+    }
+
 }

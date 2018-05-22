@@ -27,6 +27,7 @@ import com.vitamin.wecantalk.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -122,6 +123,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                             else if(result_code.equals("0002")) Toast.makeText(StartActivity.this, "비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
                             else if(result_code.equals("0003")) Toast.makeText(StartActivity.this, "아이디와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
                             else {
+                                GlobalInfo.friends_list = new ArrayList<>();
                                 JSONArray jsonArray = new JSONArray(jsonObject.get("friends_list").toString());
                                 for(int i=0; i<jsonArray.length(); i++) {
                                     JSONObject jObject = jsonArray.getJSONObject(i);
