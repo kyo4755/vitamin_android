@@ -72,7 +72,7 @@ public class CommunityFragment extends Fragment {
                 CommunityListViewPOJO pojo = (CommunityListViewPOJO) adapter.getItem(i);
 
                 Intent it = new Intent(getActivity(), CommunityRoomActivity.class);
-//                it.putExtra("img", bitmapdata);
+                it.putExtra("img",pojo.getImg());
                 it.putExtra("name", pojo.getTitle());
                 it.putExtra("anid", pojo.getAnid());
                 it.putExtra("recent_msg", pojo.getRecent_msg());
@@ -169,8 +169,11 @@ public class CommunityFragment extends Fragment {
                             String title = f_name;
 
                             CommunityListViewPOJO pojo = new CommunityListViewPOJO();
+                            pojo.setAnid(anid);
                             pojo.setImg(image_code);
                             pojo.setTitle(title);
+                            pojo.setRecent_time(time_now);
+                            pojo.setRecent_msg(msg);
 
                             list.add(pojo);
                         }
