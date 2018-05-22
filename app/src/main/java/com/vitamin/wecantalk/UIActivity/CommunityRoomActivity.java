@@ -83,7 +83,6 @@ public class CommunityRoomActivity extends AppCompatActivity {
         ArrayList<CommunityRoomListViewPOJO> list = new ArrayList<>();
 
         CommunityRoomListViewPOJO pojo = new CommunityRoomListViewPOJO();
-        pojo.setImg(img);
         pojo.setName(name);
         pojo.setMsg("Nice to meet you!");
         pojo.setTime("12:39");
@@ -101,7 +100,6 @@ public class CommunityRoomActivity extends AppCompatActivity {
         list.add(pojo);
 
         pojo = new CommunityRoomListViewPOJO();
-        pojo.setImg(img);
         pojo.setName(name);
         pojo.setMsg(recent_msg);
         pojo.setTime(recent_time);

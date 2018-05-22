@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.POJO.CommunityListViewPOJO;
 import com.vitamin.wecantalk.R;
 
@@ -25,7 +26,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class CommunityListViewAdapter extends BaseAdapter {
 
-    private ArrayList<CommunityListViewPOJO> list;
+    private ArrayList<CommunityListViewPOJO> list = new ArrayList<CommunityListViewPOJO>();
 
     public CommunityListViewAdapter(ArrayList<CommunityListViewPOJO> list){
         this.list = list;
@@ -60,16 +61,25 @@ public class CommunityListViewAdapter extends BaseAdapter {
         TextView recent_msg = view.findViewById(R.id.community_last_msg);
         TextView recent_time = view.findViewById(R.id.community_last_time);
 
-        Bitmap bitmap = ((BitmapDrawable)list.get(i).getImg()).getBitmap();
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-        byte[] bitmapdata = stream.toByteArray();
+        CommunityListViewPOJO communityListViewPOJO = list.get(i);
 
-        Glide.with(mContext)
-                .load(bitmapdata)
-                .centerCrop()
-                .bitmapTransform(new CropCircleTransformation(mContext))
-                .into(img);
+        String image_code=communityListViewPOJO.getImg();
+
+        String imgURL = Config.Server_URL + "user_photo?id=" + image_code;
+
+        if(image_code==null){
+            Glide.with(mContext)
+                    .load(R.drawable.default_user)
+                    .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(mContext))
+                    .into(img);
+        }else{
+            Glide.with(mContext)
+                    .load(imgURL)
+                    .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(mContext))
+                    .into(img);
+        }
 
         room_title.setText(list.get(i).getTitle());
         recent_msg.setText(list.get(i).getRecent_msg());
