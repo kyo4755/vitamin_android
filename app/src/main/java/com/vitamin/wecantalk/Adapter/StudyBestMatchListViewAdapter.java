@@ -62,7 +62,7 @@ public class StudyBestMatchListViewAdapter extends BaseAdapter {
         TextView login_time = view.findViewById(R.id.study_best_match_login_time);
         TextView local_time = view.findViewById(R.id.study_best_match_local_time);
 
-        Bitmap bitmap = ((BitmapDrawable)list.get(i).getImg()).getBitmap();
+        /*Bitmap bitmap = ((BitmapDrawable)list.get(i).getImg()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         byte[] bitmapdata = stream.toByteArray();
@@ -71,7 +71,7 @@ public class StudyBestMatchListViewAdapter extends BaseAdapter {
                 .load(bitmapdata)
                 .centerCrop()
                 .bitmapTransform(new CropCircleTransformation(mContext))
-                .into(img);
+                .into(img);*/
 
         name.setText(list.get(i).getName());
         language.setText(list.get(i).getLanguage());
