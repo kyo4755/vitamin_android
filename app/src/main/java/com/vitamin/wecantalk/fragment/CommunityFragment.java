@@ -66,7 +66,7 @@ public class CommunityFragment extends Fragment {
         return view;
     }
 
-    private ArrayList<CommunityListViewPOJO> createPOJO(){
+        private ArrayList<CommunityListViewPOJO> createPOJO(){
 
         ArrayList<CommunityListViewPOJO> list = new ArrayList<>();
 

@@ -27,7 +27,9 @@ import com.vitamin.wecantalk.R;
 import com.vitamin.wecantalk.Setting.ChangeInfoSetting;
 import com.vitamin.wecantalk.Setting.ChangePWSetting;
 import com.vitamin.wecantalk.Setting.SettingDialog;
+import com.vitamin.wecantalk.UIActivity.CommunityRoomActivity;
 import com.vitamin.wecantalk.UIActivity.RegisterActivity;
+import com.vitamin.wecantalk.UIActivity.StartActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,6 +56,7 @@ public class SettingFragment extends Fragment{
     SettingDialog settingDialog;
     ChangePWSetting changePWSetting;
     ChangeInfoSetting changeInfoSetting;
+    Button b1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +67,17 @@ public class SettingFragment extends Fragment{
         context = container.getContext();
 
         View view = inflater.inflate(R.layout.fragment_setting, null);
+
+        b1 = (Button) view.findViewById(R.id.logout);
+        b1.setOnClickListener(new View.OnClickListener(){
+
+
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getActivity(), StartActivity.class);
+                startActivity(it);
+            }
+        });
 
         pro1 = (ImageView) view.findViewById(R.id.pro);
         pro1.setOnClickListener(new View.OnClickListener() {
