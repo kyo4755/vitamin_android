@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
@@ -38,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     EditText id,pw,phone,name,email;
     Spinner nation,location,prefer_language,email_spinner;
     Button id_check,register;
+    LottieAnimationView loading_animation;
 
     String email_form = "naver.com";
     String nation_select, location_select, prefer_language_select;
@@ -106,6 +109,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         phone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
+        loading_animation = findViewById(R.id.loading_animation);
+        loading_animation.setAnimation("little_balls.json");
     }
 
     @Override
@@ -249,10 +254,23 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         else if(result_code.equals("0006")){Toast.makeText(RegisterActivity.this, "국가를 입력해 주세요.", Toast.LENGTH_SHORT).show();}
                         else if(result_code.equals("0007")){Toast.makeText(RegisterActivity.this, "지역을 입력해 주세요.", Toast.LENGTH_SHORT).show();}
                         else if(result_code.equals("0008")){Toast.makeText(RegisterActivity.this, "언어를 입력해 주세요.", Toast.LENGTH_SHORT).show();}
+                        else{
+                            check = 3;
+                            loading_animation.setVisibility(View.VISIBLE);
+                            loading_animation.playAnimation();
 
-                        check = 3;
-                        auto_login();
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    loading_animation.setVisibility(View.GONE);
+                                    loading_animation.pauseAnimation();
+                                    Toast.makeText(RegisterActivity.this, "회원가입이 완료가 되었습니다. 로그인 해주세요.", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            }, 2500);
 
+                        }
                     } catch (Exception e){
                         Toast.makeText(RegisterActivity.this, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
                         Log.e("RegisgerTask", e.toString());
