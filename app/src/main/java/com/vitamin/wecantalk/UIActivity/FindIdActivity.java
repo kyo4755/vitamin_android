@@ -44,6 +44,8 @@ public class FindIdActivity extends AppCompatActivity {
     ImageView imageView;
     Button b;
 
+    String id;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_id_friends);
@@ -87,7 +89,7 @@ public class FindIdActivity extends AppCompatActivity {
                             if (result_code.equals("0000")) {//정상 나올때
                                 String a = jsonObject.get("detail_info").toString();
                                 JSONObject detail_info = new JSONObject(a);
-                                String id = detail_info.getString("id");
+                                id = detail_info.getString("id");
                                 String name = detail_info.getString("name");
                                 String img = detail_info.getString("image");
                                 findName.setText(name);
@@ -120,6 +122,41 @@ public class FindIdActivity extends AppCompatActivity {
             }
         });
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AQuery aQuery = new AQuery(FindIdActivity.this);
+                String add_friend_url=Config.Server_URL + "add_friend";
+                Map<String, Object> params = new LinkedHashMap<>();
+                params.put("myid",GlobalInfo.my_profile.getId());
+                params.put("anid",id);
+                aQuery.ajax(add_friend_url, params, String.class, new AjaxCallback<String>() {
+                    @Override
+                    public void callback(String url, String result, AjaxStatus status) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                            String result_code = jsonObject.get("result").toString();
+                            if (result_code.equals("0000")) {//정상 나올때
+                                Toast.makeText(FindIdActivity.this, "친구등록 성공", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(FindIdActivity.this, "친구등록 에러", Toast.LENGTH_SHORT).show();
+                            }
+                                /*}else if(result_code.equals("0001")){//anid 안보냈을때
+
+                                }else if(result_code.equals("0002")){//검색결과업승ㄹ때
+
+                                }else if(result_code.equals("0100")){//get으로 보냇ㅇㄹ대
+
+                                }*/
+
+                        } catch (Exception e) {
+
+                        }
+                    }
+                });
+
+            }
+        });
 
         editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
