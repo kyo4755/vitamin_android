@@ -40,9 +40,10 @@ public class CommunityRoomActivity extends AppCompatActivity {
     EditText userMsg;
     TextView titleName;
 
-    byte[] img;
+    String img;
     String name;
     String anid;
+    String flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +51,9 @@ public class CommunityRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_community_room);
 
         Intent it = getIntent();
-        img = it.getByteArrayExtra("img");
+        flag = it.getStringExtra("flag");
         name = it.getStringExtra("name");
         anid = it.getStringExtra("anid");
-        String recent_msg = it.getStringExtra("recent_msg");
-        String recent_time = it.getStringExtra("recent_time");
 
         listView = findViewById(R.id.community_room_listview);
         listView.setDivider(null);

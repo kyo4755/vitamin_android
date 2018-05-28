@@ -18,6 +18,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vitamin.wecantalk.Adapter.FriendsListViewAdapter;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
+import com.vitamin.wecantalk.POJO.FriendsListViewPOJO;
 import com.vitamin.wecantalk.R;
 import com.vitamin.wecantalk.UIActivity.CommunityRoomActivity;
 import com.vitamin.wecantalk.UIActivity.FindIdActivity;
@@ -71,7 +72,7 @@ public class FriendsFragment extends Fragment {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                FriendsProfileFragment fragment = FriendsProfileFragment.newInstance(10, 5, false, false);
+                FriendsProfileFragment fragment = FriendsProfileFragment.newInstance(10, 5, false, false, (FriendsListViewPOJO)adapter.getItem(i));
                 fragment.show(getFragmentManager(), "blur_sample");
             }
         });
