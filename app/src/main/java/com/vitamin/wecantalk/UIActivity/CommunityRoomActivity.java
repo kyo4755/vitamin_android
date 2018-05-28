@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vitamin.wecantalk.Adapter.CommunityRoomListViewAdapter;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
@@ -28,6 +30,8 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 /**
  * Created by JongHwa on 2018-04-17.
  */
@@ -41,9 +45,9 @@ public class CommunityRoomActivity extends AppCompatActivity {
     TextView titleName;
 
     String img;
+    String image;
     String name;
     String anid;
-    String flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +55,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_community_room);
 
         Intent it = getIntent();
-        flag = it.getStringExtra("flag");
+        image = it.getStringExtra("img");
         name = it.getStringExtra("name");
         anid = it.getStringExtra("anid");
 
@@ -118,6 +122,46 @@ public class CommunityRoomActivity extends AppCompatActivity {
         });
     }
 
+    private void callImage(String image){
+        if(!image.equals("-1")){
+        }else {
+            AQuery aQuery = new AQuery(CommunityRoomActivity.this);
+            String find_image_url = Config.Server_URL + "find_image";
+
+            Map<String, Object> params = new LinkedHashMap<>();
+
+            params.put("anid", anid);
+
+            aQuery.ajax(find_image_url, params, String.class, new AjaxCallback<String>() {
+                @Override
+                public void callback(String url, String result, AjaxStatus status) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(result);
+                        String result_code = jsonObject.get("result").toString();
+                        if (result_code.equals("0000")) {//정상 나올때
+                            String a = jsonObject.get("detail_info").toString();
+                            JSONObject detail_info = new JSONObject(a);
+                            img = detail_info.getString("image");
+
+                        } else {
+                            Toast.makeText(CommunityRoomActivity.this, "이상현상", Toast.LENGTH_SHORT).show();
+                        }
+                                /*}else if(result_code.equals("0001")){//anid 안보냈을때
+
+                                }else if(result_code.equals("0002")){//검색결과업승ㄹ때
+
+                                }else if(result_code.equals("0100")){//get으로 보냇ㅇㄹ대
+
+                                }*/
+
+                    } catch (Exception e) {
+
+                    }
+                }
+            });
+        }
+    }
+
     private ArrayList<CommunityRoomListViewPOJO> createPOJO(){
         ArrayList<CommunityRoomListViewPOJO> list = new ArrayList<>();
 
@@ -125,6 +169,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
         pojo.setName(name);
         pojo.setMsg("Nice to meet you!");
         pojo.setTime("12:39");
+        pojo.setImg(img);
         pojo.setWhere(1);
 
         list.add(pojo);
