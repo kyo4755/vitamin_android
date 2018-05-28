@@ -12,19 +12,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
 import com.vitamin.wecantalk.R;
 import com.vitamin.wecantalk.Setting.ChangeInfoSetting;
 import com.vitamin.wecantalk.Setting.ChangePWSetting;
 import com.vitamin.wecantalk.Setting.SettingDialog;
+import com.vitamin.wecantalk.Setting.SettingIntroduce;
 import com.vitamin.wecantalk.UIActivity.CommunityRoomActivity;
+import com.vitamin.wecantalk.UIActivity.FindIdActivity;
 import com.vitamin.wecantalk.UIActivity.StartActivity;
 
 import org.json.JSONObject;
@@ -51,6 +55,9 @@ import static android.app.Activity.RESULT_OK;
 
 public class SettingFragment extends Fragment{
     Button b1;
+    TextView f_number;
+    TextView introduce;
+    TextView introducing;
 
     ImageView pro1;
     ImageView pro2;
@@ -59,6 +66,7 @@ public class SettingFragment extends Fragment{
     SettingDialog settingDialog;
     ChangePWSetting changePWSetting;
     ChangeInfoSetting changeInfoSetting;
+    SettingIntroduce settingIntroduce;
 
     File selectedPhoto;
 
@@ -75,6 +83,19 @@ public class SettingFragment extends Fragment{
 
         b1 = (Button) view.findViewById(R.id.logout);
         pro1 = (ImageView) view.findViewById(R.id.pro);
+        f_number =(TextView) view.findViewById(R.id.f_number);
+        introduce =(TextView) view.findViewById(R.id.go_introduce);
+        introducing =(TextView) view.findViewById(R.id.introducing);
+
+        String img_url = Config.Server_URL + "user_photo?id=" + GlobalInfo.my_profile.getImage();
+        Glide.with(this)
+                .load(img_url)
+                .error(R.drawable.default_user)
+                .centerCrop()
+                .bitmapTransform(new CropCircleTransformation(context))
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(pro1);
         pro1.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View arg0) {
@@ -94,6 +115,62 @@ public class SettingFragment extends Fragment{
             }
         });
 
+        AQuery aQuery = new AQuery(context);
+        String find_friend_url = Config.Server_URL + "friend_number";
+
+        Map<String, Object> params = new LinkedHashMap<>();
+
+        params.put("id", GlobalInfo.my_profile.getId());
+
+        aQuery.ajax(find_friend_url, params, String.class, new AjaxCallback<String>() {
+            @Override
+            public void callback(String url, String result, AjaxStatus status) {
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String result_code = jsonObject.get("result").toString();
+                    if (result_code.equals("0000")) {//정상 나올때
+                        String a = jsonObject.get("f_number").toString();
+                        f_number.setText(a);
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(context, "이상현상", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+        introduce.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                settingIntroduce = new SettingIntroduce(getActivity());
+                settingIntroduce.show();
+                Button change = (Button)settingIntroduce.findViewById(R.id.change_introduce);
+                Button back = (Button)settingIntroduce.findViewById(R.id.back);
+
+
+                change.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+//                        Intent intent = new Intent(context, SettingFragment.class);
+//                        startActivity(intent);
+                        settingIntroduce.hide();
+
+                    }
+                });
+
+                back.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        settingIntroduce.hide();
+                    }
+                });
+
+
+
+            }
+        });
 
         pro2 = (ImageView) view.findViewById(R.id.setting);
         pro2.setOnClickListener(new View.OnClickListener() {
@@ -177,12 +254,14 @@ public class SettingFragment extends Fragment{
                                 String image_code = jsonObject.get("image").toString();
 
                                 if(result_value.equals("0000")){
-                                    String imgStr = Config.Server_URL + "image?id=" + image_code;
-                                    GlobalInfo.my_profile.setImage(imgStr);
+                                    String imgStr = Config.Server_URL + "user_photo?id=" + image_code;
+                                    GlobalInfo.my_profile.setImage(image_code);
                                     Glide.with(context)
                                             .load(imgStr)
                                             .centerCrop()
                                             .bitmapTransform(new CropCircleTransformation(context))
+                                            .skipMemoryCache(true)
+                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
                                             .into(pro1);
                                 } else {
                                     Toast.makeText(context, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();

@@ -54,6 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="자기소개하기"
+                    android:id="@+id/go_introduce"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     />
@@ -63,7 +64,8 @@
                     android:layout_height="wrap_content"
                     android:text="저는 누구누구이고 나이는 땡땡살 입니다."
                     android:textSize="15dp"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/introducing"/>
 
             </LinearLayout>
 
@@ -133,7 +135,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="몇명?"
-                android:textSize="15dp" />
+                android:textSize="15dp"
+                android:id="@+id/f_number"/>
         </LinearLayout>
 
 
