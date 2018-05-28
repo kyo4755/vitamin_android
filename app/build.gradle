@@ -29,4 +29,5 @@ dependencies {
     implementation 'jp.wasabeef:glide-transformations:2.0.1'
     implementation 'fr.tvbarthel.blurdialogfragment:lib:2.2.0'
     implementation 'com.googlecode.android-query:android-query:0.25.9'
+    implementation 'com.airbnb.android:lottie:2.1.0'
 }

@@ -6,7 +6,7 @@ package com.vitamin.wecantalk.POJO;
 
 public class CommunityRoomListViewPOJO {
 
-    private byte[] img;
+    private String img;
     private String name;
     private String msg;
     private String time;
@@ -20,11 +20,11 @@ public class CommunityRoomListViewPOJO {
         this.where = where;
     }
 
-    public byte[] getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(byte[] img) {
+    public void setImg(String img) {
         this.img = img;
     }
 

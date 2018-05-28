@@ -8,7 +8,7 @@ import android.graphics.drawable.Drawable;
 
 public class StudyBestMatchListViewPOJO {
 
-    private Drawable img;
+    private String img;
     private String name;
     private String language;
     private String location;
@@ -16,7 +16,7 @@ public class StudyBestMatchListViewPOJO {
     private String local_time;
 
 
-    public StudyBestMatchListViewPOJO(Drawable img, String name, String language, String location, String login_time, String local_time){
+    public StudyBestMatchListViewPOJO(String img, String name, String language, String location, String login_time, String local_time){
         this.img = img;
         this.name = name;
         this.language = language;
@@ -25,11 +25,11 @@ public class StudyBestMatchListViewPOJO {
         this.local_time = local_time;
     }
 
-    public Drawable getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(Drawable img) {
+    public void setImg(String img) {
         this.img = img;
     }
 

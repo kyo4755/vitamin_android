@@ -1,8 +1,6 @@
 package com.vitamin.wecantalk.UIActivity;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +27,7 @@ import com.vitamin.wecantalk.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -39,8 +38,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     Button login_btn;
     ImageView logo_img;
     ConstraintLayout login_panel;
-
-    String id, pw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +76,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             case R.id.start_input_register:
                 Intent it = new Intent(StartActivity.this, RegisterActivity.class);
                 startActivity(it);
-                finish();
                 break;
             case R.id.start_logo_image:
                 startActivity(new Intent(StartActivity.this, PopActivity.class));
@@ -126,6 +122,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                             else if(result_code.equals("0002")) Toast.makeText(StartActivity.this, "비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
                             else if(result_code.equals("0003")) Toast.makeText(StartActivity.this, "아이디와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
                             else {
+                                GlobalInfo.friends_list = new ArrayList<>();
                                 JSONArray jsonArray = new JSONArray(jsonObject.get("friends_list").toString());
                                 for(int i=0; i<jsonArray.length(); i++) {
                                     JSONObject jObject = jsonArray.getJSONObject(i);
@@ -163,62 +160,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                         }
                     }
                 });
-
-
-
-
-                /*ContentValues values = new ContentValues();
-                values.put("id", id);
-                values.put("passwd", pw);*/
-
-                /*RequestTask requestTask = new RequestTask(login_url, values);
-                try{
-                    String result = requestTask.execute().get();
-                    JSONObject jsonObject = new JSONObject(result);
-                    String result_code = jsonObject.get("result").toString();
-
-                    if(result_code.equals("0001"))      Toast.makeText(StartActivity.this, "아이디를 입력해 주세요.", Toast.LENGTH_SHORT).show();
-                    else if(result_code.equals("0002")) Toast.makeText(StartActivity.this, "비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
-                    else if(result_code.equals("0003")) Toast.makeText(StartActivity.this, "아이디와 비밀번호를 확인해 주세요.", Toast.LENGTH_SHORT).show();
-                    else {
-                        JSONArray jsonArray = new JSONArray(jsonObject.get("friends_list").toString());
-                        for(int i=0; i<jsonArray.length(); i++) {
-                            JSONObject jObject = jsonArray.getJSONObject(i);
-                            FriendsListViewPOJO pojo = new FriendsListViewPOJO();
-                            pojo.setId(jObject.getString("id"));
-                            pojo.setName(jObject.getString("name"));
-                            pojo.setEmail(jObject.getString("email"));
-                            pojo.setNation(jObject.getString("nation"));
-                            pojo.setLocation(jObject.getString("location"));
-                            pojo.setPrefer_language(jObject.getString("prefer_language"));
-                            pojo.setStatus_msg(jObject.getString("status_msg"));
-                            pojo.setImage(jObject.get("image").toString());
-
-                            GlobalInfo.friends_list.add(pojo);
-                        }
-
-                        JSONObject myJsonObject = new JSONObject(jsonObject.get("my_profile").toString());
-                        GlobalInfo.my_profile.setId(myJsonObject.get("id").toString());
-                        GlobalInfo.my_profile.setName(myJsonObject.get("name").toString());
-                        GlobalInfo.my_profile.setEmail(myJsonObject.get("email").toString());
-                        GlobalInfo.my_profile.setNation(myJsonObject.get("nation").toString());
-                        GlobalInfo.my_profile.setLocation(myJsonObject.get("location").toString());
-                        GlobalInfo.my_profile.setPrefer_language(myJsonObject.get("prefer_language").toString());
-                        GlobalInfo.my_profile.setStatus_msg(myJsonObject.get("status_msg").toString());
-                        GlobalInfo.my_profile.setImage(myJsonObject.get("image").toString());
-
-                        Intent it = new Intent(StartActivity.this, MainFragmentActivity.class);
-                        startActivity(it);
-                        finish();
-                    }
-
-                } catch (Exception e){
-                    Toast.makeText(StartActivity.this, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
-                    Log.e("LoginTask", e.toString());
-                }*/
-
             }
         }
-
     }
 }

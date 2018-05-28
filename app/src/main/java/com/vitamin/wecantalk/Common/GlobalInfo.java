@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class GlobalInfo {
 
-    public static ArrayList<FriendsListViewPOJO> friends_list = new ArrayList<>();
+    public static ArrayList<FriendsListViewPOJO> friends_list;
     public static FriendsListViewPOJO my_profile = new FriendsListViewPOJO();
 
 }

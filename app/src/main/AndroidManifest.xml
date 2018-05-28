@@ -37,6 +37,10 @@
         <activity android:name=".UIActivity.RegisterActivity">
 
         </activity>
+
+        <activity android:name=".UIActivity.FindIdActivity">
+
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
