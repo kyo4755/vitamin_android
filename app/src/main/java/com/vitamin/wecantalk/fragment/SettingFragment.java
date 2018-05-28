@@ -24,6 +24,8 @@ import com.vitamin.wecantalk.R;
 import com.vitamin.wecantalk.Setting.ChangeInfoSetting;
 import com.vitamin.wecantalk.Setting.ChangePWSetting;
 import com.vitamin.wecantalk.Setting.SettingDialog;
+import com.vitamin.wecantalk.UIActivity.CommunityRoomActivity;
+import com.vitamin.wecantalk.UIActivity.StartActivity;
 
 import org.json.JSONObject;
 
@@ -48,6 +50,8 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class SettingFragment extends Fragment{
+    Button b1;
+
     ImageView pro1;
     ImageView pro2;
     private static final int SELECT_PICTURE = 1;
@@ -69,6 +73,7 @@ public class SettingFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_setting, null);
 
+        b1 = (Button) view.findViewById(R.id.logout);
         pro1 = (ImageView) view.findViewById(R.id.pro);
         pro1.setOnClickListener(new View.OnClickListener() {
 
@@ -81,6 +86,13 @@ public class SettingFragment extends Fragment{
                                 "Select Picture"), SELECT_PICTURE);
                     }
                 });
+
+        b1.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent it = new Intent(getActivity(), StartActivity.class);
+                startActivity(it);
+            }
+        });
 
 
         pro2 = (ImageView) view.findViewById(R.id.setting);
