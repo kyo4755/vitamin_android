@@ -1,18 +1,12 @@
 package com.vitamin.wecantalk.fragment;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Debug;
 import android.provider.MediaStore;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,23 +14,29 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.bumptech.glide.Glide;
+import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
-import com.vitamin.wecantalk.Network.RequestTask;
 import com.vitamin.wecantalk.R;
 import com.vitamin.wecantalk.Setting.ChangeInfoSetting;
 import com.vitamin.wecantalk.Setting.ChangePWSetting;
 import com.vitamin.wecantalk.Setting.SettingDialog;
-import com.vitamin.wecantalk.UIActivity.CommunityRoomActivity;
-import com.vitamin.wecantalk.UIActivity.RegisterActivity;
-import com.vitamin.wecantalk.UIActivity.StartActivity;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.ByteArrayOutputStream;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.concurrent.ExecutionException;
+import java.io.InputStream;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -51,12 +51,13 @@ public class SettingFragment extends Fragment{
     ImageView pro1;
     ImageView pro2;
     private static final int SELECT_PICTURE = 1;
-    private String selectedImagePath;
     Context context = null;
     SettingDialog settingDialog;
     ChangePWSetting changePWSetting;
     ChangeInfoSetting changeInfoSetting;
-    Button b1;
+
+    File selectedPhoto;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,17 +68,6 @@ public class SettingFragment extends Fragment{
         context = container.getContext();
 
         View view = inflater.inflate(R.layout.fragment_setting, null);
-
-        b1 = (Button) view.findViewById(R.id.logout);
-        b1.setOnClickListener(new View.OnClickListener(){
-
-
-            @Override
-            public void onClick(View view) {
-                Intent it = new Intent(getActivity(), StartActivity.class);
-                startActivity(it);
-            }
-        });
 
         pro1 = (ImageView) view.findViewById(R.id.pro);
         pro1.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +145,45 @@ public class SettingFragment extends Fragment{
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
                 Uri selectedImageUri = data.getData();
-                selectedImagePath = getPath(selectedImageUri);
+                File tmpCacheFile = new File(context.getCacheDir(), UUID.randomUUID() + ".jpg");
+
+                if(fileCopy(selectedImageUri, tmpCacheFile)){
+                    selectedPhoto = tmpCacheFile;
+
+                    AQuery aQuery = new AQuery(context);
+                    String url = Config.Server_URL + "change_photo";
+                    Map<String, Object> params = new LinkedHashMap<>();
+                    params.put("id", GlobalInfo.my_profile.getId());
+                    params.put("image", selectedPhoto);
+
+                    aQuery.ajax(url, params, String.class, new AjaxCallback<String>(){
+                        @Override
+                        public void callback(String url, String result, AjaxStatus status) {
+                            try{
+                                JSONObject jsonObject = new JSONObject(result);
+                                String result_value = jsonObject.get("result").toString();
+                                String image_code = jsonObject.get("image").toString();
+
+                                if(result_value.equals("0000")){
+                                    String imgStr = Config.Server_URL + "image?id=" + image_code;
+                                    GlobalInfo.my_profile.setImage(imgStr);
+                                    Glide.with(context)
+                                            .load(imgStr)
+                                            .centerCrop()
+                                            .bitmapTransform(new CropCircleTransformation(context))
+                                            .into(pro1);
+                                } else {
+                                    Toast.makeText(context, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                                }
+
+                            } catch (Exception e){
+
+                            }
+                        }
+                    });
+                }
+
+                /*selectedImagePath = getPath(selectedImageUri);
 
                 Bitmap bm = null; //Bitmap 로드
                 try {
@@ -194,7 +222,7 @@ public class SettingFragment extends Fragment{
                     e.printStackTrace();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                }
+                }*/
             }
         }
     }
@@ -218,5 +246,59 @@ public class SettingFragment extends Fragment{
         }
         // URI경로를 반환한다.
         return uri.getPath();
+    }
+
+    protected boolean fileCopy(Uri in, File out) {
+        try {
+            File inFile = new File(in.getPath());
+            InputStream is = new FileInputStream(inFile);
+            // InputStream is =
+            // context.getContentResolver().openInputStream(in);
+            FileOutputStream outputStream = new FileOutputStream(out);
+
+            BufferedInputStream bin = new BufferedInputStream(is);
+            BufferedOutputStream bout = new BufferedOutputStream(outputStream);
+
+            int bytesRead = 0;
+            byte[] buffer = new byte[1024];
+            while ((bytesRead = bin.read(buffer, 0, 1024)) != -1) {
+                bout.write(buffer, 0, bytesRead);
+            }
+
+            bout.close();
+            bin.close();
+
+            outputStream.close();
+            is.close();
+        } catch (IOException e) {
+            InputStream is;
+            try {
+                is = context.getContentResolver().openInputStream(in);
+
+                FileOutputStream outputStream = new FileOutputStream(out);
+
+                BufferedInputStream bin = new BufferedInputStream(is);
+                BufferedOutputStream bout = new BufferedOutputStream(outputStream);
+
+                int bytesRead = 0;
+                byte[] buffer = new byte[1024];
+                while ((bytesRead = bin.read(buffer, 0, 1024)) != -1) {
+                    bout.write(buffer, 0, bytesRead);
+                }
+
+                bout.close();
+                bin.close();
+
+                outputStream.close();
+                is.close();
+
+
+            } catch (IOException e1) {
+                e1.printStackTrace();
+                return false;
+            }
+
+        }
+        return true;
     }
 }

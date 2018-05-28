@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
 import com.vitamin.wecantalk.POJO.FriendsListViewPOJO;
 import com.vitamin.wecantalk.R;
@@ -52,6 +53,14 @@ public class FriendsListViewAdapter extends BaseAdapter {
         if(friendsListViewPOJO.getImage().equals("null")){
             Glide.with(context)
                     .load(R.drawable.default_user)
+                    .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(context))
+                    .into(iconImageView);
+        }
+        else{
+            String imgStr = Config.Server_URL + "image?id=" + friendsListViewPOJO.getImage();
+            Glide.with(context)
+                    .load(imgStr)
                     .centerCrop()
                     .bitmapTransform(new CropCircleTransformation(context))
                     .into(iconImageView);

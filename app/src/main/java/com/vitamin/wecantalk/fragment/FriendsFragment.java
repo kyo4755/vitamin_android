@@ -1,10 +1,7 @@
 package com.vitamin.wecantalk.fragment;
 
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.vitamin.wecantalk.Adapter.FriendsListViewAdapter;
+import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
 import com.vitamin.wecantalk.R;
 
@@ -67,9 +65,9 @@ public class FriendsFragment extends Fragment {
                     .bitmapTransform(new CropCircleTransformation(container.getContext()))
                     .into(my_img);
         } else {
-            byte[] byte_img = Base64.decode(GlobalInfo.my_profile.getImage(), Base64.DEFAULT);
+            String imgStr = Config.Server_URL + "image?id=" + GlobalInfo.my_profile.getImage();
             Glide.with(container.getContext())
-                    .load(byte_img)
+                    .load(imgStr)
                     .centerCrop()
                     .bitmapTransform(new CropCircleTransformation(container.getContext()))
                     .into(my_img);
