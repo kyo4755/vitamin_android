@@ -154,7 +154,6 @@ public class CommunityRoomActivity extends AppCompatActivity {
                                 }*/
 
                     } catch (Exception e) {
-
                     }
                 }
             });

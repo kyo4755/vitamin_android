@@ -38,9 +38,7 @@ public class CommunityListViewPOJO {
         this.title = title;
     }
 
-    public String getRecent_msg() {
-        return recent_msg;
-    }
+    public String getRecent_msg() {return recent_msg;}
 
     public void setRecent_msg(String recent_msg) {
         this.recent_msg = recent_msg;

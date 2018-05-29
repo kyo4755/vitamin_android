@@ -76,7 +76,6 @@ public class CommunityRoomListViewAdapter extends BaseAdapter{
             }
             else{
                 view = inflater.inflate(R.layout.prefab_community_room_listview_send, viewGroup, false);
-
                 TextView msg = view.findViewById(R.id.prefab_community_room_send_msg);
                 TextView time = view.findViewById(R.id.prefab_community_room_send_time);
 

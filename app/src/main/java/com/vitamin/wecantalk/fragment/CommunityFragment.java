@@ -148,10 +148,8 @@ public class CommunityFragment extends Fragment {
 
                     JSONObject jsonObject = new JSONObject(result);
                     String result_code = jsonObject.get("result").toString();
-
                     if (result_code.equals("0000")) {
                         Toast.makeText(context, "정상.", Toast.LENGTH_SHORT).show();
-
                         JSONArray jsonArray = new JSONArray(jsonObject.get("chat_list").toString());
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jObject = jsonArray.getJSONObject(i);
