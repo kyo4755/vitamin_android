@@ -75,8 +75,6 @@ public class CommunityFragment extends Fragment {
                 it.putExtra("img",pojo.getImg());
                 it.putExtra("name", pojo.getTitle());
                 it.putExtra("anid", pojo.getAnid());
-                it.putExtra("recent_msg", pojo.getRecent_msg());
-                it.putExtra("recent_time", pojo.getRecent_time());
                 startActivity(it);
             }
         });

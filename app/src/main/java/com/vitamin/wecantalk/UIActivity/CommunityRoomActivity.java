@@ -45,7 +45,6 @@ public class CommunityRoomActivity extends AppCompatActivity {
     TextView titleName;
 
     String img;
-    String image;
     String name;
     String anid;
 
@@ -55,7 +54,8 @@ public class CommunityRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_community_room);
 
         Intent it = getIntent();
-        image = it.getStringExtra("img");
+        img = it.getStringExtra("img");
+        callImage();
         name = it.getStringExtra("name");
         anid = it.getStringExtra("anid");
 
@@ -122,9 +122,8 @@ public class CommunityRoomActivity extends AppCompatActivity {
         });
     }
 
-    private void callImage(String image){
-        if(!image.equals("-1")){
-        }else {
+    private void callImage(){
+        if(img.equals("-1")){
             AQuery aQuery = new AQuery(CommunityRoomActivity.this);
             String find_image_url = Config.Server_URL + "find_image";
 
@@ -159,6 +158,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
                     }
                 }
             });
+        }else {
         }
     }
 
@@ -184,9 +184,8 @@ public class CommunityRoomActivity extends AppCompatActivity {
         list.add(pojo);
 
         pojo = new CommunityRoomListViewPOJO();
-//        pojo.setName(name);
-//        pojo.setMsg(recent_msg);
-//        pojo.setTime(recent_time);
+        pojo.setImg(img);
+        pojo.setName(name);
         pojo.setWhere(1);
 
         list.add(pojo);

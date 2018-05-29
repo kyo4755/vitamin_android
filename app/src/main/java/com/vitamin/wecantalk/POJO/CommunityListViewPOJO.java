@@ -14,13 +14,6 @@ public class CommunityListViewPOJO {
     private String recent_msg;
     private String recent_time;
 
- /*   public CommunityListViewPOJO(String img, String title, String recent_msg, String recent_time){
-        this.img = img;
-        this.title = title;
-        this.recent_msg = recent_msg;
-        this.recent_time = recent_time;
-    }
-*/
     public String getAnid() {
         return anid;
     }
