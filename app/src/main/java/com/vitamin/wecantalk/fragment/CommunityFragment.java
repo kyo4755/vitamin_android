@@ -75,6 +75,8 @@ public class CommunityFragment extends Fragment {
                 it.putExtra("img",pojo.getImg());
                 it.putExtra("name", pojo.getTitle());
                 it.putExtra("anid", pojo.getAnid());
+                it.putExtra("room_number", pojo.getRoom_number());
+
                 startActivity(it);
             }
         });
@@ -97,7 +99,7 @@ public class CommunityFragment extends Fragment {
                                 Map<String, Object> params = new LinkedHashMap<>();
 
                                 params.put("id", GlobalInfo.my_profile.getId());
-                                params.put("anid", pojo.getAnid());
+                                params.put("room_number", pojo.getRoom_number());
 
                                 aQuery.ajax(chat_delete_url, params, String.class, new AjaxCallback<String>() {
                                     @Override
@@ -156,6 +158,7 @@ public class CommunityFragment extends Fragment {
                             String anid = jObject.getString("anid");
                             String recent_msg = jObject.getString("recent_msg");
                             String image_code=jObject.getString("img");
+                            String room_number=jObject.getString("room_number");
                             JSONObject detail_jObject = new JSONObject(recent_msg);
                             String f_name = detail_jObject.getString("f_name");
                             String date_now = detail_jObject.getString("date_now");
@@ -170,6 +173,7 @@ public class CommunityFragment extends Fragment {
                             pojo.setTitle(title);
                             pojo.setRecent_time(time_now);
                             pojo.setRecent_msg(msg);
+                            pojo.setRoom_number(room_number);
 
                             list.add(pojo);
                         }

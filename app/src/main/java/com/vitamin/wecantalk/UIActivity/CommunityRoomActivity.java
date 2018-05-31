@@ -47,6 +47,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
     String img;
     String name;
     String anid;
+    String room_number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
         callImage();
         name = it.getStringExtra("name");
         anid = it.getStringExtra("anid");
+        room_number=it.getStringExtra("room_number");
 
         listView = findViewById(R.id.community_room_listview);
         listView.setDivider(null);
@@ -86,8 +88,11 @@ public class CommunityRoomActivity extends AppCompatActivity {
 
                 Map<String, Object> params = new LinkedHashMap<>();
 
+                params.put("room_number", room_number);
                 params.put("myid", GlobalInfo.my_profile.getId());
-                params.put("anid", anid);
+                params.put("msg",userMsg.getText());
+                params.put("date",new SimpleDateFormat("yyyy/MM/dd").format(new Date(System.currentTimeMillis())));
+                params.put("time",new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
 
                 aQuery.ajax(chat_send_url, params, String.class, new AjaxCallback<String>() {
                     @Override
@@ -102,6 +107,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
                             }
                         } catch (Exception e) {
                             Log.e("chat_send Error", e.toString());
+                            Toast.makeText(getApplicationContext(), "오류.", Toast.LENGTH_SHORT).show();
                         }
 
 
