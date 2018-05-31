@@ -94,6 +94,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
                 params.put("date",new SimpleDateFormat("yyyy/MM/dd").format(new Date(System.currentTimeMillis())));
                 params.put("time",new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
 
+
                 aQuery.ajax(chat_send_url, params, String.class, new AjaxCallback<String>() {
                     @Override
                     public void callback(String url, String result, AjaxStatus status) {

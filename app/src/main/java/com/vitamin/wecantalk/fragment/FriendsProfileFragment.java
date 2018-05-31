@@ -72,11 +72,13 @@ public class FriendsProfileFragment extends BlurDialogFragment {
         talk_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent it = new Intent(getActivity(), CommunityRoomActivity.class);
                 it.putExtra("img",data.getImage());
                 it.putExtra("name", data.getName());
                 it.putExtra("anid", data.getId());
                 startActivity(it);
+                
             }
         });
 

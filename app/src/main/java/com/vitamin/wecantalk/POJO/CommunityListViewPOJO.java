@@ -15,7 +15,7 @@ public class CommunityListViewPOJO {
     private String recent_msg;
     private String recent_time;
 
-    public String getRoom_number() {return room_number;}
+    public String getRoom_number() {return room_number; }
 
     public void setRoom_number(String room_number) {this.room_number = room_number;}
 
