@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,8 +28,6 @@ import com.vitamin.wecantalk.Setting.ChangeInfoSetting;
 import com.vitamin.wecantalk.Setting.ChangePWSetting;
 import com.vitamin.wecantalk.Setting.SettingDialog;
 import com.vitamin.wecantalk.Setting.SettingIntroduce;
-import com.vitamin.wecantalk.UIActivity.CommunityRoomActivity;
-import com.vitamin.wecantalk.UIActivity.FindIdActivity;
 import com.vitamin.wecantalk.UIActivity.StartActivity;
 
 import org.json.JSONObject;
@@ -152,18 +151,18 @@ public class SettingFragment extends Fragment{
                 change.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        EditText edit_introduce = settingIntroduce.findViewById(R.id.introduce);
+                        String edit_str = edit_introduce.getText().toString();
+                        introducing.setText(edit_str);
 
-//                        Intent intent = new Intent(context, SettingFragment.class);
-//                        startActivity(intent);
-                        settingIntroduce.hide();
-
+                        settingIntroduce.dismiss();
                     }
                 });
 
                 back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        settingIntroduce.hide();
+                        settingIntroduce.dismiss();
                     }
                 });
 
@@ -195,7 +194,7 @@ public class SettingFragment extends Fragment{
                         back.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                changePWSetting.hide();
+                                changePWSetting.dismiss();
                             }
                         });
                     }
@@ -210,7 +209,7 @@ public class SettingFragment extends Fragment{
                         back.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                changeInfoSetting.hide();
+                                changeInfoSetting.dismiss();
                             }
                         });
                     }
@@ -219,7 +218,7 @@ public class SettingFragment extends Fragment{
                 back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        settingDialog.hide();
+                        settingDialog.dismiss();
                     }
                 });
 

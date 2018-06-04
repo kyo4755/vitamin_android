@@ -9,8 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.POJO.CommunityRoomListViewPOJO;
 import com.vitamin.wecantalk.R;
+import com.vitamin.wecantalk.UIActivity.CommunityRoomActivity;
 
 import java.util.ArrayList;
 
@@ -57,10 +60,14 @@ public class CommunityRoomListViewAdapter extends BaseAdapter{
                 TextView msg = view.findViewById(R.id.prefab_community_room_receive_msg);
                 TextView time = view.findViewById(R.id.prefab_community_room_receive_time);
 
+                String imgStr = Config.Server_URL + "user_photo?id=" + list.get(i).getImg();
                 Glide.with(mContext)
-                        .load(list.get(i).getImg())
+                        .load(imgStr)
                         .centerCrop()
                         .bitmapTransform(new CropCircleTransformation(mContext))
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .error(R.drawable.default_user)
                         .into(img);
 
                 name.setText(list.get(i).getName());
@@ -69,7 +76,6 @@ public class CommunityRoomListViewAdapter extends BaseAdapter{
             }
             else{
                 view = inflater.inflate(R.layout.prefab_community_room_listview_send, viewGroup, false);
-
                 TextView msg = view.findViewById(R.id.prefab_community_room_send_msg);
                 TextView time = view.findViewById(R.id.prefab_community_room_send_time);
 

@@ -52,7 +52,6 @@ public class CommunityFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -75,8 +74,8 @@ public class CommunityFragment extends Fragment {
                 it.putExtra("img",pojo.getImg());
                 it.putExtra("name", pojo.getTitle());
                 it.putExtra("anid", pojo.getAnid());
-                it.putExtra("recent_msg", pojo.getRecent_msg());
-                it.putExtra("recent_time", pojo.getRecent_time());
+                it.putExtra("room_number", pojo.getRoom_number());
+
                 startActivity(it);
             }
         });
@@ -99,7 +98,7 @@ public class CommunityFragment extends Fragment {
                                 Map<String, Object> params = new LinkedHashMap<>();
 
                                 params.put("id", GlobalInfo.my_profile.getId());
-                                params.put("anid", pojo.getAnid());
+                                params.put("room_number", pojo.getRoom_number());
 
                                 aQuery.ajax(chat_delete_url, params, String.class, new AjaxCallback<String>() {
                                     @Override
@@ -150,16 +149,15 @@ public class CommunityFragment extends Fragment {
 
                     JSONObject jsonObject = new JSONObject(result);
                     String result_code = jsonObject.get("result").toString();
-
                     if (result_code.equals("0000")) {
                         Toast.makeText(context, "정상.", Toast.LENGTH_SHORT).show();
-
                         JSONArray jsonArray = new JSONArray(jsonObject.get("chat_list").toString());
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jObject = jsonArray.getJSONObject(i);
                             String anid = jObject.getString("anid");
                             String recent_msg = jObject.getString("recent_msg");
                             String image_code=jObject.getString("img");
+                            String room_number=jObject.getString("room_number");
                             JSONObject detail_jObject = new JSONObject(recent_msg);
                             String f_name = detail_jObject.getString("f_name");
                             String date_now = detail_jObject.getString("date_now");
@@ -174,6 +172,7 @@ public class CommunityFragment extends Fragment {
                             pojo.setTitle(title);
                             pojo.setRecent_time(time_now);
                             pojo.setRecent_msg(msg);
+                            pojo.setRoom_number(room_number);
 
                             list.add(pojo);
                         }
