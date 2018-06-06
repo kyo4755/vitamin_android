@@ -95,6 +95,7 @@ public class SettingFragment extends Fragment{
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(pro1);
+
         pro1.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View arg0) {
