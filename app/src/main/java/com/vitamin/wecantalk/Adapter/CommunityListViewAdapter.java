@@ -81,7 +81,7 @@ public class CommunityListViewAdapter extends BaseAdapter {
                     .into(img);
         }
 
-        room_title.setText(list.get(i).getTitle());
+        room_title.setText(communityListViewPOJO.getTitle());
         recent_msg.setText(list.get(i).getRecent_msg());
         recent_time.setText(list.get(i).getRecent_time());
 

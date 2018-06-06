@@ -17,8 +17,8 @@ import com.vitamin.wecantalk.fragment.*;
 
 public class MainFragmentActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button friends, community, study, setting;
-    Fragment friendsFragment, communityFragment, studyFragment, settingFragment;
+    Button friends, community, study, setting, sns;
+    Fragment friendsFragment, communityFragment, studyFragment, settingFragment, snsFragment;
 
     private int btnIndex = 1;
 
@@ -31,16 +31,19 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
         community = findViewById(R.id.main_fragment_btn_community);
         study = findViewById(R.id.main_fragment_btn_study);
         setting = findViewById(R.id.main_fragment_btn_setting);
+        sns = findViewById(R.id.main_fragment_btn_sns);
 
         friends.setOnClickListener(this);
         community.setOnClickListener(this);
         study.setOnClickListener(this);
         setting.setOnClickListener(this);
+        sns.setOnClickListener(this);
 
         friendsFragment = new FriendsFragment();
         communityFragment = new CommunityFragment();
         studyFragment = new StudyFragment();
         settingFragment = new SettingFragment();
+        snsFragment = new FriendsSnsFragment();
 
         settingFragment(friendsFragment);
 
@@ -76,6 +79,10 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
                 btn = setting;
                 btnIndex = 4;
                 break;
+            case R.id.main_fragment_btn_sns:
+                fragment = snsFragment;
+                btn = sns;
+                btnIndex = 5;
         }
 
         settingFragment(fragment);
@@ -96,6 +103,7 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
             case 2: btn.setBackgroundColor(getResources().getColor(R.color.bg_community));  break;
             case 3: btn.setBackgroundColor(getResources().getColor(R.color.bg_study));  break;
             case 4: btn.setBackgroundColor(getResources().getColor(R.color.bg_setting));  break;
+            case 5: btn.setBackgroundColor(getResources().getColor(R.color.bg_friends)); break;
         }
         btn.setTextColor(getResources().getColor(R.color.white));
     }
@@ -108,6 +116,8 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
             case 2: btn = community;    break;
             case 3: btn = study;    break;
             case 4: btn = setting;  break;
+            case 5: btn = sns;  break;
+
         }
 
         btn.setBackgroundColor(getResources().getColor(R.color.white));
