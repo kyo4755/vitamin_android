@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.vitamin.wecantalk.Adapter.SnsListViewAdapter;
 import com.vitamin.wecantalk.Adapter.StudyBestMatchListViewAdapter;
 import com.vitamin.wecantalk.R;
+import com.vitamin.wecantalk.UIActivity.CommentActivity;
 import com.vitamin.wecantalk.UIActivity.FindIdActivity;
 import com.vitamin.wecantalk.UIActivity.PostingActivity;
 
@@ -26,7 +27,8 @@ public class FriendsSnsFragment extends Fragment {
     SnsListViewAdapter adapter;
 
     ImageView posting;
-    Button find;
+    ImageView find;
+    ImageView comment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,9 +44,10 @@ public class FriendsSnsFragment extends Fragment {
         listView = view.findViewById(R.id.sns_listview);
         adapter = new SnsListViewAdapter();
 
-
         posting = view.findViewById(R.id.sns_posting);
         find = view.findViewById(R.id.sns_find);
+
+
 
         posting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +64,7 @@ public class FriendsSnsFragment extends Fragment {
                 startActivity(it);
             }
         });
+
 
 
 

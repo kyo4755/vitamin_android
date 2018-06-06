@@ -8,11 +8,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
+        <ImageView
             android:id="@+id/sns_find"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
             android:text="ID검색"
+            android:src="@drawable/magnifier"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -45,7 +46,7 @@
         android:layout_height="wrap_content"
         android:text="SNS 소통공간"
         android:textStyle="bold"
-        android:textSize="20dp"
+        android:textSize="30dp"
         android:gravity="center"/>
 
 
