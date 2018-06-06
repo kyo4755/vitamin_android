@@ -19,9 +19,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vitamin.wecantalk.Adapter.CommunityRoomListViewAdapter;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
+import com.vitamin.wecantalk.POJO.CommunityListViewPOJO;
 import com.vitamin.wecantalk.POJO.CommunityRoomListViewPOJO;
 import com.vitamin.wecantalk.R;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -46,7 +48,8 @@ public class CommunityRoomActivity extends AppCompatActivity {
 
     String img;
     String name;
-    String anid;
+    String member;
+    ArrayList<String> mem = new ArrayList<>();
     String room_number;
 
     @Override
@@ -55,11 +58,8 @@ public class CommunityRoomActivity extends AppCompatActivity {
         setContentView(R.layout.activity_community_room);
 
         Intent it = getIntent();
-        img = it.getStringExtra("img");
-        callImage();
-        name = it.getStringExtra("name");
-        anid = it.getStringExtra("anid");
-        room_number=it.getStringExtra("room_number");
+        member = it.getStringExtra("member");
+        room_number=it.getStringExtra("room_num");
 
         listView = findViewById(R.id.community_room_listview);
         listView.setDivider(null);
@@ -70,6 +70,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
         userMsg = findViewById(R.id.community_room_edittext);
         titleName = findViewById(R.id.community_room_name_title);
         titleName.setText(name);
+
 
         backBtn = findViewById(R.id.community_room_back_button);
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -83,119 +84,155 @@ public class CommunityRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                AQuery aQuery = new AQuery(CommunityRoomActivity.this);
-                String chat_send_url = Config.Server_URL + "chat_send";
+                String userSendMsg = userMsg.getText().toString();
+                if (userSendMsg.length() != 0) {
 
-                Map<String, Object> params = new LinkedHashMap<>();
+                    AQuery aQuery = new AQuery(CommunityRoomActivity.this);
+                    String chattings_send_url = Config.Server_URL + "chattings/send";
 
-                params.put("room_number", room_number);
-                params.put("myid", GlobalInfo.my_profile.getId());
-                params.put("msg",userMsg.getText());
-                params.put("date",new SimpleDateFormat("yyyy/MM/dd").format(new Date(System.currentTimeMillis())));
-                params.put("time",new SimpleDateFormat("HH:mm:ss").format(new Date(System.currentTimeMillis())));
+                    Map<String, Object> params = new LinkedHashMap<>();
+
+                    params.put("room_num", room_number);
+                    params.put("myid", GlobalInfo.my_profile.getId());
+                    params.put("msg", userMsg.getText());
+                    params.put("date", new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss").format(new Date(System.currentTimeMillis())));
 
 
-                aQuery.ajax(chat_send_url, params, String.class, new AjaxCallback<String>() {
-                    @Override
-                    public void callback(String url, String result, AjaxStatus status) {
+                    aQuery.ajax(chattings_send_url, params, String.class, new AjaxCallback<String>() {
+                        @Override
+                        public void callback(String url, String result, AjaxStatus status) {
 
-                        try {
-                            JSONObject jsonObject = new JSONObject(result);
-                            String result_code = jsonObject.get("result").toString();
-                            if(result_code.equals("0000")){
-                            }else{
+                            try {
+                                JSONObject jsonObject = new JSONObject(result);
+                                String result_code = jsonObject.get("result").toString();
+                                if (result_code.equals("0000")) {
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "오류.", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (Exception e) {
+                                Log.e("chat_send Error", e.toString());
                                 Toast.makeText(getApplicationContext(), "오류.", Toast.LENGTH_SHORT).show();
                             }
-                        } catch (Exception e) {
-                            Log.e("chat_send Error", e.toString());
-                            Toast.makeText(getApplicationContext(), "오류.", Toast.LENGTH_SHORT).show();
                         }
+                    });
+                }
 
-
-//                            String userSendMsg = userMsg.getText().toString();
-//                if(userSendMsg.length() != 0) {
-//                    CommunityRoomListViewPOJO pojo = new CommunityRoomListViewPOJO();
-//                    pojo.setMsg(userSendMsg);
-//                    String time = new SimpleDateFormat("HH:mm").format(new Date(System.currentTimeMillis()));
-//                    pojo.setTime(time);
-//
-//                    adapter.addList(pojo);
-//
-//                    userMsg.setText("");
-//                }
-                    }
-                });
             }
         });
-    }
 
-    private void callImage(){
-        if(img.equals("-1")){
-            AQuery aQuery = new AQuery(CommunityRoomActivity.this);
-            String find_image_url = Config.Server_URL + "find_image";
-
-            Map<String, Object> params = new LinkedHashMap<>();
-
-            params.put("anid", anid);
-
-            aQuery.ajax(find_image_url, params, String.class, new AjaxCallback<String>() {
-                @Override
-                public void callback(String url, String result, AjaxStatus status) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(result);
-                        String result_code = jsonObject.get("result").toString();
-                        if (result_code.equals("0000")) {//정상 나올때
-                            String a = jsonObject.get("detail_info").toString();
-                            JSONObject detail_info = new JSONObject(a);
-                            img = detail_info.getString("image");
-
-                        } else {
-                            Toast.makeText(CommunityRoomActivity.this, "이상현상", Toast.LENGTH_SHORT).show();
-                        }
-                                /*}else if(result_code.equals("0001")){//anid 안보냈을때
-
-                                }else if(result_code.equals("0002")){//검색결과업승ㄹ때
-
-                                }else if(result_code.equals("0100")){//get으로 보냇ㅇㄹ대
-
-                                }*/
-
-                    } catch (Exception e) {
-                    }
-                }
-            });
-        }else {
-        }
     }
 
     private ArrayList<CommunityRoomListViewPOJO> createPOJO(){
-        ArrayList<CommunityRoomListViewPOJO> list = new ArrayList<>();
+        final ArrayList<CommunityRoomListViewPOJO> list = new ArrayList<>();
 
-        CommunityRoomListViewPOJO pojo = new CommunityRoomListViewPOJO();
-        pojo.setName(name);
-        pojo.setMsg("Nice to meet you!");
-        pojo.setTime("12:39");
-        pojo.setImg(img);
-        pojo.setWhere(1);
+        AQuery aQuery = new AQuery(getApplicationContext());
+        String chattings_load_url = Config.Server_URL + "chattings/load";
 
-        list.add(pojo);
+        Map<String, Object> params = new LinkedHashMap<>();
 
-        pojo = new CommunityRoomListViewPOJO();
-        pojo.setImg(null);
-        pojo.setName(null);
-        pojo.setMsg("Where are you from?");
-        pojo.setTime("12:40");
-        pojo.setWhere(2);
+        params.put("room_num", room_number);
 
-        list.add(pojo);
+        aQuery.ajax(chattings_load_url, params, String.class, new AjaxCallback<String>() {
+            @Override
+            public void callback(String url, String result, AjaxStatus status) {
 
-        pojo = new CommunityRoomListViewPOJO();
-        pojo.setImg(img);
-        pojo.setName(name);
-        pojo.setWhere(1);
+                try {
 
-        list.add(pojo);
+                    JSONObject jsonObject = new JSONObject(result);
+                    String result_code = jsonObject.get("result").toString();
+                    if (result_code.equals("0000")) {
+                        Toast.makeText(getApplicationContext(), "정상.", Toast.LENGTH_SHORT).show();
+                        JSONArray jsonArray = new JSONArray(jsonObject.get("chat_load").toString());
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jObject = jsonArray.getJSONObject(i);
+                            String id = jObject.getString("id");
+                            String date = jObject.getString("date");
+                            String msg = jObject.getString("msg");
+                            String name = jObject.getString("name");
+                            String img = jObject.getString("image");
 
+                            CommunityRoomListViewPOJO pojo=new CommunityRoomListViewPOJO();
+                            pojo.setId(id);
+                            pojo.setName(name);
+                            pojo.setImg(img);
+                            pojo.setMsg(msg);
+                            pojo.setTime(date);
+                            if(pojo.getId().equals(GlobalInfo.my_profile.getId())){ pojo.setWhere(2);}
+                            else{pojo.setWhere(1);}
+
+                            list.add(pojo);
+                        }
+                    }
+
+                    else if(result_code.equals("0001")) Toast.makeText(getApplicationContext(), "0001에러", Toast.LENGTH_SHORT).show();
+                    else if(result_code.equals("0002")) Toast.makeText(getApplicationContext(), "0002에러", Toast.LENGTH_SHORT).show();
+                    else{}
+
+                } catch (Exception e) {
+
+                }
+            }
+        });
         return list;
+
     }
+
+//   chattings/recent
+//    AQuery aQuery = new AQuery(getApplicationContext());
+//    String chattings_recent_url = Config.Server_URL + "chattings/recent";
+//
+//    Map<String, Object> params = new LinkedHashMap<>();
+//
+//        params.put("id", GlobalInfo.my_profile.getId());
+//
+//        aQuery.ajax(chattings_recent_url, params, String.class, new AjaxCallback<String>() {
+//        @Override
+//        public void callback(String url, String result, AjaxStatus status) {
+//
+//            try {
+//
+//                JSONObject jsonObject = new JSONObject(result);
+//                String result_code = jsonObject.get("result").toString();
+//                if (result_code.equals("0000")) {
+//                    Toast.makeText(getApplicationContext(), "정상.", Toast.LENGTH_SHORT).show();
+//                    JSONArray jsonArray = new JSONArray(jsonObject.get("chat_list").toString());
+//                    for (int i = 0; i < jsonArray.length(); i++) {
+//                        JSONObject jObject = jsonArray.getJSONObject(i);
+//                        String anid = jObject.getString("id");
+//                        String msg_detail = jObject.getString("msg_detail");
+//                        String image_code=jObject.getString("img");
+//                        String room_number=jObject.getString("room_number");
+//                        JSONObject detail_jObject = new JSONObject(msg_detail);
+//                        String f_name = detail_jObject.getString("f_name");
+//                        String id = detail_jObject.getString("id");
+//                        String img = detail_jObject.getString("img");
+//                        String time_now = detail_jObject.getString("time_now");
+//                        String msg = detail_jObject.getString("msg");
+//
+//                        String title = f_name;
+//
+//                        CommunityRoomListViewPOJO pojo=new CommunityRoomListViewPOJO();
+//                        pojo.setId(anid);
+//                        pojo.setImg(image_code);
+//                        pojo.setName(title);
+//                        pojo.setMsg(time_now);
+//                        pojo.setTime(msg);
+//                        if(pojo.getId().equals(GlobalInfo.my_profile.getId())){ pojo.setWhere(2);}
+//                        else{pojo.setWhere(1);}
+//
+//                        list.add(pojo);
+//                    }
+//                }
+//
+//                else if(result_code.equals("0001")) Toast.makeText(getApplicationContext(), "입력받은 ID가 없음.", Toast.LENGTH_SHORT).show();
+//                else if(result_code.equals("0002")) Toast.makeText(getApplicationContext(), "채팅방이 없음 왕따쓰.", Toast.LENGTH_SHORT).show();
+//                else{}
+//
+//            } catch (Exception e) {
+//
+//            }
+//        }
+//    });
+//        return list;
+
 }
