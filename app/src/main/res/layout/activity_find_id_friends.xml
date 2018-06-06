@@ -85,8 +85,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:id="@+id/friend_find_id_add_button"
-
-            android:src="@drawable/addfriend1" />
+            android:background="@drawable/addfriend1" />
 
     </LinearLayout>
 

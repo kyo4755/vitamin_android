@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +25,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -91,14 +94,26 @@ public class FriendsProfileFragment extends BlurDialogFragment {
             public void onClick(final View view) {
 
                 AQuery aQuery = new AQuery(view.getContext());
-                String chat_send_url = Config.Server_URL + "chat_open";
+                String chattings_open_url = Config.Server_URL + "chattings/open";
 
                 Map<String, Object> params = new LinkedHashMap<>();
 
                 params.put("myid", GlobalInfo.my_profile.getId());
-                params.put("anid", data.getId());
 
-                aQuery.ajax(chat_send_url, params, String.class, new AjaxCallback<String>() {
+                ArrayList<String> mem = new ArrayList<>();
+                String member="";
+                mem.add(GlobalInfo.my_profile.getId());
+                mem.add(data.getId());
+                Collections.sort(mem);
+                for (String s : mem){
+                    member += s + ",";
+                }
+                member=member.substring(0, member.length()-1);
+                params.put("member", member);
+                Log.d("asdf","member값 : "+member);
+
+                final String finalMember = member;
+                aQuery.ajax(chattings_open_url, params, String.class, new AjaxCallback<String>() {
                     @Override
                     public void callback(String url, String result, AjaxStatus status) {
 
@@ -106,26 +121,23 @@ public class FriendsProfileFragment extends BlurDialogFragment {
                             JSONObject jsonObject = new JSONObject(result);
                             String result_code = jsonObject.get("result").toString();
                             if (result_code.equals("0000")) {
-                                String a = jsonObject.get("detail_info").toString();
-                                JSONObject detail_info = new JSONObject(a);
-                                room_number = detail_info.getString("room_number");
+                                room_number = jsonObject.getString("room_num");
+                                Intent it = new Intent(getActivity(), CommunityRoomActivity.class);
+                                it.putExtra("room_num",room_number);
+                                it.putExtra("member", finalMember);
+                                startActivity(it);
                                 Toast.makeText(view.getContext(), "정상.", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(view.getContext(), "오류.", Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
-                            Log.e("chat_send Error", e.toString());
+                            Log.e("chat_open Error", e.toString());
                             Toast.makeText(view.getContext(), "서버와 통신오류.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
-                Intent it = new Intent(getActivity(), CommunityRoomActivity.class);
-                it.putExtra("img",data.getImage());
-                it.putExtra("room_number",room_number);
-                it.putExtra("name", data.getName());
-                it.putExtra("anid", data.getId());
-                startActivity(it);
+
 
             }
         });

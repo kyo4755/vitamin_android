@@ -26,10 +26,10 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class CommunityListViewAdapter extends BaseAdapter {
 
-    private ArrayList<CommunityListViewPOJO> list = new ArrayList<CommunityListViewPOJO>();
+    private ArrayList<CommunityListViewPOJO> list;
 
-    public CommunityListViewAdapter(ArrayList<CommunityListViewPOJO> list){
-        this.list = list;
+    public CommunityListViewAdapter(){
+        list = new ArrayList<CommunityListViewPOJO>();
     }
 
     @Override
@@ -90,5 +90,6 @@ public class CommunityListViewAdapter extends BaseAdapter {
 
     public void addItem(CommunityListViewPOJO pojo){
         list.add(pojo);
+        notifyDataSetChanged();
     }
 }

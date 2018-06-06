@@ -59,6 +59,7 @@ public class FindIdActivity extends AppCompatActivity {
         imageView.setVisibility(View.INVISIBLE);
         findName.setVisibility(View.INVISIBLE);
         button.setVisibility(View.INVISIBLE);
+        myName.setText(GlobalInfo.my_profile.getId());
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

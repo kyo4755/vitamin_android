@@ -8,6 +8,7 @@ public class CommunityRoomListViewPOJO {
 
     private String img;
     private String name;
+    private String id;
     private String msg;
     private String time;
     private int where;
@@ -51,4 +52,8 @@ public class CommunityRoomListViewPOJO {
     public void setTime(String time) {
         this.time = time;
     }
+
+    public String getId() {return id;}
+
+    public void setId(String id) {this.id = id;}
 }
