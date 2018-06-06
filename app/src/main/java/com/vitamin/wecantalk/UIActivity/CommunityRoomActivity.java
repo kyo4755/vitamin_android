@@ -26,6 +26,7 @@ import com.vitamin.wecantalk.R;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -156,7 +157,16 @@ public class CommunityRoomActivity extends AppCompatActivity {
                             pojo.setName(name);
                             pojo.setImg(img);
                             pojo.setMsg(msg);
-                            pojo.setTime(date);
+                            try{
+                                SimpleDateFormat original_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                SimpleDateFormat cut_format = new SimpleDateFormat("HH:mm");
+                                Date origin_date = original_format.parse(date);
+                                String new_date = cut_format.format(origin_date);
+                                pojo.setTime(new_date);
+                            }
+                            catch (ParseException e){
+
+                            }
                             if(pojo.getId().equals(GlobalInfo.my_profile.getId())){ pojo.setWhere(2);}
                             else{pojo.setWhere(1);}
 
