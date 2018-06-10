@@ -89,7 +89,7 @@ public class SettingFragment extends Fragment{
         introducing =(TextView) view.findViewById(R.id.introducing);
         notepad_go =(TextView) view.findViewById(R.id.notepad_go);
 
-        String img_url = Config.Server_URL + "user_photo?id=" + GlobalInfo.my_profile.getImage();
+        String img_url = Config.Server_URL + "users/getPhoto?id=" + GlobalInfo.my_profile.getImage();
         Glide.with(this)
                 .load(img_url)
                 .error(R.drawable.default_user)
@@ -265,7 +265,7 @@ public class SettingFragment extends Fragment{
                                 String image_code = jsonObject.get("image").toString();
 
                                 if(result_value.equals("0000")){
-                                    String imgStr = Config.Server_URL + "user_photo?id=" + image_code;
+                                    String imgStr = Config.Server_URL + "users/getPhoto?id=" + image_code;
                                     GlobalInfo.my_profile.setImage(image_code);
                                     Glide.with(context)
                                             .load(imgStr)

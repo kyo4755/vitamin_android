@@ -88,7 +88,7 @@ public class FriendsFragment extends Fragment {
                     .bitmapTransform(new CropCircleTransformation(container.getContext()))
                     .into(my_img);
         } else {
-            String imgStr = Config.Server_URL + "user_photo?id=" + GlobalInfo.my_profile.getImage();
+            String imgStr = Config.Server_URL + "users/getPhoto?id=" + GlobalInfo.my_profile.getImage();
             Glide.with(container.getContext())
                     .load(imgStr)
                     .centerCrop()

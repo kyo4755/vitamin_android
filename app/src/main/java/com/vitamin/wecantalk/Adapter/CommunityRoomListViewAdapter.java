@@ -60,7 +60,7 @@ public class CommunityRoomListViewAdapter extends BaseAdapter{
                 TextView msg = view.findViewById(R.id.prefab_community_room_receive_msg);
                 TextView time = view.findViewById(R.id.prefab_community_room_receive_time);
 
-                String imgStr = Config.Server_URL + "user_photo?id=" + list.get(i).getImg();
+                String imgStr = Config.Server_URL + "users/getPhoto?id=" + list.get(i).getImg();
                 Glide.with(mContext)
                         .load(imgStr)
                         .centerCrop()
