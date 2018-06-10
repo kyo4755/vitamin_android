@@ -49,6 +49,12 @@
         <activity android:name=".UIActivity.CommentActivity">
 
         </activity>
+
+        <activity android:name=".Notepad.NoteEdit"
+            android:windowSoftInputMode="adjustUnspecified">
+
+        </activity>
+        <activity android:name=".Notepad.NoteList"></activity>
     </application>
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>

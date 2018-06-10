@@ -104,7 +104,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             if(pw.length() == 0)    Toast.makeText(StartActivity.this, "비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
             else {
                 AQuery aQuery = new AQuery(StartActivity.this);
-                String login_url = Config.Server_URL + "login";
+                String login_url = Config.Server_URL + "users/login";
 
                 Map<String, Object> params = new LinkedHashMap<>();
 

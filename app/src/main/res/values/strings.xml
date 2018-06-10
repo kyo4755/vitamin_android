@@ -21,4 +21,15 @@
 
     <string name="study_many_use_title">실시간 많이 사용한 단어</string>
     <string name="study_best_match_title">베스트 매치</string>
+
+
+    <!-- notepad-->
+    <string name="hello_world">Hello world!</string>
+    <string name="about">About</string>
+    <string name="title">Title : </string>
+    <string name="menu_delete">Delete Item</string>
+    <string name="no_title">No Title</string>
+    <string name="edit_note">Edit Note</string>
+    <string name="save_menu_noteedit">Save</string>
+    <string name="delete_menu_noteedit">Delete</string>
 </resources>
