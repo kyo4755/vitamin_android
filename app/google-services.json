@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "871689193790",
+    "firebase_url": "https://vitamin-android.firebaseio.com",
+    "project_id": "vitamin-android",
+    "storage_bucket": "vitamin-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871689193790:android:4e0bdc676ec0e3bd",
+        "android_client_info": {
+          "package_name": "com.vitamin.wecantalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871689193790-vnt0s6aibb885qhalcsppslbofsnvhge.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vitamin.wecantalk",
+            "certificate_hash": "78328cf03dde3ed048a42a76f6c4cce06c19b35c"
+          }
+        },
+        {
+          "client_id": "871689193790-o6v9krgfsfqj20jrtmrk52spoiug8v7o.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "871689193790-o6v9krgfsfqj20jrtmrk52spoiug8v7o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzhwfzTv71drb6Y3iJhF8fIr3HNeuAy9A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871689193790-o6v9krgfsfqj20jrtmrk52spoiug8v7o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

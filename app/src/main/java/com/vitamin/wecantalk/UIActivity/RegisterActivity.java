@@ -294,7 +294,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 Toast.makeText(RegisterActivity.this, "비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
             else {
                 AQuery aQuery = new AQuery(RegisterActivity.this);
-                String login_url = Config.Server_URL + "login";
+                String login_url = Config.Server_URL + "users/login";
 
                 Map<String, Object> params = new LinkedHashMap<>();
 

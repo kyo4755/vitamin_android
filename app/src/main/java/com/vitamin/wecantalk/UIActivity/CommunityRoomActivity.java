@@ -16,6 +16,8 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.vitamin.wecantalk.Adapter.CommunityRoomListViewAdapter;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
@@ -74,6 +76,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
 
 
         backBtn = findViewById(R.id.community_room_back_button);
+
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,6 +119,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
                             }
                         }
                     });
+                    userMsg.setText("");
                 }
 
             }

@@ -23,9 +23,12 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.bumptech.glide.Glide;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.vitamin.wecantalk.Adapter.CommunityListViewAdapter;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
+import com.vitamin.wecantalk.MyFirebaseInstanceIDService;
 import com.vitamin.wecantalk.UIActivity.CommunityRoomActivity;
 import com.vitamin.wecantalk.POJO.CommunityListViewPOJO;
 import com.vitamin.wecantalk.R;
@@ -153,7 +156,7 @@ public class CommunityFragment extends Fragment {
         //final ArrayList<CommunityListViewPOJO> list = new ArrayList<>();
 
         AQuery aQuery = new AQuery(context);
-        String chattings_list_url = Config.Server_URL + "chattings/list";
+        String chattings_list_url = Config.Server_URL + "chattings/get_list";
 
         Map<String, Object> params = new LinkedHashMap<>();
 
