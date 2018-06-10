@@ -65,7 +65,7 @@ public class FindIdActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AQuery aQuery = new AQuery(FindIdActivity.this);
-                String add_friend_url=Config.Server_URL + "add_friend";
+                String add_friend_url=Config.Server_URL + "friends/add";
                 Map<String, Object> params = new LinkedHashMap<>();
                 params.put("myid",GlobalInfo.my_profile.getId());
                 params.put("anid",id);
@@ -110,7 +110,7 @@ public class FindIdActivity extends AppCompatActivity {
                     String strText = editText.getText().toString();
 
                     AQuery aQuery = new AQuery(FindIdActivity.this);
-                    String find_friend_url = Config.Server_URL + "find_friend";
+                    String find_friend_url = Config.Server_URL + "friends/find";
 
                     Map<String, Object> params = new LinkedHashMap<>();
 

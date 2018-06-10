@@ -127,7 +127,7 @@ public class SettingFragment extends Fragment{
         });
 
         AQuery aQuery = new AQuery(context);
-        String find_friend_url = Config.Server_URL + "friend_number";
+        String find_friend_url = Config.Server_URL + "friends/getNumber";
 
         Map<String, Object> params = new LinkedHashMap<>();
 
@@ -251,7 +251,7 @@ public class SettingFragment extends Fragment{
                     selectedPhoto = tmpCacheFile;
 
                     AQuery aQuery = new AQuery(context);
-                    String url = Config.Server_URL + "change_photo";
+                    String url = Config.Server_URL + "users/changePhoto";
                     Map<String, Object> params = new LinkedHashMap<>();
                     params.put("id", GlobalInfo.my_profile.getId());
                     params.put("image", selectedPhoto);

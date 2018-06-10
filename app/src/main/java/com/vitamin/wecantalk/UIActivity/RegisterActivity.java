@@ -168,7 +168,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if(register_id.length() == 0)    Toast.makeText(RegisterActivity.this, "아이디를 입력해 주세요.", Toast.LENGTH_SHORT).show();
         else {
             AQuery aQuery = new AQuery(RegisterActivity.this);
-            final String id_check_url = Config.Server_URL + "id_check";
+            final String id_check_url = Config.Server_URL + "users/idCheck";
 
             Map<String, Object> params = new LinkedHashMap<>();
 
@@ -229,7 +229,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         if(register_id.length() == 0)    Toast.makeText(RegisterActivity.this, "아이디를 입력해 주세요.", Toast.LENGTH_SHORT).show();
         else {
             AQuery aQuery = new AQuery(RegisterActivity.this);
-            String register_url = Config.Server_URL + "register";
+            String register_url = Config.Server_URL + "users/register";
 
             Map<String, Object> params = new LinkedHashMap<>();
 

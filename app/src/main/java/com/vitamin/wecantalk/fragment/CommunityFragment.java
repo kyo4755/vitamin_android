@@ -156,7 +156,7 @@ public class CommunityFragment extends Fragment {
         //final ArrayList<CommunityListViewPOJO> list = new ArrayList<>();
 
         AQuery aQuery = new AQuery(context);
-        String chattings_list_url = Config.Server_URL + "chattings/get_list";
+        String chattings_list_url = Config.Server_URL + "chattings/getList";
 
         Map<String, Object> params = new LinkedHashMap<>();
 

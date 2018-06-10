@@ -65,7 +65,7 @@ public class CommunityListViewAdapter extends BaseAdapter {
 
         String image_code=communityListViewPOJO.getImg();
 
-        String imgURL = Config.Server_URL + "PostingActivity.this?id=" + image_code;
+        String imgURL = Config.Server_URL + "users/getPhoto?id=" + image_code;
 
         if(image_code==null){
             Glide.with(mContext)

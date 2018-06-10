@@ -143,7 +143,7 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
         String token = FirebaseInstanceId.getInstance().getToken();
 
         AQuery aQuery = new AQuery(MainFragmentActivity.this);
-        String token_url = Config.Server_URL + "/users/setToken";
+        String token_url = Config.Server_URL + "users/setToken";
 
         Map<String, Object> params = new LinkedHashMap<>();
 
