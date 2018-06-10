@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
+import com.vitamin.wecantalk.Notepad.NoteList;
 import com.vitamin.wecantalk.R;
 import com.vitamin.wecantalk.Setting.ChangeInfoSetting;
 import com.vitamin.wecantalk.Setting.ChangePWSetting;
@@ -57,6 +58,7 @@ public class SettingFragment extends Fragment{
     TextView f_number;
     TextView introduce;
     TextView introducing;
+    TextView notepad_go;
 
     ImageView pro1;
     ImageView pro2;
@@ -85,6 +87,7 @@ public class SettingFragment extends Fragment{
         f_number =(TextView) view.findViewById(R.id.f_number);
         introduce =(TextView) view.findViewById(R.id.go_introduce);
         introducing =(TextView) view.findViewById(R.id.introducing);
+        notepad_go =(TextView) view.findViewById(R.id.notepad_go);
 
         String img_url = Config.Server_URL + "user_photo?id=" + GlobalInfo.my_profile.getImage();
         Glide.with(this)
@@ -111,6 +114,14 @@ public class SettingFragment extends Fragment{
         b1.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent it = new Intent(getActivity(), StartActivity.class);
+                startActivity(it);
+            }
+        });
+
+
+        notepad_go.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent it = new Intent(getActivity(), NoteList.class);
                 startActivity(it);
             }
         });
