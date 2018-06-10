@@ -25,7 +25,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class CommunityRoomListViewAdapter extends BaseAdapter{
 
-    private ArrayList<CommunityRoomListViewPOJO> list;
+    private static ArrayList<CommunityRoomListViewPOJO> list;
 
     public CommunityRoomListViewAdapter(ArrayList<CommunityRoomListViewPOJO> list){
         this.list = list;
@@ -90,5 +90,9 @@ public class CommunityRoomListViewAdapter extends BaseAdapter{
     public void addList(CommunityRoomListViewPOJO pojo){
         list.add(pojo);
         notifyDataSetChanged();
+    }
+
+    public static void firebaseAddList(CommunityRoomListViewPOJO pojo){
+        list.add(pojo);
     }
 }

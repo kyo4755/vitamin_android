@@ -1,7 +1,11 @@
 package com.vitamin.wecantalk.UIActivity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +30,7 @@ import com.vitamin.wecantalk.POJO.CommunityRoomListViewPOJO;
 import com.vitamin.wecantalk.R;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
@@ -125,7 +130,51 @@ public class CommunityRoomActivity extends AppCompatActivity {
             }
         });
 
+        String onMessage="";
+        IntentFilter intentFilter = new IntentFilter("CUSTOM_EVENT");
+        LocalBroadcastManager.getInstance(this).registerReceiver(onNotice,intentFilter);
     }
+    private BroadcastReceiver onNotice= new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Update your RecyclerView here using notifyItemInserted(position);
+            Intent it = getIntent();
+            String data = it.getStringExtra("data");
+
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = new JSONObject(data);
+                String id = jsonObject.getString("id");
+                String date = jsonObject.getString("date");
+                String msg = jsonObject.getString("msg");
+                String name = jsonObject.getString("name");
+                String img = jsonObject.getString("image");
+
+                CommunityRoomListViewPOJO pojo=new CommunityRoomListViewPOJO();
+                pojo.setId(id);
+                pojo.setName(name);
+                pojo.setImg(img);
+                pojo.setMsg(msg);
+                try{
+                    SimpleDateFormat original_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    SimpleDateFormat cut_format = new SimpleDateFormat("HH:mm");
+                    Date origin_date = original_format.parse(date);
+                    String new_date = cut_format.format(origin_date);
+                    pojo.setTime(new_date);
+                }
+                catch (ParseException e){
+
+                }
+                if(pojo.getId().equals(GlobalInfo.my_profile.getId())){ pojo.setWhere(2);}
+                else{pojo.setWhere(1);}
+
+                adapter.addList(pojo);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
 
     private ArrayList<CommunityRoomListViewPOJO> createPOJO(){
         final ArrayList<CommunityRoomListViewPOJO> list = new ArrayList<>();
@@ -190,63 +239,5 @@ public class CommunityRoomActivity extends AppCompatActivity {
         return list;
 
     }
-
-//   chattings/recent
-//    AQuery aQuery = new AQuery(getApplicationContext());
-//    String chattings_recent_url = Config.Server_URL + "chattings/recent";
-//
-//    Map<String, Object> params = new LinkedHashMap<>();
-//
-//        params.put("id", GlobalInfo.my_profile.getId());
-//
-//        aQuery.ajax(chattings_recent_url, params, String.class, new AjaxCallback<String>() {
-//        @Override
-//        public void callback(String url, String result, AjaxStatus status) {
-//
-//            try {
-//
-//                JSONObject jsonObject = new JSONObject(result);
-//                String result_code = jsonObject.get("result").toString();
-//                if (result_code.equals("0000")) {
-//                    Toast.makeText(getApplicationContext(), "정상.", Toast.LENGTH_SHORT).show();
-//                    JSONArray jsonArray = new JSONArray(jsonObject.get("chat_list").toString());
-//                    for (int i = 0; i < jsonArray.length(); i++) {
-//                        JSONObject jObject = jsonArray.getJSONObject(i);
-//                        String anid = jObject.getString("id");
-//                        String msg_detail = jObject.getString("msg_detail");
-//                        String image_code=jObject.getString("img");
-//                        String room_number=jObject.getString("room_number");
-//                        JSONObject detail_jObject = new JSONObject(msg_detail);
-//                        String f_name = detail_jObject.getString("f_name");
-//                        String id = detail_jObject.getString("id");
-//                        String img = detail_jObject.getString("img");
-//                        String time_now = detail_jObject.getString("time_now");
-//                        String msg = detail_jObject.getString("msg");
-//
-//                        String title = f_name;
-//
-//                        CommunityRoomListViewPOJO pojo=new CommunityRoomListViewPOJO();
-//                        pojo.setId(anid);
-//                        pojo.setImg(image_code);
-//                        pojo.setName(title);
-//                        pojo.setMsg(time_now);
-//                        pojo.setTime(msg);
-//                        if(pojo.getId().equals(GlobalInfo.my_profile.getId())){ pojo.setWhere(2);}
-//                        else{pojo.setWhere(1);}
-//
-//                        list.add(pojo);
-//                    }
-//                }
-//
-//                else if(result_code.equals("0001")) Toast.makeText(getApplicationContext(), "입력받은 ID가 없음.", Toast.LENGTH_SHORT).show();
-//                else if(result_code.equals("0002")) Toast.makeText(getApplicationContext(), "채팅방이 없음 왕따쓰.", Toast.LENGTH_SHORT).show();
-//                else{}
-//
-//            } catch (Exception e) {
-//
-//            }
-//        }
-//    });
-//        return list;
 
 }

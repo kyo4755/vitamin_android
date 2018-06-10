@@ -49,6 +49,13 @@
         <activity android:name=".UIActivity.CommentActivity">
 
         </activity>
+
+        <activity android:name=".Notepad.NoteEdit"
+            android:windowSoftInputMode="adjustUnspecified">
+
+        </activity>
+        <activity android:name=".Notepad.NoteList"></activity>
+
         <service
             android:name=".MyFirebaseMessagingService">
             <intent-filter>

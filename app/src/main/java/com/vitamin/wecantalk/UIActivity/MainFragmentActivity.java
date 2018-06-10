@@ -4,12 +4,26 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.vitamin.wecantalk.Common.Config;
+import com.vitamin.wecantalk.Common.GlobalInfo;
 import com.vitamin.wecantalk.R;
 import com.vitamin.wecantalk.fragment.*;
+
+import org.json.JSONObject;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by JongHwa on 2018-04-13.
@@ -27,6 +41,7 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setToken();
         friends = findViewById(R.id.main_fragment_btn_friends);
         community = findViewById(R.id.main_fragment_btn_community);
         study = findViewById(R.id.main_fragment_btn_study);
@@ -122,5 +137,34 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
 
         btn.setBackgroundColor(getResources().getColor(R.color.white));
         btn.setTextColor(getResources().getColor(R.color.black));
+    }
+
+    private void setToken(){
+        String token = FirebaseInstanceId.getInstance().getToken();
+
+        AQuery aQuery = new AQuery(MainFragmentActivity.this);
+        String token_url = Config.Server_URL + "/users/setToken";
+
+        Map<String, Object> params = new LinkedHashMap<>();
+
+        params.put("id", GlobalInfo.my_profile.getId());
+        params.put("token", token);
+
+        aQuery.ajax(token_url, params, String.class, new AjaxCallback<String>(){
+            @Override
+            public void callback(String url, String result, AjaxStatus status) {
+                try{
+                    JSONObject jsonObject = new JSONObject(result);
+                    String result_code = jsonObject.get("result").toString();
+                    if(result_code.equals("0000")){
+                        Toast.makeText(MainFragmentActivity.this, "토큰전송성공.", Toast.LENGTH_SHORT).show();}
+                    else{
+                        Toast.makeText(MainFragmentActivity.this, "오류.", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e){
+                    Toast.makeText(MainFragmentActivity.this, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
