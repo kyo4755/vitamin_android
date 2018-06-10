@@ -10,12 +10,25 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
+
 import com.vitamin.wecantalk.Adapter.SnsListViewAdapter;
 import com.vitamin.wecantalk.Adapter.StudyBestMatchListViewAdapter;
+import com.vitamin.wecantalk.Common.Config;
+import com.vitamin.wecantalk.POJO.SnsListViewPOJO;
 import com.vitamin.wecantalk.R;
 import com.vitamin.wecantalk.UIActivity.CommentActivity;
 import com.vitamin.wecantalk.UIActivity.FindIdActivity;
+import com.vitamin.wecantalk.UIActivity.MainFragmentActivity;
 import com.vitamin.wecantalk.UIActivity.PostingActivity;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 
 /**
  * Created by JongHwa on 2018-04-13.
@@ -47,8 +60,6 @@ public class FriendsSnsFragment extends Fragment {
         posting = view.findViewById(R.id.sns_posting);
         find = view.findViewById(R.id.sns_find);
 
-
-
         posting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,14 +76,7 @@ public class FriendsSnsFragment extends Fragment {
             }
         });
 
-
-
-
-        listView.setAdapter(adapter);
-        adapter.addItem(getResources().getDrawable(R.drawable.pro), "김관희", "나는 가끔 눈물을 흘린다..", "Hi", getResources().getDrawable(R.drawable.pro));
-        adapter.addItem(getResources().getDrawable(R.drawable.vitamin), "하이루", "나는 가끔 눈물을 흘린다..", "Hasdfasdfsadfasdfsdasadfㄴㅁㅇ람ㄴ어리ㅏㄴㅇㅁ리ㅏ넝미런ㅁ이런ㅇ미러ㅣㄴㅇㅁ러ㅣㄴㅁ어림ㄴ어ㅣ런ㅁ이러님ㅇ러ㅣㅁㄴㄹㅇi", getResources().getDrawable(R.drawable.vitamin));
-
-
         return view;
     }
+
 }

@@ -10,16 +10,23 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.vitamin.wecantalk.Common.Config;
+import com.vitamin.wecantalk.POJO.FriendsListViewPOJO;
 import com.vitamin.wecantalk.POJO.SnsListViewPOJO;
 import com.vitamin.wecantalk.R;
 import com.vitamin.wecantalk.UIActivity.CommentActivity;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 public class SnsListViewAdapter extends BaseAdapter {
 
 
     private ArrayList<SnsListViewPOJO> listViewItemList = new ArrayList<SnsListViewPOJO>();
+
+    public void setArItem(ArrayList<SnsListViewPOJO> arItem) {this.listViewItemList = arItem;}
 
     public SnsListViewAdapter() {
 
@@ -62,6 +69,24 @@ public class SnsListViewAdapter extends BaseAdapter {
             }
         });
 
+        SnsListViewPOJO snsListViewPOJO = listViewItemList.get(position);
+
+        if(snsListViewPOJO.getPofile().equals("null")){
+            sns_image.setVisibility(View.INVISIBLE);
+        }
+        else{
+            String imgStr = Config.Server_URL + "sns/getPhoto?id=" + snsListViewPOJO.getPofile();
+            Glide.with(context)
+                    .load(imgStr)
+                    .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(context))
+                    .into(sns_image);
+        }
+
+        sns_name.setText(snsListViewPOJO.getName());
+        sns_date.setText(snsListViewPOJO.getDate());
+        sns_date.setText(snsListViewPOJO.getContext());
+
         return convertView;
 
     }
@@ -76,15 +101,4 @@ public class SnsListViewAdapter extends BaseAdapter {
         return listViewItemList.get(position);
     }
 
-    public void addItem(Drawable pofile, String name, String date, String context, Drawable image) {
-        SnsListViewPOJO item = new SnsListViewPOJO();
-
-        item.setPofile(pofile);
-        item.setName(name);
-        item.setDate(date);
-        item.setContext(context);
-        item.setImage(image);
-
-        listViewItemList.add(item);
-    }
 }
