@@ -130,7 +130,7 @@ public class FindIdActivity extends AppCompatActivity {
                                 String img = detail_info.getString("image");
                                 findName.setText(name);
 
-                                String imgStr = Config.Server_URL + "user_photo?id=" + img;
+                                String imgStr = Config.Server_URL + "users/getPhoto?id=" + img;
                                 Glide.with(FindIdActivity.this)
                                         .load(imgStr)
                                         .centerCrop()

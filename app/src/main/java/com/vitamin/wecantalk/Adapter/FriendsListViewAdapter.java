@@ -54,7 +54,7 @@ public class FriendsListViewAdapter extends BaseAdapter {
                     .into(iconImageView);
         }
         else{
-            String imgStr = Config.Server_URL + "user_photo?id=" + friendsListViewPOJO.getImage();
+            String imgStr = Config.Server_URL + "users/getPhoto?id=" + friendsListViewPOJO.getImage();
             Glide.with(context)
                     .load(imgStr)
                     .centerCrop()
