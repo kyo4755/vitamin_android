@@ -52,26 +52,26 @@ public class CommunityRoomListViewAdapter extends BaseAdapter{
 
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            if(list.get(i).getWhere() == 1) {
-                view = inflater.inflate(R.layout.prefab_community_room_listview_receive, viewGroup, false);
+                if(list.get(i).getWhere() == 1) {
+                    view = inflater.inflate(R.layout.prefab_community_room_listview_receive, viewGroup, false);
 
-                ImageView img = view.findViewById(R.id.prefab_community_room_receive_img);
-                TextView name = view.findViewById(R.id.prefab_community_room_receive_name);
-                TextView msg = view.findViewById(R.id.prefab_community_room_receive_msg);
-                TextView time = view.findViewById(R.id.prefab_community_room_receive_time);
+                    ImageView img = view.findViewById(R.id.prefab_community_room_receive_img);
+                    TextView name = view.findViewById(R.id.prefab_community_room_receive_name);
+                    TextView msg = view.findViewById(R.id.prefab_community_room_receive_msg);
+                    TextView time = view.findViewById(R.id.prefab_community_room_receive_time);
 
-                String imgStr = Config.Server_URL + "users/getPhoto?id=" + list.get(i).getImg();
-                Glide.with(mContext)
-                        .load(imgStr)
-                        .centerCrop()
-                        .bitmapTransform(new CropCircleTransformation(mContext))
-                        .skipMemoryCache(true)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .error(R.drawable.default_user)
-                        .into(img);
+                    String imgStr = Config.Server_URL + "users/getPhoto?id=" + list.get(i).getImg();
+                    Glide.with(mContext)
+                            .load(imgStr)
+                            .centerCrop()
+                            .bitmapTransform(new CropCircleTransformation(mContext))
+                            .skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                            .error(R.drawable.default_user)
+                            .into(img);
 
-                name.setText(list.get(i).getName());
-                msg.setText(list.get(i).getMsg());
+                    name.setText(list.get(i).getName());
+                    msg.setText(list.get(i).getMsg());
                 time.setText(list.get(i).getTime());
             }
             else{

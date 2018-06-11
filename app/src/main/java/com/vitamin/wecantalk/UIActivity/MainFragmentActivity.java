@@ -141,6 +141,7 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
 
     private void setToken(){
         String token = FirebaseInstanceId.getInstance().getToken();
+        System.out.print("token value : " + token);
 
         AQuery aQuery = new AQuery(MainFragmentActivity.this);
         String token_url = Config.Server_URL + "users/setToken";

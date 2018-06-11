@@ -62,7 +62,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:id="@+id/community_room_send_button"
-            android:background="@drawable/send"/>
+            android:background="@drawable/send" />
 
     </LinearLayout>
 

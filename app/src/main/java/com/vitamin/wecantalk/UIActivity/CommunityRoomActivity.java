@@ -1,5 +1,6 @@
 package com.vitamin.wecantalk.UIActivity;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -36,6 +38,7 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -73,14 +76,16 @@ public class CommunityRoomActivity extends AppCompatActivity {
         listView.setDivider(null);
         adapter = new CommunityRoomListViewAdapter(createPOJO());
         listView.setAdapter(adapter);
+        //listView.scrollTo();
+        //listView.setTranscriptMode(listView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 
         sendBtn = findViewById(R.id.community_room_send_button);
         userMsg = findViewById(R.id.community_room_edittext);
+
         titleName = findViewById(R.id.community_room_name_title);
         titleName.setText(name);
 
         BroadcastReceiver mBroadcastReceiver=null;
-
 
         backBtn = findViewById(R.id.community_room_back_button);
 
@@ -95,7 +100,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String userSendMsg = userMsg.getText().toString();
+                final String userSendMsg = userMsg.getText().toString();
                 if (userSendMsg.length() != 0) {
 
                     AQuery aQuery = new AQuery(CommunityRoomActivity.this);
@@ -105,9 +110,10 @@ public class CommunityRoomActivity extends AppCompatActivity {
 
                     params.put("room_num", room_number);
                     params.put("myid", GlobalInfo.my_profile.getId());
-                    params.put("msg", userMsg.getText());
-                    params.put("date", new SimpleDateFormat("yyyy/MM/dd/HH:mm:ss").format(new Date(System.currentTimeMillis())));
+                    params.put("msg", userSendMsg);
 
+                    final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(System.currentTimeMillis()));
+                    params.put("date", date);
 
                     aQuery.ajax(chattings_send_url, params, String.class, new AjaxCallback<String>() {
                         @Override
@@ -117,6 +123,22 @@ public class CommunityRoomActivity extends AppCompatActivity {
                                 JSONObject jsonObject = new JSONObject(result);
                                 String result_code = jsonObject.get("result").toString();
                                 if (result_code.equals("0000")) {
+                                    CommunityRoomListViewPOJO pojo=new CommunityRoomListViewPOJO();
+                                    pojo.setId(GlobalInfo.my_profile.getId());
+                                    pojo.setName(GlobalInfo.my_profile.getName());
+                                    pojo.setImg(GlobalInfo.my_profile.getImage());
+                                    pojo.setMsg(userSendMsg);
+                                    pojo.setWhere(2);
+
+                                    SimpleDateFormat original_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                                    SimpleDateFormat cut_format = new SimpleDateFormat("HH:mm");
+                                    Date origin_date = original_format.parse(date);
+                                    String new_date = cut_format.format(origin_date);
+                                    pojo.setTime(new_date);
+
+                                    adapter.addList(pojo);
+                                    listView.smoothScrollToPosition(adapter.getCount());
+                                    //listView.setTranscriptMode(ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
                                 } else {
                                     Toast.makeText(getApplicationContext(), "오류.", Toast.LENGTH_SHORT).show();
                                 }
@@ -128,7 +150,6 @@ public class CommunityRoomActivity extends AppCompatActivity {
                     });
                     userMsg.setText("");
                 }
-
             }
         });
 
@@ -138,7 +159,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
             public void onReceive(Context context, Intent intent) {
                 Intent it = getIntent();
                 String data = it.getStringExtra("data");
-
+                System.out.print(data);
                 JSONObject jsonObject = null;
                 try {
                     jsonObject = new JSONObject(data);
@@ -167,6 +188,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
                     else{pojo.setWhere(1);}
 
                     adapter.addList(pojo);
+                    listView.smoothScrollToPosition(adapter.getCount());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -238,5 +260,14 @@ public class CommunityRoomActivity extends AppCompatActivity {
         return list;
 
     }
+//
+//    class AscendingObj implements Comparator<CommunityRoomListViewPOJO>{
+//
+//        @Override
+//        public int compare(CommunityRoomListViewPOJO o1, CommunityRoomListViewPOJO o2) {
+//
+//            return o1.getTime().compareTo()
+//        }
+//    }
 
 }

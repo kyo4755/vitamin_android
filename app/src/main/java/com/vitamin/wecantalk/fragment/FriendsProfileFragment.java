@@ -110,7 +110,6 @@ public class FriendsProfileFragment extends BlurDialogFragment {
                 }
                 member=member.substring(0, member.length()-1);
                 params.put("member", member);
-                Log.d("asdf","member값 : "+member);
 
                 final String finalMember = member;
                 aQuery.ajax(chattings_open_url, params, String.class, new AjaxCallback<String>() {
