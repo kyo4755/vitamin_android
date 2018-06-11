@@ -85,7 +85,7 @@ public class SnsListViewAdapter extends BaseAdapter {
             Glide.with(context)
                     .load(imgCon)
                     .centerCrop()
-                    .bitmapTransform(new CropCircleTransformation(context))
+                    //.bitmapTransform(new CropCircleTransformation(context))
                     .into(sns_image);
 
 

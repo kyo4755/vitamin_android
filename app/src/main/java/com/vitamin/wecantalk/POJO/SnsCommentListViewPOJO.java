@@ -8,41 +8,49 @@ import android.graphics.drawable.Drawable;
 
 public class SnsCommentListViewPOJO {
 
+    private String comment_id;
+    private String comment_name;
+    private String comment_user_image;
+    private String comment_date;
+    private String comment_msg;
 
-    private Drawable pofile;
-    private String date;
-    private String name;
-    private String context;
-
-    public Drawable getPofile() {
-        return pofile;
+    public String getComment_id() {
+        return comment_id;
     }
 
-    public void setPofile(Drawable pofile) {
-        this.pofile = pofile;
+    public void setComment_id(String comment_id) {
+        this.comment_id = comment_id;
     }
 
-    public String getDate() {
-        return date;
+    public String getComment_name() {
+        return comment_name;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setComment_name(String comment_name) {
+        this.comment_name = comment_name;
     }
 
-    public String getName() {
-        return name;
+    public String getComment_user_image() {
+        return comment_user_image;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setComment_user_image(String comment_user_image) {
+        this.comment_user_image = comment_user_image;
     }
 
-    public String getContext() {
-        return context;
+    public String getComment_date() {
+        return comment_date;
     }
 
-    public void setContext(String context) {
-        this.context = context;
+    public void setComment_date(String comment_date) {
+        this.comment_date = comment_date;
+    }
+
+    public String getComment_msg() {
+        return comment_msg;
+    }
+
+    public void setComment_msg(String comment_msg) {
+        this.comment_msg = comment_msg;
     }
 }
