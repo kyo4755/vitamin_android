@@ -24,17 +24,19 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class SnsListViewAdapter extends BaseAdapter {
 
 
-    private ArrayList<SnsListViewPOJO> listViewItemList = new ArrayList<SnsListViewPOJO>();
+    private ArrayList<SnsListViewPOJO> listViewItemSns = new ArrayList<SnsListViewPOJO>();
 
-    public void setArItem(ArrayList<SnsListViewPOJO> arItem) {this.listViewItemList = arItem;}
+    public void setArItem(ArrayList<SnsListViewPOJO> listViewItemSns) {this.listViewItemSns = listViewItemSns;}
 
     public SnsListViewAdapter() {
-
+//        listViewItemSns = "";
     }
+
+
 
     @Override
     public int getCount() {
-        return listViewItemList.size();
+        return listViewItemSns.size();
     }
 
     @Override
@@ -52,7 +54,7 @@ public class SnsListViewAdapter extends BaseAdapter {
         TextView sns_context = convertView.findViewById(R.id.sns_context);
         ImageView sns_image = convertView.findViewById(R.id.sns_image);
 
-        SnsListViewPOJO listViewItem = listViewItemList.get(position);
+        SnsListViewPOJO listViewItem = listViewItemSns.get(position);
 
         sns_profile.setImageDrawable(listViewItem.getPofile());
         sns_name.setText(listViewItem.getName());
@@ -61,6 +63,7 @@ public class SnsListViewAdapter extends BaseAdapter {
         sns_image.setImageDrawable(listViewItem.getImage());
 
         ImageView sns_comment = convertView.findViewById(R.id.sns_comment);
+
         sns_comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,15 +72,22 @@ public class SnsListViewAdapter extends BaseAdapter {
             }
         });
 
-        SnsListViewPOJO snsListViewPOJO = listViewItemList.get(position);
+        SnsListViewPOJO snsListViewPOJO = listViewItemSns.get(position);
 
         if(snsListViewPOJO.getPofile().equals("null")){
             sns_image.setVisibility(View.INVISIBLE);
         }
         else{
-            String imgStr = Config.Server_URL + "sns/getPhoto?id=" + snsListViewPOJO.getPofile();
+            String imgPro = Config.Server_URL + "users/getPhoto?id=" + snsListViewPOJO.getName();
             Glide.with(context)
-                    .load(imgStr)
+                    .load(imgPro)
+                    .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(context))
+                    .into(sns_profile);
+
+            String imgCon = Config.Server_URL + "sns/getPhoto?id=" + snsListViewPOJO.getImage();
+            Glide.with(context)
+                    .load(imgCon)
                     .centerCrop()
                     .bitmapTransform(new CropCircleTransformation(context))
                     .into(sns_image);
@@ -85,7 +95,7 @@ public class SnsListViewAdapter extends BaseAdapter {
 
         sns_name.setText(snsListViewPOJO.getName());
         sns_date.setText(snsListViewPOJO.getDate());
-        sns_date.setText(snsListViewPOJO.getContext());
+        sns_context.setText(snsListViewPOJO.getContext());
 
         return convertView;
 
@@ -98,7 +108,7 @@ public class SnsListViewAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return listViewItemList.get(position);
+        return listViewItemSns.get(position);
     }
 
 }

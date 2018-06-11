@@ -37,8 +37,6 @@ dependencies {
     implementation 'fr.tvbarthel.blurdialogfragment:lib:2.2.0'
     implementation 'com.googlecode.android-query:android-query:0.25.9'
     implementation 'com.airbnb.android:lottie:2.1.0'
-
-
     implementation 'com.google.firebase:firebase-messaging:11.0.4'
     implementation 'com.google.firebase:firebase-database:11.0.4'
 

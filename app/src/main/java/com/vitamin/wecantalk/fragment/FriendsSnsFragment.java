@@ -1,6 +1,7 @@
 package com.vitamin.wecantalk.fragment;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
  */
 
 public class FriendsSnsFragment extends Fragment {
+    Context context;
 
     ListView listView;
     SnsListViewAdapter adapter;
@@ -52,6 +54,7 @@ public class FriendsSnsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        context = container.getContext();
         View view = inflater.inflate(R.layout.fragment_sns, null);
 
         listView = view.findViewById(R.id.sns_listview);
@@ -59,6 +62,8 @@ public class FriendsSnsFragment extends Fragment {
 
         posting = view.findViewById(R.id.sns_posting);
         find = view.findViewById(R.id.sns_find);
+
+        listView.setAdapter(adapter);
 
         posting.setOnClickListener(new View.OnClickListener() {
             @Override

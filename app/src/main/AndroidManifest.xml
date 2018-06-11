@@ -50,11 +50,26 @@
 
         </activity>
 
-        <activity android:name=".Notepad.NoteEdit"
-            android:windowSoftInputMode="adjustUnspecified">
+        <activity
+            android:name="com.vitamin.wecantalk.Notepad.NoteList"
+            android:label="@string/app_name"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
-        <activity android:name=".Notepad.NoteList"></activity>
+
+
+
+        <activity android:name=".Notepad.NoteEdit"
+            android:windowSoftInputMode="adjustUnspecified"
+            android:label="@string/app_name">
+
+        </activity>
+
 
         <service
             android:name=".MyFirebaseMessagingService">

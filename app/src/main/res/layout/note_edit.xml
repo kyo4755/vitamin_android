@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="#FFF9C8">
+	android:background="#FFF9C8"	>
 	        
 	<RelativeLayout
 	    android:id="@+id/toplayout"
@@ -44,9 +44,8 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:layout_below="@+id/toplayout"
-
+        class="com.vitamin.wecantalk.Notepad.NoteEdit$LineEditText"
 	    android:background="@android:color/transparent"
-	    android:capitalize="sentences"
 	    android:fadingEdge="vertical"
 	    android:gravity="top"
 	    android:padding="5dp"
