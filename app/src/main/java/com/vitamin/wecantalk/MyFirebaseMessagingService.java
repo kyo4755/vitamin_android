@@ -85,7 +85,7 @@ public class MyFirebaseMessagingService extends com.google.firebase.messaging.Fi
     public void broadcastIntent(String messageBody){
         Intent intent = new Intent();
         intent.setAction("CUSTOM_EVENT");
-        intent.putExtra("data",messageBody);
+        intent.putExtra("data", messageBody);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 }
