@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.vitamin.wecantalk.Common.Config;
+import com.vitamin.wecantalk.POJO.CommunityListViewPOJO;
 import com.vitamin.wecantalk.POJO.FriendsListViewPOJO;
 import com.vitamin.wecantalk.POJO.SnsListViewPOJO;
 import com.vitamin.wecantalk.R;
@@ -29,10 +30,8 @@ public class SnsListViewAdapter extends BaseAdapter {
     public void setArItem(ArrayList<SnsListViewPOJO> listViewItemSns) {this.listViewItemSns = listViewItemSns;}
 
     public SnsListViewAdapter() {
-//        listViewItemSns = "";
+        listViewItemSns = new ArrayList<SnsListViewPOJO>();
     }
-
-
 
     @Override
     public int getCount() {
@@ -48,19 +47,16 @@ public class SnsListViewAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.prefab_sns_listview, parent, false);
         }
-        ImageView sns_profile = convertView.findViewById(R.id.sns_profile);
+
         TextView sns_name = convertView.findViewById(R.id.sns_name);
         TextView sns_date = convertView.findViewById(R.id.sns_date);
         TextView sns_context = convertView.findViewById(R.id.sns_context);
         ImageView sns_image = convertView.findViewById(R.id.sns_image);
+        ImageView sns_profile = convertView.findViewById(R.id.sns_profile);
 
         SnsListViewPOJO listViewItem = listViewItemSns.get(position);
 
-        sns_profile.setImageDrawable(listViewItem.getPofile());
-        sns_name.setText(listViewItem.getName());
-        sns_date.setText(listViewItem.getDate());
-        sns_context.setText(listViewItem.getContext());
-        sns_image.setImageDrawable(listViewItem.getImage());
+
 
         ImageView sns_comment = convertView.findViewById(R.id.sns_comment);
 
@@ -74,28 +70,35 @@ public class SnsListViewAdapter extends BaseAdapter {
 
         SnsListViewPOJO snsListViewPOJO = listViewItemSns.get(position);
 
-        if(snsListViewPOJO.getPofile().equals("null")){
+        if(snsListViewPOJO.getUser_image().equals("null")){
             sns_image.setVisibility(View.INVISIBLE);
         }
         else{
-            String imgPro = Config.Server_URL + "users/getPhoto?id=" + snsListViewPOJO.getName();
+            String imgPro = Config.Server_URL + "users/getPhoto?id=" + snsListViewPOJO.getUser_image();
             Glide.with(context)
                     .load(imgPro)
                     .centerCrop()
                     .bitmapTransform(new CropCircleTransformation(context))
                     .into(sns_profile);
 
-            String imgCon = Config.Server_URL + "sns/getPhoto?id=" + snsListViewPOJO.getImage();
+            String imgCon = Config.Server_URL + "sns/getPhoto?id=" + snsListViewPOJO.getContent_image();
             Glide.with(context)
                     .load(imgCon)
                     .centerCrop()
                     .bitmapTransform(new CropCircleTransformation(context))
                     .into(sns_image);
+
+
+
         }
 
-        sns_name.setText(snsListViewPOJO.getName());
-        sns_date.setText(snsListViewPOJO.getDate());
-        sns_context.setText(snsListViewPOJO.getContext());
+        sns_name.setText(listViewItem.getName());
+        sns_date.setText(listViewItem.getDate());
+        sns_context.setText(listViewItem.getContent_text());
+
+
+
+
 
         return convertView;
 
@@ -110,5 +113,11 @@ public class SnsListViewAdapter extends BaseAdapter {
     public Object getItem(int position) {
         return listViewItemSns.get(position);
     }
+
+    public void addItem(SnsListViewPOJO pojo){
+        listViewItemSns.add(pojo);
+        notifyDataSetChanged();
+    }
+
 
 }
