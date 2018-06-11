@@ -74,10 +74,10 @@ public class CommunityRoomActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.community_room_listview);
         listView.setDivider(null);
-        adapter = new CommunityRoomListViewAdapter(createPOJO());
+        adapter = new CommunityRoomListViewAdapter();
         listView.setAdapter(adapter);
         //listView.scrollTo();
-        //listView.setTranscriptMode(listView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
+        listView.setTranscriptMode(listView.TRANSCRIPT_MODE_ALWAYS_SCROLL);
 
         sendBtn = findViewById(R.id.community_room_send_button);
         userMsg = findViewById(R.id.community_room_edittext);
@@ -153,6 +153,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
                 }
             }
         });
+        createPOJO();
 
         //IntentFilter intentFilter = new IntentFilter("CUSTOM_EVENT");
         IntentFilter intentFilter = new IntentFilter();
@@ -162,9 +163,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
         //registerReceiver(mReceiver, intentFilter);
     }
 
-    private ArrayList<CommunityRoomListViewPOJO> createPOJO(){
-        final ArrayList<CommunityRoomListViewPOJO> list = new ArrayList<>();
-
+    private void createPOJO(){
         AQuery aQuery = new AQuery(getApplicationContext());
         String chattings_load_url = Config.Server_URL + "chattings/load";
 
@@ -175,14 +174,14 @@ public class CommunityRoomActivity extends AppCompatActivity {
         aQuery.ajax(chattings_load_url, params, String.class, new AjaxCallback<String>() {
             @Override
             public void callback(String url, String result, AjaxStatus status) {
-
                 try {
-
                     JSONObject jsonObject = new JSONObject(result);
                     String result_code = jsonObject.get("result").toString();
                     if (result_code.equals("0000")) {
                         Toast.makeText(getApplicationContext(), "정상.", Toast.LENGTH_SHORT).show();
                         JSONArray jsonArray = new JSONArray(jsonObject.get("chat_load").toString());
+                        ArrayList<CommunityRoomListViewPOJO> list = new ArrayList<>();
+
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jObject = jsonArray.getJSONObject(i);
                             String id = jObject.getString("id");
@@ -210,7 +209,9 @@ public class CommunityRoomActivity extends AppCompatActivity {
                             else{pojo.setWhere(1);}
 
                             list.add(pojo);
+                            Log.e("LISTVIEW_TEST",pojo.getMsg());
                         }
+                        adapter.addAllList(list);
                     }
 
                     else if(result_code.equals("0001")) Toast.makeText(getApplicationContext(), "0001에러", Toast.LENGTH_SHORT).show();
@@ -222,7 +223,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
                 }
             }
         });
-        return list;
+
 
     }
 //

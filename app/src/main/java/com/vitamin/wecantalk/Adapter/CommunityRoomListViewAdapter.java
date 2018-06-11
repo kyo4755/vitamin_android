@@ -27,8 +27,11 @@ public class CommunityRoomListViewAdapter extends BaseAdapter{
 
     private ArrayList<CommunityRoomListViewPOJO> list;
 
-    public CommunityRoomListViewAdapter(ArrayList<CommunityRoomListViewPOJO> list){
-        this.list = list;
+//    public CommunityRoomListViewAdapter(ArrayList<CommunityRoomListViewPOJO> list){
+//        this.list = list;
+//    }
+    public CommunityRoomListViewAdapter(){
+        list=new ArrayList<>();
     }
 
     @Override
@@ -92,7 +95,8 @@ public class CommunityRoomListViewAdapter extends BaseAdapter{
         notifyDataSetChanged();
     }
 
-    public void firebaseAddList(CommunityRoomListViewPOJO pojo){
-        list.add(pojo);
+    public void addAllList(ArrayList<CommunityRoomListViewPOJO> list){
+        this.list=list;
     }
+
 }
