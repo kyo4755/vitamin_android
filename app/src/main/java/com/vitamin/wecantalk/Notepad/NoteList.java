@@ -60,11 +60,7 @@ public class NoteList extends ListActivity {
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(NoteList.this);
                 dialog.setTitle("About");
-                dialog.setMessage("Hello! I'm Heng, the creator of this application. This application is created based on learning." +
-                        " Used it on trading or any others activity that is related to business is strictly forbidden."
-                        +"If there is any bug is found please freely e-mail me. "+
-                        "\n\tedisonthk@gmail.com"
-                );
+                dialog.setMessage("Hi");
                 dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
                     @Override
