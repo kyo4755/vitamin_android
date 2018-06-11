@@ -85,7 +85,8 @@ public class CommunityRoomActivity extends AppCompatActivity {
         titleName = findViewById(R.id.community_room_name_title);
         titleName.setText(name);
 
-        BroadcastReceiver mBroadcastReceiver=null;
+        //BroadcastReceiver mReceiver=null;
+        LocalBroadCastReceiver mReceiver = null;
 
         backBtn = findViewById(R.id.community_room_back_button);
 
@@ -153,48 +154,12 @@ public class CommunityRoomActivity extends AppCompatActivity {
             }
         });
 
-        IntentFilter intentFilter = new IntentFilter("CUSTOM_EVENT");
-        mBroadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                Intent it = getIntent();
-                String data = it.getStringExtra("data");
-                System.out.print(data);
-                JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(data);
-                    String id = jsonObject.getString("id");
-                    String date = jsonObject.getString("date");
-                    String msg = jsonObject.getString("msg");
-                    String name = jsonObject.getString("name");
-                    String img = jsonObject.getString("image");
-
-                    CommunityRoomListViewPOJO pojo=new CommunityRoomListViewPOJO();
-                    pojo.setId(id);
-                    pojo.setName(name);
-                    pojo.setImg(img);
-                    pojo.setMsg(msg);
-                    try{
-                        SimpleDateFormat original_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        SimpleDateFormat cut_format = new SimpleDateFormat("HH:mm");
-                        Date origin_date = original_format.parse(date);
-                        String new_date = cut_format.format(origin_date);
-                        pojo.setTime(new_date);
-                    }
-                    catch (ParseException e){
-
-                    }
-                    if(pojo.getId().equals(GlobalInfo.my_profile.getId())){ pojo.setWhere(2);}
-                    else{pojo.setWhere(1);}
-
-                    adapter.addList(pojo);
-                    listView.smoothScrollToPosition(adapter.getCount());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-        registerReceiver(mBroadcastReceiver, intentFilter);
+        //IntentFilter intentFilter = new IntentFilter("CUSTOM_EVENT");
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("CUSTOM_EVENT");
+        mReceiver = new LocalBroadCastReceiver();
+        LocalBroadcastManager.getInstance(this).registerReceiver(mReceiver, intentFilter);
+        //registerReceiver(mReceiver, intentFilter);
     }
 
     private ArrayList<CommunityRoomListViewPOJO> createPOJO(){
@@ -269,5 +234,49 @@ public class CommunityRoomActivity extends AppCompatActivity {
 //            return o1.getTime().compareTo()
 //        }
 //    }
+
+    public class LocalBroadCastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String data = intent.getStringExtra("data");
+            Log.e("getData", "data : " + data);
+            try {
+                JSONObject jsonObject = new JSONObject(data);
+                String id = jsonObject.getString("id");
+                String date = jsonObject.getString("date");
+                String msg = jsonObject.getString("msg");
+                String name = jsonObject.getString("name");
+                String img = jsonObject.getString("image");
+
+                CommunityRoomListViewPOJO pojo=new CommunityRoomListViewPOJO();
+                pojo.setId(id);
+                Log.e("getData",id);
+                pojo.setName(name);
+                Log.e("getData",name);
+                pojo.setImg(img);
+                Log.e("getData",img);
+                pojo.setMsg(msg);
+                Log.e("getData",msg);
+                try{
+                    SimpleDateFormat original_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    SimpleDateFormat cut_format = new SimpleDateFormat("HH:mm");
+                    Date origin_date = original_format.parse(date);
+                    String new_date = cut_format.format(origin_date);
+                    pojo.setTime(new_date);
+                }
+                catch (ParseException e){
+
+                }
+                if(pojo.getId().equals(GlobalInfo.my_profile.getId())){ pojo.setWhere(2);}
+                else{pojo.setWhere(1);}
+
+                adapter.addList(pojo);
+                listView.smoothScrollToPosition(adapter.getCount());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 }
