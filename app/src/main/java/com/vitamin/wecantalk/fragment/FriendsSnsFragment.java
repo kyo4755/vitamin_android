@@ -90,7 +90,7 @@ public class FriendsSnsFragment extends Fragment {
                 startActivity(it);
             }
         });
-
+        snscreatePOJO();
         return view;
     }
 
@@ -105,7 +105,7 @@ public class FriendsSnsFragment extends Fragment {
         Map<String, Object> params = new LinkedHashMap<>();
 
         params.put("startNum", 1);
-        params.put("endNum",10);
+        params.put("endNum", 10);
 
 
         aQuery.ajax(sns_list_url, params, String.class, new AjaxCallback<String>() {
