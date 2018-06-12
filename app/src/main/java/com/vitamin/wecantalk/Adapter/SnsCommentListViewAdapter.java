@@ -3,6 +3,7 @@ package com.vitamin.wecantalk.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,9 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class SnsCommentListViewAdapter extends BaseAdapter {
 
-    private ArrayList<SnsCommentListViewPOJO> listViewItemListComment;
+    private ArrayList<SnsCommentListViewPOJO> listViewItemListComment = new ArrayList<SnsCommentListViewPOJO>();
+
+    public void setArItem(ArrayList<SnsCommentListViewPOJO> listViewItemListComment) {this.listViewItemListComment = listViewItemListComment;}
 
     public SnsCommentListViewAdapter() {
         listViewItemListComment = new ArrayList<SnsCommentListViewPOJO>();
@@ -33,6 +36,8 @@ public class SnsCommentListViewAdapter extends BaseAdapter {
     public int getCount() {
         return listViewItemListComment.size();
     }
+
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -44,11 +49,26 @@ public class SnsCommentListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.prefab_sns_comment_listview, parent, false);
         }
 
+        ImageView comment_img = convertView.findViewById(R.id.commentid_img);
         TextView comment_name = convertView.findViewById(R.id.write_name);
         TextView comment_date = convertView.findViewById(R.id.write_time);
         TextView comment_msg = convertView.findViewById(R.id.write_content);
 
         SnsCommentListViewPOJO commentlistViewItem = listViewItemListComment.get(position);
+        SnsCommentListViewPOJO snsCommentListViewPOJO = listViewItemListComment.get(position);
+
+        if(snsCommentListViewPOJO.getComment_user_image().equals("null")){
+            comment_img.setVisibility(View.INVISIBLE);
+        }
+        else{
+            String imgPro = Config.Server_URL + "sns/getPhoto?id=" + snsCommentListViewPOJO.getComment_user_image();
+            Glide.with(context)
+                    .load(imgPro)
+                    .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(context))
+                    .into(comment_img);
+
+        }
 
         comment_name.setText(commentlistViewItem.getComment_id());
         comment_date.setText(commentlistViewItem.getComment_date());

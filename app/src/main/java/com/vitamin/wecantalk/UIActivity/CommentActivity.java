@@ -47,13 +47,15 @@ public class CommentActivity extends AppCompatActivity {
     EditText edittext;
     Button input_button;
     TextView userId;
+    ListView listView;
+    SnsCommentListViewAdapter adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sns_comment_layout);
 
-        ListView listView = findViewById(R.id.comment_listview);
-        final SnsCommentListViewAdapter adapter = new SnsCommentListViewAdapter();
+        listView = findViewById(R.id.sns_comment_list);
+        adapter = new SnsCommentListViewAdapter();
         listView.setAdapter(adapter);
 
         userId = findViewById(R.id.comment_userId);
@@ -69,16 +71,24 @@ public class CommentActivity extends AppCompatActivity {
             }
         });
 
+        commentCreatePOJO();
+
+    }
+
+    private void commentCreatePOJO(){
+
         //final ArrayList<CommunityListViewPOJO> list = new ArrayList<>();
 
         AQuery aQuery = new AQuery(this);
-        String sns_list_url = Config.Server_URL + "sns/getCommentList";
+        String sns_comment_list_url = Config.Server_URL + "sns/getCommentList";
 
         Map<String, Object> params = new LinkedHashMap<>();
 
-        params.put("index", 1);
+        Intent it = getIntent();
 
-        aQuery.ajax(sns_list_url, params, String.class, new AjaxCallback<String>() {
+        params.put("index", it.getStringExtra("index"));
+
+        aQuery.ajax(sns_comment_list_url, params, String.class, new AjaxCallback<String>() {
             @Override
             public void callback(String url, String result, AjaxStatus status) {
                 try {
@@ -86,13 +96,13 @@ public class CommentActivity extends AppCompatActivity {
                     String result_code = jsonObject.get("result").toString();
                     if (result_code.equals("0000")) {
                         Toast.makeText(CommentActivity.this, "정상.", Toast.LENGTH_SHORT).show();
-                        String temp_sns = jsonObject.get("sns_list").toString();
-                        JSONArray jsonArray = new JSONArray(jsonObject.get("sns_list").toString());
+                        String temp_sns = jsonObject.get("sns_comment_list").toString();
+                        JSONArray jsonArray = new JSONArray(jsonObject.get("sns_comment_list").toString());
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jObject = jsonArray.getJSONObject(i);
 
                             String id = jObject.getString("id");
-                            String user_name = jObject.getString("user_name");
+                            String user_name = jObject.getString("name");
                             String user_image = jObject.getString("user_image");
                             String date = jObject.getString("date");
                             String comment = jObject.getString("comment");
@@ -111,8 +121,8 @@ public class CommentActivity extends AppCompatActivity {
                         }
                     }
 
-                    else if(result_code.equals("0001")) Toast.makeText(CommentActivity.this, "입력받은 ID가 없음.", Toast.LENGTH_SHORT).show();
-                    else if(result_code.equals("0002")) Toast.makeText(CommentActivity.this, "채팅방이 없음 왕따쓰.", Toast.LENGTH_SHORT).show();
+                    else if(result_code.equals("0001")) Toast.makeText(CommentActivity.this, "0001.", Toast.LENGTH_SHORT).show();
+                    else if(result_code.equals("0002")) Toast.makeText(CommentActivity.this, "0002.", Toast.LENGTH_SHORT).show();
                     else{}
 
                 } catch (Exception e) {
@@ -120,7 +130,9 @@ public class CommentActivity extends AppCompatActivity {
                 }
             }
         });
+
     }
+
 
     private void comment_write() {
 
@@ -141,7 +153,8 @@ public class CommentActivity extends AppCompatActivity {
 
                         Map<String, Object> params = new LinkedHashMap<>();
 
-                        params.put("index", 1);
+                        Intent it = getIntent();
+                        params.put("index",it.getStringExtra("index"));
                         params.put("id", comment_id);
                         params.put("date", comment_date);
                         params.put("msg", comment_edittext);
@@ -154,15 +167,10 @@ public class CommentActivity extends AppCompatActivity {
                                     String result_value = jsonObject.get("result").toString();
 
                                     if (result_value.equals("0000")) {
-                                       /* String imgStr = Config.Server_URL + "users/getPhoto?id=" + image_code;
-                                        GlobalInfo.my_profile.setImage(image_code);
-                                        Glide.with(CommentActivity.this)
-                                                .load(imgStr)
-                                                .centerCrop()
-                                                .bitmapTransform(new CropCircleTransformation(CommentActivity.this))
-                                                .skipMemoryCache(true)
-                                                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                                .into(image);*/
+
+                                        adapter = new SnsCommentListViewAdapter();
+                                        listView.setAdapter(adapter);
+
                                     }
                                     else if(result_value.equals("0001")){Toast.makeText(CommentActivity.this, "0001.", Toast.LENGTH_SHORT).show();}
                                     else if(result_value.equals("0002")){Toast.makeText(CommentActivity.this, "0002.", Toast.LENGTH_SHORT).show();}

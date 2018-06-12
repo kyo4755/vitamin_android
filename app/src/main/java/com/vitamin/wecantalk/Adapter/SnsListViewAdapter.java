@@ -54,7 +54,7 @@ public class SnsListViewAdapter extends BaseAdapter {
         ImageView sns_image = convertView.findViewById(R.id.sns_image);
         ImageView sns_profile = convertView.findViewById(R.id.sns_profile);
 
-        SnsListViewPOJO listViewItem = listViewItemSns.get(position);
+        final SnsListViewPOJO listViewItem = listViewItemSns.get(position);
 
 
 
@@ -64,6 +64,7 @@ public class SnsListViewAdapter extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(context, CommentActivity.class);
+                it.putExtra("index",listViewItem.getIndex());
                 context.startActivity(it);
             }
         });
