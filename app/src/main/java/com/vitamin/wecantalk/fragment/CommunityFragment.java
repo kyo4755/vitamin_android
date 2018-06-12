@@ -87,6 +87,7 @@ public class CommunityFragment extends Fragment {
                 member=member.substring(0, member.length()-1);
                 it.putExtra("member", member);
                 it.putExtra("room_num", pojo.getRoom_number());
+                it.putExtra("title", pojo.getTitle());
 
                 startActivity(it);
             }
@@ -141,12 +142,7 @@ public class CommunityFragment extends Fragment {
             }
         });
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                createPOJO();
-            }
-        }, 500);
+        createPOJO();
 
         return view;
     }
@@ -175,14 +171,11 @@ public class CommunityFragment extends Fragment {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jObject = jsonArray.getJSONObject(i);
                             String room_num = jObject.getString("room_num");
-                            System.out.println(room_num);
                             String date = jObject.getString("date");
-                            System.out.println(date);
                             String msg = jObject.getString("msg");
-                            System.out.println(msg);
                             String friends_detail = jObject.getString("friends_detail");
-                            System.out.println(friends_detail);
 
+                            ArrayList<String> mem = new ArrayList<>();
                             JSONArray jsonArray2 = new JSONArray(friends_detail);
                             for (int j = 0; j < jsonArray2.length(); j++) {
                                 JSONObject jObject2 = jsonArray2.getJSONObject(j);
@@ -192,7 +185,6 @@ public class CommunityFragment extends Fragment {
                                 String f_name = jObject2.getString("name");
                                 String img = jObject2.getString("image");
 
-                                ArrayList<String> mem = new ArrayList<>();
                                 String title = "";
                                 mem.add(f_name);
                                 Collections.sort(mem);

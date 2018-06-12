@@ -14,9 +14,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.messaging.RemoteMessage;
-import com.vitamin.wecantalk.Adapter.CommunityRoomListViewAdapter;
-import com.vitamin.wecantalk.POJO.CommunityRoomListViewPOJO;
-import com.vitamin.wecantalk.UIActivity.CommunityRoomActivity;
 import com.vitamin.wecantalk.UIActivity.MainFragmentActivity;
 
 /**

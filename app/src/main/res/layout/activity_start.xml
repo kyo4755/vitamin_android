@@ -18,7 +18,7 @@
         app:layout_constraintRight_toRightOf="parent"/>
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:id="@+id/start_input_panel"
         android:layout_marginTop="200dp"
