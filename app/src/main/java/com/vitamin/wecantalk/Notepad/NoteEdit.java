@@ -145,11 +145,7 @@ public class NoteEdit extends Activity{
 				/* Here is the introduce about myself */
 				AlertDialog.Builder dialog = new AlertDialog.Builder(NoteEdit.this);
 				dialog.setTitle("About");
-				dialog.setMessage("Hello! I'm Heng, the creator of this application. This application is created for learning." +
-						" Using it on trading or any others activity that is related to business is strictly forbidden."
-						+"If there is any bug is found please freely e-mail me. "+
-						"\n\tedisonthk@gmail.com"
-				);
+				dialog.setMessage("Hi");
 				dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
 					@Override

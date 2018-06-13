@@ -3,6 +3,7 @@ package com.vitamin.wecantalk.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.POJO.SnsCommentListViewPOJO;
 import com.vitamin.wecantalk.POJO.SnsListViewPOJO;
 import com.vitamin.wecantalk.R;
@@ -17,18 +20,24 @@ import com.vitamin.wecantalk.UIActivity.CommentActivity;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 public class SnsCommentListViewAdapter extends BaseAdapter {
 
-    private ArrayList<SnsCommentListViewPOJO> listViewItemList;
+    private ArrayList<SnsCommentListViewPOJO> listViewItemListComment = new ArrayList<SnsCommentListViewPOJO>();
+
+    public void setArItem(ArrayList<SnsCommentListViewPOJO> listViewItemListComment) {this.listViewItemListComment = listViewItemListComment;}
 
     public SnsCommentListViewAdapter() {
-        listViewItemList = new ArrayList<SnsCommentListViewPOJO>();
+        listViewItemListComment = new ArrayList<SnsCommentListViewPOJO>();
     }
 
     @Override
     public int getCount() {
-        return listViewItemList.size();
+        return listViewItemListComment.size();
     }
+
+
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -40,18 +49,30 @@ public class SnsCommentListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.prefab_sns_comment_listview, parent, false);
         }
 
-        ImageView sns_profile = convertView.findViewById(R.id.commentid_img);
-        TextView sns_name = convertView.findViewById(R.id.write_name);
-        TextView sns_date = convertView.findViewById(R.id.write_time);
-        TextView sns_context = convertView.findViewById(R.id.write_content);
+        ImageView comment_img = convertView.findViewById(R.id.commentid_img);
+        TextView comment_name = convertView.findViewById(R.id.write_name);
+        TextView comment_date = convertView.findViewById(R.id.write_time);
+        TextView comment_msg = convertView.findViewById(R.id.write_content);
 
-        SnsCommentListViewPOJO listViewItem = listViewItemList.get(position);
+        SnsCommentListViewPOJO commentlistViewItem = listViewItemListComment.get(position);
+        SnsCommentListViewPOJO snsCommentListViewPOJO = listViewItemListComment.get(position);
 
-        sns_profile.setImageDrawable(listViewItem.getPofile());
-        sns_name.setText(listViewItem.getName());
-        sns_date.setText(listViewItem.getDate());
-        sns_context.setText(listViewItem.getContext());
+        if(snsCommentListViewPOJO.getComment_user_image().equals("null")){
+            comment_img.setVisibility(View.INVISIBLE);
+        }
+        else{
+            String imgPro = Config.Server_URL + "sns/getPhoto?id=" + snsCommentListViewPOJO.getComment_user_image();
+            Glide.with(context)
+                    .load(imgPro)
+                    .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(context))
+                    .into(comment_img);
 
+        }
+
+        comment_name.setText(commentlistViewItem.getComment_id());
+        comment_date.setText(commentlistViewItem.getComment_date());
+        comment_msg.setText(commentlistViewItem.getComment_msg());
 
         return convertView;
 
@@ -64,17 +85,11 @@ public class SnsCommentListViewAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return listViewItemList.get(position);
+        return listViewItemListComment.get(position);
     }
 
-    public void addItem(Drawable pofile, String name, String date, String context) {
-        SnsCommentListViewPOJO item = new SnsCommentListViewPOJO();
-
-        item.setPofile(pofile);
-        item.setName(name);
-        item.setDate(date);
-        item.setContext(context);
-
-        listViewItemList.add(item);
+    public void addItem(SnsCommentListViewPOJO pojo){
+        listViewItemListComment.add(pojo);
+        notifyDataSetChanged();
     }
 }

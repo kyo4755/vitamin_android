@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -55,7 +55,7 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:id="@+id/sns_image"
         android:layout_marginTop="5dp"
         android:layout_weight="1"
@@ -92,6 +92,12 @@
         android:padding="5dp"
         android:background="@drawable/rectangle_white">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/comment_userId"
+            android:visibility="gone"/>
+
         <EditText
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -104,12 +110,12 @@
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:id="@+id/commnet_input_button"
+            android:id="@+id/comment_input_button"
             android:background="@drawable/send"/>
 
     </LinearLayout>
     <ListView
-        android:id="@+id/comment_listview"
+        android:id="@+id/sns_comment_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </ListView>

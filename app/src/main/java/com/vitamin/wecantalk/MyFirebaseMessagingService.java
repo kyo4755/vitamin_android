@@ -14,9 +14,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.firebase.messaging.RemoteMessage;
-import com.vitamin.wecantalk.Adapter.CommunityRoomListViewAdapter;
-import com.vitamin.wecantalk.POJO.CommunityRoomListViewPOJO;
-import com.vitamin.wecantalk.UIActivity.CommunityRoomActivity;
 import com.vitamin.wecantalk.UIActivity.MainFragmentActivity;
 
 /**
@@ -85,7 +82,7 @@ public class MyFirebaseMessagingService extends com.google.firebase.messaging.Fi
     public void broadcastIntent(String messageBody){
         Intent intent = new Intent();
         intent.setAction("CUSTOM_EVENT");
-        intent.putExtra("data",messageBody);
+        intent.putExtra("data", messageBody);
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 }

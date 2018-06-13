@@ -9,18 +9,31 @@ import android.graphics.drawable.Drawable;
 public class SnsListViewPOJO {
 
 
-    private Drawable pofile;
+    private String id;
+    private String user_image;
     private String date;
-    private Drawable image;
     private String name;
-    private String context;
+    private String content_text;
+    private String content_image;
+    private String comment_count;
+    private String index;
+    private String prefer_language;
 
-    public Drawable getPofile() {
-        return pofile;
+
+    public String getId() {
+        return id;
     }
 
-    public void setPofile(Drawable pofile) {
-        this.pofile = pofile;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUser_image() {
+        return user_image;
+    }
+
+    public void setUser_image(String user_image) {
+        this.user_image = user_image;
     }
 
     public String getDate() {
@@ -31,14 +44,6 @@ public class SnsListViewPOJO {
         this.date = date;
     }
 
-    public Drawable getImage() {
-        return image;
-    }
-
-    public void setImage(Drawable image) {
-        this.image = image;
-    }
-
     public String getName() {
         return name;
     }
@@ -47,11 +52,45 @@ public class SnsListViewPOJO {
         this.name = name;
     }
 
-    public String getContext() {
-        return context;
+    public String getContent_text() {
+        return content_text;
     }
 
-    public void setContext(String context) {
-        this.context = context;
+    public void setContent_text(String content_text) {
+        this.content_text = content_text;
     }
+
+    public String getContent_image() {
+        return content_image;
+    }
+
+    public void setContent_image(String content_image) {
+        this.content_image = content_image;
+    }
+
+    public String getComment_count() {
+        return comment_count;
+    }
+
+    public void setComment_count(String comment_count) {
+        this.comment_count = comment_count;
+    }
+
+    public String getIndex() {
+        return index;
+    }
+
+    public void setIndex(String index) {
+        this.index = index;
+    }
+
+    public String getPrefer_language() {
+        return prefer_language;
+    }
+
+    public void setPrefer_language(String prefer_language) {
+        this.prefer_language = prefer_language;
+    }
+
+
 }

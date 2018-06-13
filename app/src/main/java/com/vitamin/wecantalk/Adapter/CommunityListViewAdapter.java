@@ -16,7 +16,10 @@ import com.vitamin.wecantalk.POJO.CommunityListViewPOJO;
 import com.vitamin.wecantalk.R;
 
 import java.io.ByteArrayOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -67,7 +70,7 @@ public class CommunityListViewAdapter extends BaseAdapter {
 
         String imgURL = Config.Server_URL + "users/getPhoto?id=" + image_code;
 
-        if(image_code==null){
+        if(image_code.equals("null")){
             Glide.with(mContext)
                     .load(R.drawable.default_user)
                     .centerCrop()
@@ -83,7 +86,16 @@ public class CommunityListViewAdapter extends BaseAdapter {
 
         room_title.setText(communityListViewPOJO.getTitle());
         recent_msg.setText(list.get(i).getRecent_msg());
-        recent_time.setText(list.get(i).getRecent_time());
+
+        try {
+            SimpleDateFormat original_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat cut_format = new SimpleDateFormat("HH:mm");
+            Date origin_date = original_format.parse(list.get(i).getRecent_time());
+            String new_date = cut_format.format(origin_date);
+            recent_time.setText(new_date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         return view;
     }
