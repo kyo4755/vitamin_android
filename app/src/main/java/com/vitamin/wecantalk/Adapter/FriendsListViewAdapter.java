@@ -23,7 +23,7 @@ public class FriendsListViewAdapter extends BaseAdapter {
     private ArrayList<FriendsListViewPOJO> listViewItemList = new ArrayList<FriendsListViewPOJO>();
 
     public FriendsListViewAdapter(){
-        listViewItemList = GlobalInfo.friends_list;
+        listViewItemList = new ArrayList<>();
     }
 
     @Override
@@ -80,6 +80,11 @@ public class FriendsListViewAdapter extends BaseAdapter {
     @Override
     public Object getItem(int position){
         return listViewItemList.get(position);
+    }
+
+    public void setList(ArrayList<FriendsListViewPOJO> list){
+        this.listViewItemList = list;
+        notifyDataSetChanged();
     }
 
 }

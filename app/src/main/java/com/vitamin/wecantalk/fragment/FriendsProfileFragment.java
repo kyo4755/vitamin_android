@@ -3,6 +3,7 @@ package com.vitamin.wecantalk.fragment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -10,16 +11,21 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
 import com.vitamin.wecantalk.POJO.FriendsListViewPOJO;
 import com.vitamin.wecantalk.R;
 import com.vitamin.wecantalk.UIActivity.CommunityRoomActivity;
+import com.vitamin.wecantalk.UIActivity.FriendsSnsActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -32,6 +38,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import fr.tvbarthel.lib.blurdialogfragment.BlurDialogFragment;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 /**
  * Created by JongHwa on 2018-04-17.
@@ -58,6 +65,7 @@ public class FriendsProfileFragment extends BlurDialogFragment {
         args.putFloat(BUNDLE_KEY_DOWN_SCALE_FACTOR, downScaleFactor);
         args.putBoolean(BUNDLE_KEY_DIMMING, dimming);
         args.putBoolean(BUNDLE_KEY_DEBUG, debug);
+
         data=pojo;
 
         fragment.setArguments(args);
@@ -87,7 +95,37 @@ public class FriendsProfileFragment extends BlurDialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_friends_profile, null);
 
+        TextView name_tv = view.findViewById(R.id.friends_profile_id);
+        TextView location_tv = view.findViewById(R.id.friends_profile_location);
+        TextView language_tv = view.findViewById(R.id.friends_profile_language);
+        TextView email_tv = view.findViewById(R.id.friends_profile_email);
+        TextView phone_tv = view.findViewById(R.id.friends_profile_phone);
         Button talk_btn = view.findViewById(R.id.friends_profile_add);
+        TextView sns_btn= view.findViewById(R.id.friends_sns_btn);
+        ImageView profile_image = view.findViewById(R.id.friends_profile_img);
+
+        name_tv.setText(data.getName());
+        location_tv.setText(data.getLocation());
+        language_tv.setText(data.getPrefer_language());
+        email_tv.setText(data.getEmail());
+        phone_tv.setText(data.getPhone_number());
+
+        String img_url = Config.Server_URL + "users/getPhoto?id=" + data.getImage();
+        Glide.with(this)
+                .load(img_url)
+                .error(R.drawable.default_user)
+                .centerCrop()
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(profile_image);
+
+        sns_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent it = new Intent(getActivity(), FriendsSnsActivity.class);
+                startActivity(it);
+            }
+        });
 
         talk_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,9 +173,6 @@ public class FriendsProfileFragment extends BlurDialogFragment {
                         }
                     }
                 });
-
-
-
             }
         });
 

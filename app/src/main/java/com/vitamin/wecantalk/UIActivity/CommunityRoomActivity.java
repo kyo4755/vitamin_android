@@ -87,43 +87,43 @@ public class CommunityRoomActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onLongItemClick(View view, int position) {
+                    public void onLongItemClick(View view, final int position) {
 
-//                        AQuery aQuery = new AQuery(CommunityRoomActivity.this);
-//                        String chattings_translate_url = Config.Server_URL + "chattings/translate";
-//
-//                        Map<String, Object> params = new LinkedHashMap<>();
-//
-//                        params.put("room_num", room_number);
-//                        params.put("myid", GlobalInfo.my_profile.getId());
-//                        params.put("msg", )
-//
-//                        aQuery.ajax(chattings_translate_url, params, String.class, new AjaxCallback<String>() {
-//                            @Override
-//                            public void callback(String url, String result, AjaxStatus status) {
-//
-//                                try {
-//                                    JSONObject jsonObject = new JSONObject(result);
-//                                    String result_code = jsonObject.get("result").toString();
-//                                    if (result_code.equals("0000")) {
-//                                        CommunityRoomListViewPOJO pojo = new CommunityRoomListViewPOJO();
-//                                        pojo.setId(GlobalInfo.my_profile.getId());
-//                                        pojo.setName(GlobalInfo.my_profile.getName());
-//                                        pojo.setMsg(msg);
-//                                        pojo.setWhere(2);
-//
-//                                        recyclerViewAdapter.addData(pojo);
-//                                        recyclerView.scrollToPosition(recyclerViewAdapter.getItemCount() - 1);
-//                                    } else {
-//                                        Toast.makeText(getApplicationContext(), "오류.", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                } catch (Exception e) {
-//                                    Log.e("chat_send Error", e.toString());
-//                                    Toast.makeText(getApplicationContext(), "오류.", Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        });
-//                        userMsg.setText("");
+                        AQuery aQuery = new AQuery(CommunityRoomActivity.this);
+                        String chattings_translate_url = Config.Server_URL + "chattings/translate";
+
+                        Map<String, Object> params = new LinkedHashMap<>();
+
+                        params.put("myid", GlobalInfo.my_profile.getId());
+
+                        final String msg=recyclerViewAdapter.getItem(position).getMsg();
+                        params.put("msg", msg);
+
+                        aQuery.ajax(chattings_translate_url, params, String.class, new AjaxCallback<String>() {
+                            @Override
+                            public void callback(String url, String result, AjaxStatus status) {
+
+                                try {
+                                    JSONObject jsonObject = new JSONObject(result);
+                                    String result_code = jsonObject.get("result").toString();
+                                    if (result_code.equals("0000")) {
+                                        CommunityRoomListViewPOJO pojo = new CommunityRoomListViewPOJO();
+
+                                        pojo.setMsg(msg);
+
+                                        recyclerViewAdapter.addData(pojo);
+
+                                        recyclerView.scrollToPosition(recyclerViewAdapter.getItemCount() - 1);
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "오류.", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (Exception e) {
+                                    Log.e("chat_send Error", e.toString());
+                                    Toast.makeText(getApplicationContext(), "오류.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        userMsg.setText("");
 
                         Toast.makeText(getApplicationContext(), position + "번 째 아이템 롱 클릭", Toast.LENGTH_SHORT).show();
                     }
