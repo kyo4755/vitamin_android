@@ -107,9 +107,10 @@ public class CommunityRoomActivity extends AppCompatActivity {
                                     JSONObject jsonObject = new JSONObject(result);
                                     String result_code = jsonObject.get("result").toString();
                                     if (result_code.equals("0000")) {
+                                        String after_msg = jsonObject.get("translate_msg").toString();
                                         CommunityRoomListViewPOJO pojo = new CommunityRoomListViewPOJO();
 
-                                        pojo.setMsg(msg);
+                                        pojo.setMsg(after_msg);
 
                                         recyclerViewAdapter.addData(pojo);
 

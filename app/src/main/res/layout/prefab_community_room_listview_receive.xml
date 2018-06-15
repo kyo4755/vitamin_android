@@ -53,6 +53,56 @@
         app:layout_constraintLeft_toRightOf="@+id/prefab_community_room_receive_msg"
         app:layout_constraintBottom_toBottomOf="@+id/prefab_community_room_receive_msg"/>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:background="@drawable/rounded_ractangle_green"
+        android:id="@+id/prefab_community_room_receive_translate_layout"
+        android:visibility="gone"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/prefab_community_room_receive_name"
+        app:layout_constraintLeft_toRightOf="@+id/prefab_community_room_receive_img">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="250dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:id="@+id/prefab_community_room_receive_origin_msg"
+            android:text="sadfklwjef"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="@drawable/line"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="250dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:id="@+id/prefab_community_room_receive_translate_msg"
+            android:text="sadfklwjef"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/prefab_community_room_receive_translate_time"
+        android:text="11:59"
+        android:textSize="14sp"
+        android:textColor="@color/dark_gray"
+        android:layout_marginStart="5dp"
+        android:layout_marginLeft="5dp"
+        android:visibility="gone"
+        app:layout_constraintLeft_toRightOf="@+id/prefab_community_room_receive_translate_layout"
+        app:layout_constraintBottom_toBottomOf="@+id/prefab_community_room_receive_translate_layout"/>
 
 
 </android.support.constraint.ConstraintLayout>
