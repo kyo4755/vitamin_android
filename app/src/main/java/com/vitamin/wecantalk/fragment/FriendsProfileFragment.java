@@ -123,9 +123,11 @@ public class FriendsProfileFragment extends BlurDialogFragment {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getActivity(), FriendsSnsActivity.class);
+                it.putExtra("id", data.getId());
                 startActivity(it);
             }
         });
+
 
         talk_btn.setOnClickListener(new View.OnClickListener() {
             @Override

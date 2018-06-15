@@ -56,6 +56,7 @@
 
         </activity>
 
+        <activity android:name=".UIActivity.FriendsSnsActivity"></activity>
 
 
         <activity android:name=".Notepad.NoteEdit"
