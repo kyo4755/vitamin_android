@@ -19,34 +19,49 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".UIActivity.PopActivity"/>
+        <activity android:name=".UIActivity.PopActivity">
 
-        <activity android:name=".UIActivity.MainFragmentActivity"/>
+        </activity>
 
-        <activity android:name=".UIActivity.StudyActivity"/>
+        <activity android:name=".UIActivity.MainFragmentActivity">
 
-        <activity android:name=".UIActivity.CommunityRoomActivity"/>
+        </activity>
 
-        <activity android:name=".UIActivity.RegisterActivity"/>
+        <activity android:name=".UIActivity.StudyActivity">
 
-        <activity android:name=".UIActivity.FindIdActivity"/>
+        </activity>
 
-        <activity android:name=".UIActivity.PostingActivity"/>
+        <activity android:name=".UIActivity.CommunityRoomActivity">
 
-        <activity android:name=".UIActivity.CommentActivity"/>
+        </activity>
+        <activity android:name=".UIActivity.RegisterActivity">
+
+        </activity>
+
+        <activity android:name=".UIActivity.FindIdActivity">
+
+        </activity>
+
+        <activity android:name=".UIActivity.PostingActivity">
+
+        </activity>
+
+        <activity android:name=".UIActivity.CommentActivity">
+
+        </activity>
 
         <activity
             android:name="com.vitamin.wecantalk.Notepad.NoteList"
             android:label="@string/app_name">
-        </activity>
 
-        <activity android:name=".UIActivity.FriendsSnsActivity"/>
+        </activity>
 
 
 
         <activity android:name=".Notepad.NoteEdit"
             android:windowSoftInputMode="adjustUnspecified"
             android:label="@string/app_name">
+
         </activity>
 
 

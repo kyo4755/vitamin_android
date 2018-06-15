@@ -25,7 +25,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class SnsListViewAdapter extends BaseAdapter {
 
 
-    private ArrayList<SnsListViewPOJO> listViewItemSns = new ArrayList<SnsListViewPOJO>();
+    private ArrayList<SnsListViewPOJO> listViewItemSns;
 
     public void setArItem(ArrayList<SnsListViewPOJO> listViewItemSns) {this.listViewItemSns = listViewItemSns;}
 

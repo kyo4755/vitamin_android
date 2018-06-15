@@ -191,7 +191,7 @@ public class PostingActivity  extends AppCompatActivity {
 //                /*selectedImagePath = getPath(selectedImageUri);
 
 
-        //이미지이지밎이ㅣㅈ밎
+        //이미지이미지
 
 
 //    private void posting() {
