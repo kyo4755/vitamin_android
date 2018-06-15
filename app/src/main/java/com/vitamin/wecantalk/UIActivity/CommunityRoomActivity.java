@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,7 +65,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
         String title = it.getStringExtra("title");
 
         recyclerView = findViewById(R.id.community_room_recyclerview);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerViewAdapter = new CommunityRoomRecyclerViewAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
@@ -88,33 +89,58 @@ public class CommunityRoomActivity extends AppCompatActivity {
 
                     @Override
                     public void onLongItemClick(View view, final int position) {
+                        final TextView old_msg, old_time, new_origin_msg, new_translate_msg, new_time;
+                        final LinearLayout translate_layout;
+                        int where = recyclerViewAdapter.getItem(position).getWhere();
+                        if(where==1) {
+                            old_msg = view.findViewById(R.id.prefab_community_room_receive_msg);
+                            old_time = view.findViewById(R.id.prefab_community_room_receive_time);
+                            new_origin_msg = view.findViewById(R.id.prefab_community_room_receive_origin_msg);
+                            new_translate_msg = view.findViewById(R.id.prefab_community_room_receive_translate_msg);
+                            new_time = view.findViewById(R.id.prefab_community_room_receive_translate_time);
+                            translate_layout = view.findViewById(R.id.prefab_community_room_receive_translate_layout);
+                        }
+                        else{
+                            old_msg = view.findViewById(R.id.prefab_community_room_send_msg);
+                            old_time = view.findViewById(R.id.prefab_community_room_send_time);
+                            new_origin_msg = view.findViewById(R.id.prefab_community_room_send_origin_msg);
+                            new_translate_msg = view.findViewById(R.id.prefab_community_room_send_translate_msg);
+                            new_time = view.findViewById(R.id.prefab_community_room_send_translate_time);
+                            translate_layout = view.findViewById(R.id.prefab_community_room_send_translate_layout);
+                        }
 
                         AQuery aQuery = new AQuery(CommunityRoomActivity.this);
-                        String chattings_translate_url = Config.Server_URL + "chattings/translate";
+                        String translate_url = Config.Server_URL + "translate";
 
                         Map<String, Object> params = new LinkedHashMap<>();
 
-                        params.put("myid", GlobalInfo.my_profile.getId());
+                        params.put("id", GlobalInfo.my_profile.getId());
 
                         final String msg=recyclerViewAdapter.getItem(position).getMsg();
                         params.put("msg", msg);
 
-                        aQuery.ajax(chattings_translate_url, params, String.class, new AjaxCallback<String>() {
+                        aQuery.ajax(translate_url, params, String.class, new AjaxCallback<String>() {
                             @Override
                             public void callback(String url, String result, AjaxStatus status) {
-
+                                String after_msg = "";
                                 try {
                                     JSONObject jsonObject = new JSONObject(result);
                                     String result_code = jsonObject.get("result").toString();
                                     if (result_code.equals("0000")) {
-                                        String after_msg = jsonObject.get("translate_msg").toString();
-                                        CommunityRoomListViewPOJO pojo = new CommunityRoomListViewPOJO();
+                                        after_msg = jsonObject.get("translate_msg").toString();
+                                        userMsg.setText("");
 
-                                        pojo.setMsg(after_msg);
+                                        new_origin_msg.setText(old_msg.getText());
+                                        new_translate_msg.setText(after_msg);
+                                        new_time.setText(old_time.getText());
+                                        new_time.setVisibility(View.VISIBLE);
 
-                                        recyclerViewAdapter.addData(pojo);
+                                        old_msg.setVisibility(View.GONE);
+                                        old_time.setVisibility(View.GONE);
+                                        translate_layout.setVisibility(View.VISIBLE);
 
                                         recyclerView.scrollToPosition(recyclerViewAdapter.getItemCount() - 1);
+
                                     } else {
                                         Toast.makeText(getApplicationContext(), "오류.", Toast.LENGTH_SHORT).show();
                                     }
@@ -124,9 +150,7 @@ public class CommunityRoomActivity extends AppCompatActivity {
                                 }
                             }
                         });
-                        userMsg.setText("");
 
-                        Toast.makeText(getApplicationContext(), position + "번 째 아이템 롱 클릭", Toast.LENGTH_SHORT).show();
                     }
                 }));
 
