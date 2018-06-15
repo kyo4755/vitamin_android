@@ -35,12 +35,12 @@
                 android:background="@drawable/rectangle_gray">
 
                 <TextView
+                    android:id="@+id/friends_profile_id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/friends_profile_id"
                     android:text="sam"
                     android:textSize="20sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -70,8 +70,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/friends_profile_edit"
-                    android:text="프로필 변경하기 >"
+                    android:id="@+id/friends_sns_btn"
+                    android:text="SNS 보기 >"
                     android:textStyle="bold"
                     android:textSize="15sp"
                     android:textColor="@color/colorPrimary"

@@ -148,4 +148,9 @@ public class CommunityRoomRecyclerViewAdapter extends RecyclerView.Adapter <Recy
         list.add(data);
         notifyItemChanged(list.size() - 1);
     }
+
+    public CommunityRoomListViewPOJO getItem(int position){
+        return list.get(position);
+    }
+
 }
