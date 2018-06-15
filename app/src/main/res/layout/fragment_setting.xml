@@ -210,6 +210,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/naver_dic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="번역도우미"

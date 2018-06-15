@@ -17,10 +17,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            
         </activity>
 
         <activity android:name=".UIActivity.PopActivity">
-
+            
         </activity>
 
         <activity android:name=".UIActivity.MainFragmentActivity">
@@ -30,6 +31,7 @@
         <activity android:name=".UIActivity.StudyActivity">
 
         </activity>
+
 
         <activity android:name=".UIActivity.CommunityRoomActivity">
 
@@ -55,7 +57,7 @@
             android:label="@string/app_name">
 
         </activity>
-
+        <activity android:name=".UIActivity.NaverDicActivity"></activity>
 
 
         <activity android:name=".Notepad.NoteEdit"
@@ -63,6 +65,8 @@
             android:label="@string/app_name">
 
         </activity>
+
+
 
 
         <service
@@ -81,5 +85,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>

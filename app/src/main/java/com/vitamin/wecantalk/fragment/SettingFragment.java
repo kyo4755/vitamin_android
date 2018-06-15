@@ -29,6 +29,7 @@ import com.vitamin.wecantalk.Setting.ChangeInfoSetting;
 import com.vitamin.wecantalk.Setting.ChangePWSetting;
 import com.vitamin.wecantalk.Setting.SettingDialog;
 import com.vitamin.wecantalk.Setting.SettingIntroduce;
+import com.vitamin.wecantalk.UIActivity.NaverDicActivity;
 import com.vitamin.wecantalk.UIActivity.StartActivity;
 
 import org.json.JSONObject;
@@ -59,6 +60,7 @@ public class SettingFragment extends Fragment{
     TextView introduce;
     TextView introducing;
     TextView notepad_go;
+    TextView naver_dic;
 
     ImageView pro1;
     ImageView pro2;
@@ -88,6 +90,7 @@ public class SettingFragment extends Fragment{
         introduce =(TextView) view.findViewById(R.id.go_introduce);
         introducing =(TextView) view.findViewById(R.id.introducing);
         notepad_go =(TextView) view.findViewById(R.id.notepad_go);
+        naver_dic=(TextView) view.findViewById(R.id.naver_dic);
 
         String img_url = Config.Server_URL + "users/getPhoto?id=" + GlobalInfo.my_profile.getImage();
         Glide.with(this)
@@ -122,6 +125,13 @@ public class SettingFragment extends Fragment{
         notepad_go.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 Intent it = new Intent(getActivity(), NoteList.class);
+                startActivity(it);
+            }
+        });
+
+        naver_dic.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent it = new Intent(getActivity(), NaverDicActivity.class);
                 startActivity(it);
             }
         });
