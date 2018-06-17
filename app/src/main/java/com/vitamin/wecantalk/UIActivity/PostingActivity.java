@@ -32,6 +32,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
 import com.vitamin.wecantalk.R;
+import com.vitamin.wecantalk.fragment.FriendsSnsFragment;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,11 +68,18 @@ public class PostingActivity  extends AppCompatActivity {
     TextView userId;
     EditText editContext;
     Button share;
+
+
+
     File selectedPhoto;
     private static final int SELECT_PICTURE = 1;
 
+    String posting_id;
+    String posting_date;
+    String posting_context;
 
 
+    Intent data;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +89,7 @@ public class PostingActivity  extends AppCompatActivity {
         editContext = findViewById(R.id.posting_context);
         userId = (TextView) findViewById(R.id.posting_userId);
         userId.setText(GlobalInfo.my_profile.getName());
+
 
         posting_profile =(ImageView) findViewById(R.id.posting_profile) ;
 
@@ -105,6 +114,11 @@ public class PostingActivity  extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent,
                         "Select Picture"), SELECT_PICTURE);
+
+
+
+
+
             }
         });
 
@@ -112,6 +126,63 @@ public class PostingActivity  extends AppCompatActivity {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                date = new Date(now);
+
+                posting_id = userId.getText().toString();
+                posting_date = mFormat.format(date);
+                posting_context = editContext.getText().toString();
+
+
+                if (posting_context.length() == 0)
+                    Toast.makeText(PostingActivity.this, "내용을 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                else {
+
+                    AQuery aQuery = new AQuery(PostingActivity.this);
+                    String url = Config.Server_URL + "sns/insertContent";
+
+                    Map<String, Object> params = new LinkedHashMap<>();
+
+                    params.put("id", posting_id);
+                    params.put("date", posting_date);
+                    params.put("content_text", posting_context);
+                    Log.e("content_text", posting_context.toString());
+                    if (selectedPhoto != null) {
+                        params.put("content_image", selectedPhoto);
+                    }
+                    {
+                        Log.e("content_text", "123123123123");
+                    }
+
+                    aQuery.ajax(url, params, String.class, new AjaxCallback<String>() {
+                        @Override
+                        public void callback(String url, String result, AjaxStatus status) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(result);
+                                String result_value = jsonObject.get("result").toString();
+                                String image_code = jsonObject.get("image").toString();
+
+                                if (result_value.equals("0000")) {
+                                    String imgStr = Config.Server_URL + "sns/getPhoto?id=" + image_code;
+                                    GlobalInfo.my_profile.setImage(image_code);
+                                    Glide.with(PostingActivity.this)
+                                            .load(imgStr)
+                                            .centerCrop()
+                                            .bitmapTransform(new CropCircleTransformation(PostingActivity.this))
+                                            .skipMemoryCache(true)
+                                            .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                            .into(image);
+                                } else {
+                                    Toast.makeText(PostingActivity.this, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                                }
+
+                            } catch (Exception e) {
+
+                            }
+                        }
+                    });
+                }
+
+                finish();
 
             }
         });
@@ -123,9 +194,9 @@ public class PostingActivity  extends AppCompatActivity {
         now = System.currentTimeMillis();
         date = new Date(now);
 
-        String posting_id = userId.getText().toString();
-        String posting_date = mFormat.format(date);
-        String posting_context = editContext.getText().toString();
+        posting_id = userId.getText().toString();
+        posting_date = mFormat.format(date);
+        posting_context = editContext.getText().toString();
 
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
@@ -135,54 +206,57 @@ public class PostingActivity  extends AppCompatActivity {
                 if (fileCopy(selectedImageUri, tmpCacheFile)) {
                     selectedPhoto = tmpCacheFile;
 
-                    if (posting_context.length() == 0)
-                        Toast.makeText(PostingActivity.this, "내용을 입력해 주세요.", Toast.LENGTH_SHORT).show();
-                    else {
+                    Bitmap bitmap = BitmapFactory.decodeFile(selectedPhoto.getAbsolutePath());
+                    image.setImageBitmap(bitmap);
 
-                        AQuery aQuery = new AQuery(PostingActivity.this);
-                        String url = Config.Server_URL + "sns/insertContent";
-
-                        Map<String, Object> params = new LinkedHashMap<>();
-
-                        params.put("id", posting_id);
-                        params.put("date", posting_date);
-                        params.put("content_text", posting_context);
-                        Log.e("content_text", posting_context.toString());
-                        if (selectedPhoto != null) {
-                            params.put("content_image", selectedPhoto);
-                        }
-                        {
-                            Log.e("content_text", "123123123123");
-                        }
-
-                        aQuery.ajax(url, params, String.class, new AjaxCallback<String>() {
-                            @Override
-                            public void callback(String url, String result, AjaxStatus status) {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(result);
-                                    String result_value = jsonObject.get("result").toString();
-                                    String image_code = jsonObject.get("image").toString();
-
-                                    if (result_value.equals("0000")) {
-                                        String imgStr = Config.Server_URL + "users/getPhoto?id=" + image_code;
-                                        GlobalInfo.my_profile.setImage(image_code);
-                                        Glide.with(PostingActivity.this)
-                                                .load(imgStr)
-                                                .centerCrop()
-                                                .bitmapTransform(new CropCircleTransformation(PostingActivity.this))
-                                                .skipMemoryCache(true)
-                                                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                                                .into(image);
-                                    } else {
-                                        Toast.makeText(PostingActivity.this, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
-                                    }
-
-                                } catch (Exception e) {
-
-                                }
-                            }
-                        });
-                    }
+//                    if (posting_context.length() == 0)
+//                        Toast.makeText(PostingActivity.this, "내용을 입력해 주세요.", Toast.LENGTH_SHORT).show();
+//                    else {
+//
+//                        AQuery aQuery = new AQuery(PostingActivity.this);
+//                        String url = Config.Server_URL + "sns/insertContent";
+//
+//                        Map<String, Object> params = new LinkedHashMap<>();
+//
+//                        params.put("id", posting_id);
+//                        params.put("date", posting_date);
+//                        params.put("content_text", posting_context);
+//                        Log.e("content_text", posting_context.toString());
+//                        if (selectedPhoto != null) {
+//                            params.put("content_image", selectedPhoto);
+//                        }
+//                        {
+//                            Log.e("content_text", "123123123123");
+//                        }
+//
+//                        aQuery.ajax(url, params, String.class, new AjaxCallback<String>() {
+//                            @Override
+//                            public void callback(String url, String result, AjaxStatus status) {
+//                                try {
+//                                    JSONObject jsonObject = new JSONObject(result);
+//                                    String result_value = jsonObject.get("result").toString();
+//                                    String image_code = jsonObject.get("image").toString();
+//
+//                                    if (result_value.equals("0000")) {
+//                                        String imgStr = Config.Server_URL + "sns/getPhoto?id=" + image_code;
+//                                        GlobalInfo.my_profile.setImage(image_code);
+//                                        Glide.with(PostingActivity.this)
+//                                                .load(imgStr)
+//                                                .centerCrop()
+//                                                .bitmapTransform(new CropCircleTransformation(PostingActivity.this))
+//                                                .skipMemoryCache(true)
+//                                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                                                .into(image);
+//                                    } else {
+//                                        Toast.makeText(PostingActivity.this, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+//                                    }
+//
+//                                } catch (Exception e) {
+//
+//                                }
+//                            }
+//                        });
+//                    }
                 }
             }
         }
