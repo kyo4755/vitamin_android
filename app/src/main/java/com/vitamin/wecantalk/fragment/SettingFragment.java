@@ -24,14 +24,17 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
 import com.vitamin.wecantalk.Notepad.NoteList;
+import com.vitamin.wecantalk.POJO.SnsListViewPOJO;
 import com.vitamin.wecantalk.R;
 import com.vitamin.wecantalk.Setting.ChangeInfoSetting;
 import com.vitamin.wecantalk.Setting.ChangePWSetting;
 import com.vitamin.wecantalk.Setting.SettingDialog;
 import com.vitamin.wecantalk.Setting.SettingIntroduce;
+import com.vitamin.wecantalk.UIActivity.FriendsSnsActivity;
 import com.vitamin.wecantalk.UIActivity.NaverDicActivity;
 import com.vitamin.wecantalk.UIActivity.StartActivity;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -159,25 +162,52 @@ public class SettingFragment extends Fragment{
             }
         });
 
-
-
         introduce.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 settingIntroduce = new SettingIntroduce(getActivity());
                 settingIntroduce.show();
-                Button change = (Button)settingIntroduce.findViewById(R.id.change_introduce);
-                Button back = (Button)settingIntroduce.findViewById(R.id.back);
-
+                Button change = settingIntroduce.findViewById(R.id.change_introduce);
+                Button back = settingIntroduce.findViewById(R.id.back);
 
                 change.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         EditText edit_introduce = settingIntroduce.findViewById(R.id.introduce);
-                        String edit_str = edit_introduce.getText().toString();
-                        introducing.setText(edit_str);
+                        final String edit_str = edit_introduce.getText().toString();
+                        if(edit_str.length() == 0){
+                            Toast.makeText(context, "내용을 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                        } else {
+                            AQuery aQuery = new AQuery(context);
+                            String sns_list_url = Config.Server_URL + "settings/introduce";
 
-                        settingIntroduce.dismiss();
+                            Map<String, Object> params = new LinkedHashMap<>();
+                            params.put("id", GlobalInfo.my_profile.getId());
+                            params.put("msg", edit_str);
+
+                            aQuery.ajax(sns_list_url, params, String.class, new AjaxCallback<String>() {
+                                @Override
+                                public void callback(String url, String result, AjaxStatus status) {
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(result);
+                                        String result_code = jsonObject.get("result").toString();
+                                        if (result_code.equals("0000")) {
+                                            GlobalInfo.my_profile.setStatus_msg(edit_str);
+                                            introducing.setText(edit_str);
+                                            settingIntroduce.dismiss();
+                                        }
+                                        else if(result_code.equals("0001")) Toast.makeText(context, "ID 전송 오류", Toast.LENGTH_SHORT).show();
+                                        else if(result_code.equals("0002")) Toast.makeText(context, "MSG 전송 오류", Toast.LENGTH_SHORT).show();
+                                        else{
+                                            Toast.makeText(context, "Result 코드 에러.", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                    } catch (Exception e) {
+                                        Toast.makeText(context, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }
                     }
                 });
 
@@ -187,9 +217,6 @@ public class SettingFragment extends Fragment{
                         settingIntroduce.dismiss();
                     }
                 });
-
-
-
             }
         });
 
@@ -247,7 +274,11 @@ public class SettingFragment extends Fragment{
             }
         });
 
-
+        if(GlobalInfo.my_profile.getStatus_msg().equals("null")){
+            introducing.setText("");
+        } else {
+            introducing.setText(GlobalInfo.my_profile.getStatus_msg());
+        }
         return view;
     }
 
@@ -285,11 +316,10 @@ public class SettingFragment extends Fragment{
                                             .diskCacheStrategy(DiskCacheStrategy.NONE)
                                             .into(pro1);
                                 } else {
-                                    Toast.makeText(context, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Result 코드 에러", Toast.LENGTH_SHORT).show();
                                 }
-
                             } catch (Exception e){
-
+                                Toast.makeText(context, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
