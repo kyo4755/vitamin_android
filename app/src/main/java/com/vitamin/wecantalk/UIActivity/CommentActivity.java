@@ -125,6 +125,8 @@ public class CommentActivity extends AppCompatActivity {
                             Glide.with(CommentActivity.this)
                                     .load(R.drawable.default_user)
                                     .centerCrop()
+                                    .skipMemoryCache(true)
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                                     .bitmapTransform(new CropCircleTransformation(CommentActivity.this))
                                     .into(sns_profile);
                         } else {
@@ -132,6 +134,8 @@ public class CommentActivity extends AppCompatActivity {
                             Glide.with(CommentActivity.this)
                                     .load(imgPro)
                                     .centerCrop()
+                                    .skipMemoryCache(true)
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                                     .bitmapTransform(new CropCircleTransformation(CommentActivity.this))
                                     .into(sns_profile);
                         }

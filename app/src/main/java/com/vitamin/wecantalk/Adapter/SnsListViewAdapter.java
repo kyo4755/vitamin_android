@@ -93,6 +93,8 @@ public class SnsListViewAdapter extends BaseAdapter {
                     .load(R.drawable.default_user)
                     .centerCrop()
                     .bitmapTransform(new CropCircleTransformation(context))
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(sns_profile);
         }
         else {
@@ -101,6 +103,8 @@ public class SnsListViewAdapter extends BaseAdapter {
                     .load(imgPro)
                     .centerCrop()
                     .bitmapTransform(new CropCircleTransformation(context))
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(sns_profile);
         }
 
