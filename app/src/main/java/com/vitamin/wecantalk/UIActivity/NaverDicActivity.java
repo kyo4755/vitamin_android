@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,90 +54,63 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class NaverDicActivity extends AppCompatActivity {
 
-    public static final int REQUEST_IMAGE_CODE = 0x0100;
-    long now;
-    Date date;
-    SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-    ImageView image, posting_profile;
-    TextView userId;
-    EditText editContext;
-    Button share;
-    File selectedPhoto;
-    private static final int SELECT_PICTURE = 1;
-
+    EditText before_msg;
+    TextView after_msg;
+    TextView info_msg;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.naver_dic);
 
-        String clientId = "z6HlDuFfhpYtMQiKidhO";//애플리케이션 클라이언트 아이디값";
-        String clientSecret = "iH8rhOSE2L";//애플리케이션 클라이언트 시크릿값";
-        try {
-            String text = URLEncoder.encode("그린팩토리", "UTF-8");
-//            String apiURL = "https://openapi.naver.com/v1/search/enCyc?query="+ text; // json 결과
-            String apiURL = "https://openapi.naver.com/v1/search/enCyc.xml?query="+ text; // xml 결과
-            URL url = new URL(apiURL);
-            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("X-Naver-Client-Id", clientId);
-            con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
-            int responseCode = con.getResponseCode();
-            BufferedReader br;
-            if(responseCode==200) { // 정상 호출
-                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            } else {  // 에러 발생
-                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-            }
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-            while ((inputLine = br.readLine()) != null) {
-                response.append(inputLine);
-            }
-            br.close();
-            System.out.println(response.toString());
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        before_msg = findViewById(R.id.translate_before_msg);
+        after_msg = findViewById(R.id.translate_after_msg);
+        info_msg = findViewById(R.id.translate_info_msg);
+
+        info_msg.setVisibility(View.GONE);
+        after_msg.setVisibility(View.GONE);
 
 
+        before_msg.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        before_msg.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (EditorInfo.IME_ACTION_DONE == actionId) {
+                    after_msg.setVisibility(View.VISIBLE);
+                    info_msg.setVisibility(View.VISIBLE);
+
+                    String strText = before_msg.getText().toString();
+
+                    AQuery aQuery = new AQuery(NaverDicActivity.this);
+                    String translate_url = Config.Server_URL + "translate";
+
+                    Map<String, Object> params = new LinkedHashMap<>();
+
+                    params.put("id", GlobalInfo.my_profile.getId());
+                    params.put("msg", strText);
+
+                    aQuery.ajax(translate_url, params, String.class, new AjaxCallback<String>() {
+                        @Override
+                        public void callback(String url, String result, AjaxStatus status) {
+                            String msg = "";
+                            try {
+                                JSONObject jsonObject = new JSONObject(result);
+                                String result_code = jsonObject.get("result").toString();
+                                if (result_code.equals("0000")) {
+                                    msg = jsonObject.get("translate_msg").toString();
+                                    before_msg.setText("");
+                                    after_msg.setText(msg);
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "오류.", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (Exception e) {
+                                Log.e("chat_send Error", e.toString());
+                                Toast.makeText(getApplicationContext(), "오류.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+                return true;
+            }
+        });
     }
-
-
-//    public static void main(String[] args) {
-//        String clientId = "z6HlDuFfhpYtMQiKidhO";//애플리케이션 클라이언트 아이디값";
-//        String clientSecret = "iH8rhOSE2L";//애플리케이션 클라이언트 시크릿값";
-//        try {
-//            String text = URLEncoder.encode("안녕하세요. 오늘 기분은 어떻습니까?", "UTF-8");
-//            String apiURL = "https://openapi.naver.com/v1/search/encyc";
-//            URL url = new URL(apiURL);
-//            HttpURLConnection con = (HttpURLConnection)url.openConnection();
-//            con.setRequestMethod("GET");
-//            con.setRequestProperty("X-Naver-Client-Id", clientId);
-//            con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
-//            // post request
-//            String postParams = "source=ko&target=en&text=" + text;
-//            con.setDoOutput(true);
-//            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-//            wr.writeBytes(postParams);
-//            wr.flush();
-//            wr.close();
-//            int responseCode = con.getResponseCode();
-//            BufferedReader br;
-//            if(responseCode==200) { // 정상 호출
-//                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-//            } else {  // 에러 발생
-//                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-//            }
-//            String inputLine;
-//            StringBuffer response = new StringBuffer();
-//            while ((inputLine = br.readLine()) != null) {
-//                response.append(inputLine);
-//            }
-//            br.close();
-//            System.out.println(response.toString());
-//        } catch (Exception e) {
-//            System.out.println(e);
-//        }
-//    }
 }
 
