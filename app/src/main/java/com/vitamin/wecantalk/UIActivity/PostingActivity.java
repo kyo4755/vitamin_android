@@ -88,7 +88,7 @@ public class PostingActivity  extends AppCompatActivity {
 
         editContext = findViewById(R.id.posting_context);
         userId = (TextView) findViewById(R.id.posting_userId);
-        userId.setText(GlobalInfo.my_profile.getName());
+        userId.setText(GlobalInfo.my_profile.getId());
 
 
         posting_profile =(ImageView) findViewById(R.id.posting_profile) ;

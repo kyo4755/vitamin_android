@@ -59,7 +59,7 @@ public class CommentActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
         userId = findViewById(R.id.comment_userId);
-        userId.setText(GlobalInfo.my_profile.getName());
+        userId.setText(GlobalInfo.my_profile.getId());
 
         edittext = findViewById(R.id.comment_edittext);
         input_button = findViewById(R.id.comment_input_button);
