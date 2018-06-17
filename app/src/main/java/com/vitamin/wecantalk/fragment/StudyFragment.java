@@ -36,7 +36,7 @@ public class StudyFragment extends Fragment {
         listView = view.findViewById(R.id.study_best_match_listview);
         adapter = new StudyBestMatchListViewAdapter(null);
 
-        listView.setAdapter(adapter);
+        //listView.setAdapter(adapter);
 
         return view;
     }
