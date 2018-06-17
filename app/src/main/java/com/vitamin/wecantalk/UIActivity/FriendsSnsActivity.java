@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
@@ -35,6 +36,8 @@ public class FriendsSnsActivity extends AppCompatActivity {
     ListView listView;
     SnsListViewAdapter adapter;
 
+    TextView who;
+
     ImageView comment;
 
 
@@ -55,6 +58,8 @@ public class FriendsSnsActivity extends AppCompatActivity {
         adapter = new SnsListViewAdapter();
         listView.setAdapter(adapter);
 
+        who =(TextView)findViewById(R.id.who);
+        who.setText(str);
 
         snscreatePOJO(str);
 
@@ -82,15 +87,12 @@ public class FriendsSnsActivity extends AppCompatActivity {
                     if (result_code.equals("0000")) {
                         Toast.makeText(FriendsSnsActivity.this, "정상.", Toast.LENGTH_SHORT).show();
                         String temp_sns = jsonObject.get("sns_list").toString();
+                        String name = jsonObject.getString("name");
+                        String image = jsonObject.getString("image");
                         JSONArray jsonArray = new JSONArray(jsonObject.get("sns_list").toString());
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jObject = jsonArray.getJSONObject(i);
                             String index = jObject.getString("index");
-                            String id = jObject.getString("id");
-                            System.out.println(id);
-                            String name = jObject.getString("name");
-
-                            String prefer_language = jObject.getString("prefer_language");
                             String date = jObject.getString("date");
                             String content_text = jObject.getString("content_text");
                             String content_image = jObject.getString("content_image");
@@ -98,20 +100,15 @@ public class FriendsSnsActivity extends AppCompatActivity {
 
                             SnsListViewPOJO pojo = new SnsListViewPOJO();
 
+                            pojo.setUser_image(image);
                             pojo.setIndex(index);
-                            pojo.setId(id);
                             pojo.setName(name);
-
-                            pojo.setPrefer_language(prefer_language);
                             pojo.setDate(date);
                             pojo.setContent_text(content_text);
                             pojo.setContent_image(content_image);
                             pojo.setComment_count(comment_count);
 
-
                             adapter.addItem(pojo);
-
-
 
                         }
                     }
