@@ -116,6 +116,8 @@ public class SnsListViewAdapter extends BaseAdapter {
             Glide.with(context)
                     .load(imgCon)
                     .centerCrop()
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(sns_image);
         }
 

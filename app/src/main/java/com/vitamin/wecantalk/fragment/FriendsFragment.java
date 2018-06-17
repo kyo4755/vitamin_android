@@ -98,6 +98,8 @@ public class FriendsFragment extends Fragment {
             Glide.with(container.getContext())
                     .load(R.drawable.default_user)
                     .centerCrop()
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .bitmapTransform(new CropCircleTransformation(container.getContext()))
                     .into(my_img);
         } else {

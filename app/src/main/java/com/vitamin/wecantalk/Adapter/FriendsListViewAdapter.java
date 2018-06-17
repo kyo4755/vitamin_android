@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.Common.GlobalInfo;
 import com.vitamin.wecantalk.POJO.FriendsListViewPOJO;
@@ -50,6 +51,8 @@ public class FriendsListViewAdapter extends BaseAdapter {
             Glide.with(context)
                     .load(R.drawable.default_user)
                     .centerCrop()
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .bitmapTransform(new CropCircleTransformation(context))
                     .into(iconImageView);
         }
@@ -58,6 +61,8 @@ public class FriendsListViewAdapter extends BaseAdapter {
             Glide.with(context)
                     .load(imgStr)
                     .centerCrop()
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .bitmapTransform(new CropCircleTransformation(context))
                     .into(iconImageView);
         }

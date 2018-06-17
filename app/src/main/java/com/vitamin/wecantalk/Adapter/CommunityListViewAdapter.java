@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.POJO.CommunityListViewPOJO;
 import com.vitamin.wecantalk.R;
@@ -74,6 +75,8 @@ public class CommunityListViewAdapter extends BaseAdapter {
             Glide.with(mContext)
                     .load(R.drawable.default_user)
                     .centerCrop()
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .bitmapTransform(new CropCircleTransformation(mContext))
                     .into(img);
         }else{

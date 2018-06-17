@@ -147,6 +147,8 @@ public class CommentActivity extends AppCompatActivity {
                             Glide.with(CommentActivity.this)
                                     .load(imgPro)
                                     .centerCrop()
+                                    .skipMemoryCache(true)
+                                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                                     .into(sns_image);
                         }
 

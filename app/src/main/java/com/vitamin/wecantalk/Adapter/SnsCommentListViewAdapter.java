@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.POJO.SnsCommentListViewPOJO;
 import com.vitamin.wecantalk.POJO.SnsListViewPOJO;
@@ -60,6 +61,8 @@ public class SnsCommentListViewAdapter extends BaseAdapter {
             Glide.with(context)
                     .load(R.drawable.default_user)
                     .centerCrop()
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .bitmapTransform(new CropCircleTransformation(context))
                     .into(comment_img);
         }
@@ -68,6 +71,8 @@ public class SnsCommentListViewAdapter extends BaseAdapter {
             Glide.with(context)
                     .load(imgPro)
                     .centerCrop()
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .bitmapTransform(new CropCircleTransformation(context))
                     .into(comment_img);
         }

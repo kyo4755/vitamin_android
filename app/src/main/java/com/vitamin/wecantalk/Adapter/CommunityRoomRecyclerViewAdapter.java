@@ -102,6 +102,8 @@ public class CommunityRoomRecyclerViewAdapter extends RecyclerView.Adapter <Recy
                 Glide.with(mContext)
                         .load(R.drawable.default_user)
                         .centerCrop()
+                        .skipMemoryCache(true)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .bitmapTransform(new CropCircleTransformation(mContext))
                         .into(img);
             } else {
