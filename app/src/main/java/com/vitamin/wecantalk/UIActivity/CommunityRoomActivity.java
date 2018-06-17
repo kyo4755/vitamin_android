@@ -139,8 +139,6 @@ public class CommunityRoomActivity extends AppCompatActivity {
                                         old_time.setVisibility(View.GONE);
                                         translate_layout.setVisibility(View.VISIBLE);
 
-                                        recyclerView.scrollToPosition(recyclerViewAdapter.getItemCount() - 1);
-
                                     } else {
                                         Toast.makeText(getApplicationContext(), "오류.", Toast.LENGTH_SHORT).show();
                                     }
