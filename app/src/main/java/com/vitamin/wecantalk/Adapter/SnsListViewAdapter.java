@@ -50,6 +50,24 @@ public class SnsListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.prefab_sns_listview, parent, false);
         }
 
+
+        final ImageView heart_black = convertView.findViewById(R.id.sns_heart_black);
+        final ImageView heart_red = convertView.findViewById(R.id.sns_heart_red);
+        heart_black.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                heart_black.setVisibility(View.GONE);
+                heart_red.setVisibility(View.VISIBLE);
+            }
+        });
+        heart_red.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                heart_black.setVisibility(View.VISIBLE);
+                heart_red.setVisibility(View.GONE);
+            }
+        });
+
         TextView sns_name = convertView.findViewById(R.id.sns_name);
         TextView sns_date = convertView.findViewById(R.id.sns_date);
         TextView sns_context = convertView.findViewById(R.id.sns_context);

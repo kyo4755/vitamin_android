@@ -12,6 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="15dp"
             android:text="번역할 메세지 입력하세요" />
 
         <EditText
@@ -19,13 +20,15 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_gravity="center"
+            android:textSize="20dp"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:inputType="text"
             android:id="@+id/translate_before_msg"
-            android:text=""
+
+            android:hint="입력"
             android:textColor="#000000"
-            android:textSize="20sp" />
+           />
 
         <TextView
             android:layout_width="match_parent"
@@ -40,7 +43,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:id="@+id/translate_after_msg"
-            android:text="아이스크림 먹고 싶다" />
+            android:text="파파고 번역기 입니다."
+            android:textSize="20dp"/>
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_margin="30dp"
+            android:layout_gravity="center"
+            android:id="@+id/papago"
+            android:src="@drawable/papago"/>
 
     </LinearLayout>
 

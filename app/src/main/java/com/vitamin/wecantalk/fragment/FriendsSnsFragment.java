@@ -48,6 +48,7 @@ public class FriendsSnsFragment extends Fragment {
     ListView listView;
     SnsListViewAdapter adapter;
 
+    ImageView heart_black, heart_red;
     ImageView posting;
     ImageView find;
     ImageView comment;
@@ -67,6 +68,7 @@ public class FriendsSnsFragment extends Fragment {
         listView = view.findViewById(R.id.sns_listview);
         adapter = new SnsListViewAdapter();
         listView.setAdapter(adapter);
+
 
         posting = view.findViewById(R.id.sns_posting);
         find = view.findViewById(R.id.sns_find);
