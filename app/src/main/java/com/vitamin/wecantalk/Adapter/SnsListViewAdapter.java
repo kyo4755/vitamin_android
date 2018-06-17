@@ -68,6 +68,7 @@ public class SnsListViewAdapter extends BaseAdapter {
             }
         });
 
+        TextView sns_count = convertView.findViewById(R.id.sns_count);
         TextView sns_name = convertView.findViewById(R.id.sns_name);
         TextView sns_date = convertView.findViewById(R.id.sns_date);
         TextView sns_context = convertView.findViewById(R.id.sns_context);
@@ -117,6 +118,7 @@ public class SnsListViewAdapter extends BaseAdapter {
         sns_name.setText(listViewItem.getName());
         sns_date.setText(listViewItem.getDate());
         sns_context.setText(listViewItem.getContent_text());
+        sns_count.setText(listViewItem.getComment_count());
 
         return convertView;
     }
