@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.vitamin.wecantalk.Common.Config;
 import com.vitamin.wecantalk.POJO.CommunityListViewPOJO;
 import com.vitamin.wecantalk.POJO.FriendsListViewPOJO;
@@ -44,8 +45,6 @@ public class SnsListViewAdapter extends BaseAdapter {
         final int pos = position;
         final Context context = parent.getContext();
 
-        Log.d("Adapter", "hello");
-
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.prefab_sns_listview, parent, false);
@@ -73,21 +72,27 @@ public class SnsListViewAdapter extends BaseAdapter {
         if(listViewItem.getUser_image().equals("null")){
             sns_image.setVisibility(View.INVISIBLE);
         }
-        else{
+        else {
             String imgPro = Config.Server_URL + "users/getPhoto?id=" + listViewItem.getUser_image();
             Glide.with(context)
                     .load(imgPro)
                     .centerCrop()
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .bitmapTransform(new CropCircleTransformation(context))
                     .into(sns_profile);
-
-            String imgCon = Config.Server_URL + "sns/getPhoto?id=" + listViewItem.getContent_image();
-            Glide.with(context)
-                    .load(imgCon)
-                    .centerCrop()
-                    //.bitmapTransform(new CropCircleTransformation(context))
-                    .into(sns_image);
         }
+
+        String imgCon = Config.Server_URL + "sns/getPhoto?id=" + listViewItem.getContent_image();
+        System.out.println(imgCon);
+        Glide.with(context)
+                .load(imgCon)
+                .centerCrop()
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                //.bitmapTransform(new CropCircleTransformation(context))
+                .into(sns_image);
+
 
         sns_name.setText(listViewItem.getName());
         sns_date.setText(listViewItem.getDate());

@@ -295,8 +295,8 @@ public class CommunityRoomActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(data);
                 String id = jsonObject.getString("id");
                 String date = jsonObject.getString("date");
-                String msg = jsonObject.getString("msg");
-                String name = jsonObject.getString("name");
+                String msg = GlobalInfo.getUTF8Decode(jsonObject.getString("msg"));
+                String name = GlobalInfo.getUTF8Decode(jsonObject.getString("name"));
                 String img = jsonObject.getString("image");
 
                 CommunityRoomListViewPOJO pojo = new CommunityRoomListViewPOJO();

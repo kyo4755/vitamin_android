@@ -34,9 +34,9 @@ public class MyFirebaseMessagingService extends com.google.firebase.messaging.Fi
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "FCM Data Message : " + remoteMessage.getData());
             messageBody = remoteMessage.getData().get("message_body");
-            if (messageBody != null) {
-                toast(messageBody);
-            }
+//            if (messageBody != null) {
+//                toast(messageBody);
+//            }
         }
 
         if (remoteMessage.getNotification() != null) {
