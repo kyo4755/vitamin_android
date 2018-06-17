@@ -2,6 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -11,23 +12,16 @@
         android:background="@color/background_main">
 
         <android.support.constraint.ConstraintLayout
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:id="@+id/register_input_panel"
             android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_rectangle_gray"
+            android:paddingBottom="15dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent">
-
-            <ImageView
-                android:layout_width="300dp"
-                android:layout_height="550dp"
-                android:id="@+id/register_input_background_image"
-                android:background="@drawable/rounded_rectangle_gray"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
                 android:layout_width="match_parent"
@@ -40,7 +34,7 @@
                 android:background="@drawable/rounded_rectangle_white"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                app:layout_constraintTop_toTopOf="@id/register_input_background_image"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>
 
@@ -52,14 +46,14 @@
                 android:id="@+id/id_edittext"
                 android:background="@drawable/rounded_rectangle_white"
                 app:layout_constraintTop_toBottomOf="@+id/register_input_register_title_text"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
                 android:layout_marginRight="30dp">
 
                 <EditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:paddingStart="10dp"
                     android:paddingLeft="10dp"
@@ -75,7 +69,7 @@
                     android:layout_width="60dp"
                     android:layout_height="match_parent"
                     android:text="중복확인"
-                    android:textSize="12dp"
+                    android:textSize="12sp"
                     android:textColor="@color/white"
                     android:id="@+id/id_check"
                     android:background="@drawable/rounded_rectangle_mint" />
@@ -86,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:id="@+id/register_input_pw_edittext"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
@@ -105,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:id="@+id/register_input_name_edittext"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
@@ -126,7 +120,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintTop_toBottomOf="@+id/register_input_name_edittext"
                 android:id="@+id/email"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
@@ -155,7 +149,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:text=" @"
-                    android:textSize="15dp"
+                    android:textSize="15sp"
                     android:textColor="#9f9fa0"/>
 
                 <Spinner
@@ -183,7 +177,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:id="@+id/register_input_phone_edittext"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
@@ -201,7 +195,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
@@ -209,7 +203,8 @@
                 android:id="@+id/nation"
                 app:layout_constraintTop_toBottomOf="@+id/register_input_phone_edittext"
                 android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -226,13 +221,14 @@
 
                     <Spinner
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_gravity="center_vertical"
                         android:textAlignment="center"
                         android:entries="@array/nation"
                         android:id="@+id/register_input_nation_spinner"
                         android:visibility="visible"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
 
                 </LinearLayout>
 
@@ -252,12 +248,13 @@
                     <Spinner
                         android:id="@+id/register_input_location_spinner"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:layout_gravity="center_vertical"
                         android:textAlignment="center"
                         android:entries="@array/location"
                         android:visibility="visible"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        tools:ignore="NestedWeights" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -265,7 +262,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="30dp"
@@ -283,7 +280,7 @@
 
                 <Spinner
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_gravity="center_horizontal"
                     android:textAlignment="center"
                     android:entries="@array/prefer_language"
