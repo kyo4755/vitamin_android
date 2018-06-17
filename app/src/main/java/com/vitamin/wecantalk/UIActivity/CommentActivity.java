@@ -50,12 +50,15 @@ public class CommentActivity extends AppCompatActivity {
     ListView listView;
     ImageView sns_profile, sns_image;
     TextView sns_name, sns_date, sns_context;
+    TextView sns_count_string;
 
     SnsCommentListViewAdapter adapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sns_comment_layout);
+
+
 
         listView = findViewById(R.id.sns_comment_list);
         adapter = new SnsCommentListViewAdapter();
@@ -93,6 +96,7 @@ public class CommentActivity extends AppCompatActivity {
         sns_name = findViewById(R.id.sns_name);
         sns_date = findViewById(R.id.sns_date);
         sns_context = findViewById(R.id.sns_context);
+        sns_count_string = findViewById(R.id.sns_count_string);
 
         contentCreatePOJO();
         commentCreatePOJO();
@@ -142,6 +146,7 @@ public class CommentActivity extends AppCompatActivity {
                                     .into(sns_image);
                         }
 
+
                         sns_name.setText(jObject.getString("user_name"));
                         sns_context.setText(jObject.getString("content_msg"));
 
@@ -183,6 +188,8 @@ public class CommentActivity extends AppCompatActivity {
                     String result_code = jsonObject.get("result").toString();
                     if (result_code.equals("0000")) {
                         JSONArray jsonArray = new JSONArray(jsonObject.get("sns_comment_list").toString());
+                        System.out.println(jsonArray.length());
+                        sns_count_string.setText(jsonArray.length() + "");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jObject = jsonArray.getJSONObject(i);
 
@@ -213,6 +220,7 @@ public class CommentActivity extends AppCompatActivity {
 
                 } catch (Exception e) {
                     Toast.makeText(CommentActivity.this, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
             }
         });

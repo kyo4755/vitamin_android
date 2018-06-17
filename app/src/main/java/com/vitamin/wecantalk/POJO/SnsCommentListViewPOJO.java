@@ -13,6 +13,17 @@ public class SnsCommentListViewPOJO {
     private String comment_user_image;
     private String comment_date;
     private String comment_msg;
+    private String comment_count;
+
+    public String getComment_count() {
+        return comment_count;
+    }
+
+    public void setComment_count(String comment_count) {
+        this.comment_count = comment_count;
+    }
+
+
 
     public String getComment_id() {
         return comment_id;
