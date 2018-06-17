@@ -44,6 +44,7 @@ public class CommentActivity extends AppCompatActivity {
     long now;
     Date date;
     SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    ImageView heart_black, heart_red;
     EditText edittext;
     Button input_button;
     TextView userId;
@@ -58,6 +59,22 @@ public class CommentActivity extends AppCompatActivity {
         adapter = new SnsCommentListViewAdapter();
         listView.setAdapter(adapter);
 
+        heart_black = findViewById(R.id.sns_heart_black);
+        heart_red = findViewById(R.id.sns_heart_red);
+        heart_black.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                heart_black.setVisibility(View.GONE);
+                heart_red.setVisibility(View.VISIBLE);
+            }
+        });
+        heart_red.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                heart_black.setVisibility(View.VISIBLE);
+                heart_red.setVisibility(View.GONE);
+            }
+        });
         userId = findViewById(R.id.comment_userId);
         userId.setText(GlobalInfo.my_profile.getId());
 
