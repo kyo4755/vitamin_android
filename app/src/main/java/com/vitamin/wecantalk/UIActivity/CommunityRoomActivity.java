@@ -139,8 +139,6 @@ public class CommunityRoomActivity extends AppCompatActivity {
                                         old_time.setVisibility(View.GONE);
                                         translate_layout.setVisibility(View.VISIBLE);
 
-                                        recyclerView.scrollToPosition(recyclerViewAdapter.getItemCount() - 1);
-
                                     } else {
                                         Toast.makeText(getApplicationContext(), "오류.", Toast.LENGTH_SHORT).show();
                                     }
@@ -295,8 +293,8 @@ public class CommunityRoomActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(data);
                 String id = jsonObject.getString("id");
                 String date = jsonObject.getString("date");
-                String msg = jsonObject.getString("msg");
-                String name = jsonObject.getString("name");
+                String msg = GlobalInfo.getUTF8Decode(jsonObject.getString("msg"));
+                String name = GlobalInfo.getUTF8Decode(jsonObject.getString("name"));
                 String img = jsonObject.getString("image");
 
                 CommunityRoomListViewPOJO pojo = new CommunityRoomListViewPOJO();

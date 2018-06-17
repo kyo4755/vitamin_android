@@ -68,12 +68,8 @@ public class FriendsSnsFragment extends Fragment {
         adapter = new SnsListViewAdapter();
         listView.setAdapter(adapter);
 
-
-
         posting = view.findViewById(R.id.sns_posting);
         find = view.findViewById(R.id.sns_find);
-
-
 
         posting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,7 +94,6 @@ public class FriendsSnsFragment extends Fragment {
     private void snscreatePOJO() {
 
         //final ArrayList<CommunityListViewPOJO> list = new ArrayList<>();
-
         AQuery aQuery = new AQuery(context);
         String sns_list_url = Config.Server_URL + "sns/getList";
 
@@ -115,14 +110,12 @@ public class FriendsSnsFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(result);
                     String result_code = jsonObject.get("result").toString();
                     if (result_code.equals("0000")) {
-                        Toast.makeText(context, "정상.", Toast.LENGTH_SHORT).show();
                         String temp_sns = jsonObject.get("sns_list").toString();
                         JSONArray jsonArray = new JSONArray(jsonObject.get("sns_list").toString());
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jObject = jsonArray.getJSONObject(i);
                             String index = jObject.getString("index");
                             String id = jObject.getString("id");
-                            System.out.println(id);
                             String name = jObject.getString("name");
                             String user_image = jObject.getString("user_image");
                             String prefer_language = jObject.getString("prefer_language");
@@ -145,9 +138,6 @@ public class FriendsSnsFragment extends Fragment {
 
 
                             adapter.addItem(pojo);
-
-
-
                         }
                     }
 
