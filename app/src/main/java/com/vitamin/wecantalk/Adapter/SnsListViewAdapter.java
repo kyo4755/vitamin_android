@@ -69,30 +69,32 @@ public class SnsListViewAdapter extends BaseAdapter {
             }
         });
 
-        if(listViewItem.getUser_image().equals("null")){
-            sns_image.setVisibility(View.INVISIBLE);
+        if(listViewItem.getUser_image().equals("null")) {
+            Glide.with(context)
+                    .load(R.drawable.default_user)
+                    .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(context))
+                    .into(sns_profile);
         }
         else {
             String imgPro = Config.Server_URL + "users/getPhoto?id=" + listViewItem.getUser_image();
             Glide.with(context)
                     .load(imgPro)
                     .centerCrop()
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .bitmapTransform(new CropCircleTransformation(context))
                     .into(sns_profile);
         }
 
-        String imgCon = Config.Server_URL + "sns/getPhoto?id=" + listViewItem.getContent_image();
-        System.out.println(imgCon);
-        Glide.with(context)
-                .load(imgCon)
-                .centerCrop()
-                .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                //.bitmapTransform(new CropCircleTransformation(context))
-                .into(sns_image);
-
+        if(listViewItem.getContent_image().equals("null")) {
+            sns_image.setVisibility(View.GONE);
+        }
+        else{
+            String imgCon = Config.Server_URL + "sns/getPhoto?id=" + listViewItem.getContent_image();
+            Glide.with(context)
+                    .load(imgCon)
+                    .centerCrop()
+                    .into(sns_image);
+        }
 
         sns_name.setText(listViewItem.getName());
         sns_date.setText(listViewItem.getDate());
