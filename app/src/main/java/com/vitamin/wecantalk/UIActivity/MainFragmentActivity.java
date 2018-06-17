@@ -157,7 +157,8 @@ public class MainFragmentActivity extends AppCompatActivity implements View.OnCl
                     JSONObject jsonObject = new JSONObject(result);
                     String result_code = jsonObject.get("result").toString();
                     if(result_code.equals("0000")){
-                        Toast.makeText(MainFragmentActivity.this, "토큰전송성공.", Toast.LENGTH_SHORT).show();}
+
+                    }
                     else{
                         Toast.makeText(MainFragmentActivity.this, "오류.", Toast.LENGTH_SHORT).show();
                     }
