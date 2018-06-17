@@ -237,7 +237,6 @@ public class CommunityRoomActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String result_code = jsonObject.get("result").toString();
                     if (result_code.equals("0000")) {
-                        Toast.makeText(getApplicationContext(), "정상.", Toast.LENGTH_SHORT).show();
                         JSONArray jsonArray = new JSONArray(jsonObject.get("chat_load").toString());
                         ArrayList<CommunityRoomListViewPOJO> list = new ArrayList<>();
 

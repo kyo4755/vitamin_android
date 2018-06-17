@@ -85,7 +85,6 @@ public class FriendsSnsActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String result_code = jsonObject.get("result").toString();
                     if (result_code.equals("0000")) {
-                        Toast.makeText(FriendsSnsActivity.this, "정상.", Toast.LENGTH_SHORT).show();
                         String temp_sns = jsonObject.get("sns_list").toString();
                         String name = jsonObject.getString("name");
                         String image = jsonObject.getString("image");

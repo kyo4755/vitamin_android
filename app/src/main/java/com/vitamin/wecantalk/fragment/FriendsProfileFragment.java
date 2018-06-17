@@ -165,7 +165,6 @@ public class FriendsProfileFragment extends BlurDialogFragment {
                                 it.putExtra("room_num",room_number);
                                 it.putExtra("member", finalMember);
                                 startActivity(it);
-                                Toast.makeText(view.getContext(), "정상.", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(view.getContext(), "오류.", Toast.LENGTH_SHORT).show();
                             }

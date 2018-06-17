@@ -116,7 +116,6 @@ public class CommentActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(result);
                     String result_code = jsonObject.get("result").toString();
                     if (result_code.equals("0000")) {
-                        Toast.makeText(CommentActivity.this, "정상.", Toast.LENGTH_SHORT).show();
                         JSONObject jObject = new JSONObject(jsonObject.getString("content"));
                         if(jObject.getString("user_image").equals("null")){
                             Glide.with(CommentActivity.this)

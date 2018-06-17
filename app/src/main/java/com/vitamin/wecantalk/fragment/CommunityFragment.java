@@ -122,7 +122,7 @@ public class CommunityFragment extends Fragment {
                                             JSONObject jsonObject = new JSONObject(result);
                                             String result_code = jsonObject.get("result").toString();
                                             if (result_code.equals("0000")) {
-                                                Toast.makeText(context, "정상.", Toast.LENGTH_SHORT).show();
+
                                             }
                                         } catch (Exception e) {
                                             Toast.makeText(context, "서버와의 통신 중 오류가 발생했습니다. 나중에 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
