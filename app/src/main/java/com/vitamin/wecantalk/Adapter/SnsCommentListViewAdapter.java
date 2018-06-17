@@ -55,19 +55,21 @@ public class SnsCommentListViewAdapter extends BaseAdapter {
         TextView comment_msg = convertView.findViewById(R.id.write_content);
 
         SnsCommentListViewPOJO commentlistViewItem = listViewItemListComment.get(position);
-        SnsCommentListViewPOJO snsCommentListViewPOJO = listViewItemListComment.get(position);
 
-        if(snsCommentListViewPOJO.getComment_user_image().equals("null")){
-            comment_img.setVisibility(View.INVISIBLE);
+        if(commentlistViewItem.getComment_user_image().equals("null")) {
+            Glide.with(context)
+                    .load(R.drawable.default_user)
+                    .centerCrop()
+                    .bitmapTransform(new CropCircleTransformation(context))
+                    .into(comment_img);
         }
-        else{
-            String imgPro = Config.Server_URL + "sns/getPhoto?id=" + snsCommentListViewPOJO.getComment_user_image();
+        else {
+            String imgPro = Config.Server_URL + "users/getPhoto?id=" + commentlistViewItem.getComment_user_image();
             Glide.with(context)
                     .load(imgPro)
                     .centerCrop()
                     .bitmapTransform(new CropCircleTransformation(context))
                     .into(comment_img);
-
         }
 
         comment_name.setText(commentlistViewItem.getComment_id());
