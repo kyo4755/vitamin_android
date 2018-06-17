@@ -165,11 +165,10 @@ public class FriendsFragment extends Fragment {
                             GlobalInfo.friends_list.add(pojo);
                         }
 
+                        adapter.setList(GlobalInfo.friends_list);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
-                } finally {
-                    adapter.setList(GlobalInfo.friends_list);
                 }
             }
         });
