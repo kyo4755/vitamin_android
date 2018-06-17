@@ -115,6 +115,8 @@ public class FriendsFragment extends Fragment {
 
         if (GlobalInfo.my_profile.getStatus_msg().equals("null")) {
             my_status_msg.setVisibility(View.INVISIBLE);
+        } else {
+            my_status_msg.setText(GlobalInfo.my_profile.getStatus_msg());
         }
 
         return view;
@@ -124,6 +126,7 @@ public class FriendsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         getFriendsList();
+        setMyStatus();
     }
 
     private void getFriendsList(){
@@ -170,6 +173,11 @@ public class FriendsFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void setMyStatus(){
+        my_status_msg.setText(GlobalInfo.my_profile.getStatus_msg());
+        my_name.setText(GlobalInfo.my_profile.getName());
     }
 }
 

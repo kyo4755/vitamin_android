@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp">
     <ImageView
         android:paddingTop="10dp"
@@ -10,17 +12,17 @@
         android:layout_width="wrap_content"
         android:layout_height="100dp" />
     <LinearLayout
-        android:paddingTop="50dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:orientation="horizontal"
         android:paddingBottom="20dp">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="자기소개"
-            android:paddingRight="5dp"/>
+            android:text="자기소개" />
 
     </LinearLayout>
     <LinearLayout
@@ -34,7 +36,9 @@
         <EditText
             android:id="@+id/introduce"
             android:layout_width="250dp"
-            android:layout_height="250dp"
+            android:layout_height="100dp"
+            android:padding="10dp"
+            android:gravity="left"
             android:background="#F2F2F2" />
 
     </LinearLayout>
@@ -46,6 +50,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingBottom="20dp">
+
     <Button
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
