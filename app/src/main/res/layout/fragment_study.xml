@@ -5,209 +5,34 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/study_many_use_title"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:id="@+id/study_title" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:id="@+id/study_many_use_words_panel">
+        android:orientation="horizontal"
+        android:id="@+id/main_fragment_button_panel">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
+            android:id="@+id/study_fragment_btn_youglish"
+            android:text="@string/study_fragment_btn_youglish"
+            android:background="@color/white"
+            android:layout_weight="1"/>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="17sp"
-                android:textAlignment="center"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="단어"
-                android:textSize="17sp"
-                android:textAlignment="center"
-                android:layout_weight="2"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="예문"
-                android:textAlignment="center"
-                android:textSize="17sp"
-                android:layout_weight="5"/>
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="1순위"
-                android:textSize="17sp"
-                android:textAlignment="center"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/study_many_use_first_word"
-                android:text="hello"
-                android:textSize="17sp"
-                android:textAlignment="center"
-                android:layout_weight="2"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/study_many_use_first_example"
-                android:text="Hello, my name is jeonghun"
-                android:textSize="17sp"
-                android:layout_weight="5"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="2순위"
-                android:textSize="17sp"
-                android:textAlignment="center"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/study_many_use_second_word"
-                android:text="good"
-                android:textSize="17sp"
-                android:textAlignment="center"
-                android:layout_weight="2"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/study_many_use_second_example"
-                android:text="I'm very very good"
-                android:textSize="17sp"
-                android:layout_weight="5"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="3순위"
-                android:textSize="17sp"
-                android:textAlignment="center"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/study_many_use_third_word"
-                android:text="nice"
-                android:textSize="17sp"
-                android:textAlignment="center"
-                android:layout_weight="2"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/study_many_use_third_example"
-                android:text="Nice to meet you."
-                android:textSize="17sp"
-                android:layout_weight="5"/>
-
-        </LinearLayout>
+            android:id="@+id/study_fragment_btn_word_cloud"
+            android:text="@string/study_fragment_btn_word_cloud"
+            android:background="@color/white"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/study_best_match_title"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_marginTop="20dp"
-        android:id="@+id/study_best_match_title" />
-
-    <ListView
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_marginTop="10dp"
-        android:id="@+id/study_best_match_listview">
-
-
-    </ListView>
-
-    <!--<TextView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="혹시 이 단어 아세요?"
-        android:layout_above="@+id/word_meaning"
-        android:layout_centerHorizontal="true"
-        />
-
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="80dp"
-        android:id="@+id/word_meaning"
-        android:text="단어뜻"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/LButton"
-        android:layout_below="@+id/word_meaning"
-        android:text="Pim"
-        android:layout_alignLeft="@+id/word_meaning"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/RButton"
-        android:text="Pig"
-        android:layout_below="@+id/word_meaning"
-        android:layout_alignRight="@+id/word_meaning"/>-->
-
+        android:id="@+id/study_fragment" />
 
 </LinearLayout>

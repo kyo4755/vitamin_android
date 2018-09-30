@@ -85,6 +85,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     private void startAnimation(){
         logo_img.animate().translationY(-500).withLayer();
+        login_panel.animate().translationY(-500).withLayer();
 
         Animation animation = new AlphaAnimation(0, 1);
         animation.setDuration(1000);

@@ -10,51 +10,52 @@
         android:layout_weight="1"
         android:id="@+id/main_fragment" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/main_fragment_button_panel">
+
+        <Button
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:id="@+id/main_fragment_button_panel">
+            android:id="@+id/main_fragment_btn_friends"
+            android:text="@string/main_fragment_btn_friends"
+            android:background="@color/white"
+            android:layout_weight="1"/>
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/main_fragment_btn_friends"
-                android:text="@string/main_fragment_btn_friends"
-                android:background="@color/white"
-                android:layout_weight="1"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_fragment_btn_community"
+            android:text="@string/main_fragment_btn_community"
+            android:background="@color/white"
+            android:layout_weight="1"/>
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/main_fragment_btn_community"
-                android:text="@string/main_fragment_btn_community"
-                android:background="@color/white"
-                android:layout_weight="1"/>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/main_fragment_btn_sns"
-                android:text="SnS"
-                android:background="@color/white"
-                android:layout_weight="1"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_fragment_btn_sns"
+            android:text="SnS"
+            android:background="@color/white"
+            android:layout_weight="1"/>
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/main_fragment_btn_study"
-                android:text="@string/main_fragment_btn_study"
-                android:background="@color/white"
-                android:layout_weight="1"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_fragment_btn_study"
+            android:text="@string/main_fragment_btn_study"
+            android:background="@color/white"
+            android:layout_weight="1"/>
 
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/main_fragment_btn_setting"
-                android:text="@string/main_fragment_btn_setting"
-                android:background="@color/white"
-                android:layout_weight="1"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/main_fragment_btn_setting"
+            android:text="@string/main_fragment_btn_setting"
+            android:background="@color/white"
+            android:layout_weight="1"/>
 
-        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
