@@ -26,6 +26,7 @@ import com.vitamin.wecantalk.POJO.FriendsListViewPOJO;
 import com.vitamin.wecantalk.R;
 import com.vitamin.wecantalk.UIActivity.CommunityRoomActivity;
 import com.vitamin.wecantalk.UIActivity.FindIdActivity;
+import com.vitamin.wecantalk.UIActivity.FindImgActivity;
 import com.vitamin.wecantalk.UIActivity.StartActivity;
 
 import org.json.JSONArray;
@@ -73,6 +74,13 @@ public class FriendsFragment extends Fragment {
         b1 = view.findViewById(R.id.test_find_friend);
         b2 = view.findViewById(R.id.test_find_id_friend);
 
+        b1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent it = new Intent(getActivity(), FindImgActivity.class);
+                startActivity(it);
+            }
+        });
         b2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
