@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -61,9 +62,13 @@ public class FindImgActivity extends AppCompatActivity {
         setContentView(R.layout.activity_find_img_friends);
         context=FindImgActivity.this;
 
-        adapter=new FriendsRecognitionListViewAdapter();
+
         listview=findViewById(R.id.recognition_listview1);
-        listview.setVisibility(View.INVISIBLE);
+
+        adapter=new FriendsRecognitionListViewAdapter();
+
+        listview.setAdapter(adapter);
+        //listview.setVisibility(View.INVISIBLE);
 
         imageView = findViewById(R.id.friend_find_img);
         ImageView_btn = findViewById(R.id.friends_find_img_button);
@@ -99,7 +104,8 @@ public class FindImgActivity extends AppCompatActivity {
                     AQuery aQuery = new AQuery(FindImgActivity.this);
                     String url = Config.Server_URL + "recognition/compare";
                     Map<String, Object> params = new LinkedHashMap<>();
-                    params.put("imageSource", selectedPhoto);
+                    params.put("img_id", GlobalInfo.my_profile.getImage());
+                    params.put("image", selectedPhoto);
 
                     aQuery.ajax(url, params, String.class, new AjaxCallback<String>(){
                         @Override
@@ -112,15 +118,15 @@ public class FindImgActivity extends AppCompatActivity {
 
                                     ArrayList<FriendsRecognitionListViewPOJO> friendsRecognitionListViewPOJO= new ArrayList<>();
                                     JSONArray jsonArray = new JSONArray(jsonObject.get("content").toString());
+                                    Log.d("asdf",jsonArray.toString());
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject jObject = jsonArray.getJSONObject(i);
                                         FriendsRecognitionListViewPOJO pojo = new FriendsRecognitionListViewPOJO();
-                                        pojo.setId(jObject.getString("id"));
-                                        pojo.setName(jObject.getString("name"));
-                                        pojo.setSimilarity(jObject.getString("similarity"));
+                                        pojo.setId(jObject.getString("id").toString());
+                                        pojo.setName(jObject.getString("name").toString());
+                                        pojo.setSimilarity(jObject.getString("similarity").toString());
                                         pojo.setImage(jObject.get("image").toString());
 
-                                        friendsRecognitionListViewPOJO.add(pojo);
                                     }
 
                                     adapter.setList(friendsRecognitionListViewPOJO);
@@ -177,8 +183,8 @@ public class FindImgActivity extends AppCompatActivity {
                 }*/
             }
         }
-        listview.setAdapter(adapter);
-        listview.setVisibility(View.VISIBLE);
+
+        //listview.setVisibility(View.VISIBLE);
     }
     protected boolean fileCopy(Uri in, File out) {
         try {

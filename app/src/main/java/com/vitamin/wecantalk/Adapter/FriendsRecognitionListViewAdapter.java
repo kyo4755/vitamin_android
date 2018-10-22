@@ -42,6 +42,8 @@ public class FriendsRecognitionListViewAdapter extends BaseAdapter {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.prefab_find_img_friends_listview,parent,false);
         }
+
+
         ImageView iconImageView = convertView.findViewById(R.id.imageView1);
         TextView titleTextView = convertView.findViewById(R.id.textView1);
         TextView similarTextView = convertView.findViewById(R.id.textView2);
@@ -68,8 +70,8 @@ public class FriendsRecognitionListViewAdapter extends BaseAdapter {
                     .into(iconImageView);
         }
         similarTextView.setText(friendsRecognitionListViewPOJO.getSimilarity());
-
         titleTextView.setText(friendsRecognitionListViewPOJO.getName());
+
         return convertView;
 
     }
