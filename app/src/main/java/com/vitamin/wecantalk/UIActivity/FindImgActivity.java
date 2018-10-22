@@ -127,6 +127,8 @@ public class FindImgActivity extends AppCompatActivity {
                                         pojo.setSimilarity(jObject.getString("similarity").toString());
                                         pojo.setImage(jObject.get("image").toString());
 
+                                        friendsRecognitionListViewPOJO.add(pojo);
+
                                     }
 
                                     adapter.setList(friendsRecognitionListViewPOJO);
