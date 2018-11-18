@@ -39,7 +39,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -128,9 +131,9 @@ public class FindImgActivity extends AppCompatActivity {
                                         pojo.setImage(jObject.get("image").toString());
 
                                         friendsRecognitionListViewPOJO.add(pojo);
+                                        Collections.sort(friendsRecognitionListViewPOJO, similarSort);
 
                                     }
-
                                     adapter.setList(friendsRecognitionListViewPOJO);
 
                                 } else {
@@ -241,5 +244,14 @@ public class FindImgActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    Comparator<FriendsRecognitionListViewPOJO> similarSort = new Comparator<FriendsRecognitionListViewPOJO>() {
+        @Override
+        public int compare(FriendsRecognitionListViewPOJO item1, FriendsRecognitionListViewPOJO item2) {
+            return item1.getSimilarity().compareTo(item2.getSimilarity());
+        }
+    };
+
+
 
 }
