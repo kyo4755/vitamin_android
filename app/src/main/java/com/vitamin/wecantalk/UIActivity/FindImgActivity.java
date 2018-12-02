@@ -89,7 +89,6 @@ public class FindImgActivity extends AppCompatActivity {
                         "Select Picture"), SELECT_PICTURE);
             }
         });
-
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -107,7 +106,7 @@ public class FindImgActivity extends AppCompatActivity {
                     AQuery aQuery = new AQuery(FindImgActivity.this);
                     String url = Config.Server_URL + "recognition/compare";
                     Map<String, Object> params = new LinkedHashMap<>();
-                    params.put("img_id", GlobalInfo.my_profile.getImage());
+                    params.put("id", GlobalInfo.my_profile.getImage());
                     params.put("image", selectedPhoto);
 
                     aQuery.ajax(url, params, String.class, new AjaxCallback<String>(){
@@ -131,9 +130,9 @@ public class FindImgActivity extends AppCompatActivity {
                                         pojo.setImage(jObject.get("image").toString());
 
                                         friendsRecognitionListViewPOJO.add(pojo);
-                                        Collections.sort(friendsRecognitionListViewPOJO, similarSort);
-
                                     }
+
+                                    Collections.sort(friendsRecognitionListViewPOJO, similarSort);
                                     adapter.setList(friendsRecognitionListViewPOJO);
 
                                 } else {

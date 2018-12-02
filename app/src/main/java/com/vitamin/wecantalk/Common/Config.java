@@ -5,6 +5,6 @@ package com.vitamin.wecantalk.Common;
  */
 
 public class Config {
-    public static String Server_URL = "http://52.79.226.184:10230/";
+    public static String Server_URL = "http://52.78.152.195:10230/";
     //public static String Server_URL = "http://172.16.6.119:5000/";
 }

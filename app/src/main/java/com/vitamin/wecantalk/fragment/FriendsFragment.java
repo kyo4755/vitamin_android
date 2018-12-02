@@ -4,9 +4,12 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -49,6 +52,9 @@ public class FriendsFragment extends Fragment {
     FriendsListViewAdapter adapter;
     ImageView my_img;
     TextView my_name, my_status_msg;
+    private Animation fab_open, fab_close;
+    private Boolean isFabOpen = false;
+    private FloatingActionButton fab, fab1, fab2;
 
     Context context;
     Button b1;
@@ -65,23 +71,27 @@ public class FriendsFragment extends Fragment {
         context = container.getContext();
         View view = inflater.inflate(R.layout.fragment_friends, null);
 
-        adapter = new FriendsListViewAdapter();
-        getFriendsList();
+        fab_open = AnimationUtils.loadAnimation(context, R.anim.fab_open);
+        fab_close = AnimationUtils.loadAnimation(context, R.anim.fab_close);
 
-        listview = view.findViewById(R.id.listview1);
-        listview.setAdapter(adapter);
+        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab1 = (FloatingActionButton) view.findViewById(R.id.fab1);
+        fab2 = (FloatingActionButton) view.findViewById(R.id.fab2);
 
-        b1 = view.findViewById(R.id.test_find_friend);
-        b2 = view.findViewById(R.id.test_find_id_friend);
-
-        b1.setOnClickListener(new View.OnClickListener() {
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                anim();
+            }
+        });
+        fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent it = new Intent(getActivity(), FindImgActivity.class);
                 startActivity(it);
             }
         });
-        b2.setOnClickListener(new View.OnClickListener() {
+        fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent it = new Intent(getActivity(), FindIdActivity.class);
@@ -89,6 +99,11 @@ public class FriendsFragment extends Fragment {
             }
         });
 
+        adapter = new FriendsListViewAdapter();
+        getFriendsList();
+
+        listview = view.findViewById(R.id.listview1);
+        listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -139,11 +154,11 @@ public class FriendsFragment extends Fragment {
         setMyStatus();
     }
 
-    private void getFriendsList(){
-        AQuery aQuery = new AQuery(context);
-        String friends_list_url = Config.Server_URL + "friends/getList";
+        private void getFriendsList(){
+            AQuery aQuery = new AQuery(context);
+            String friends_list_url = Config.Server_URL + "friends/getList";
 
-        Map<String, Object> params = new LinkedHashMap<>();
+            Map<String, Object> params = new LinkedHashMap<>();
 
         params.put("id", GlobalInfo.my_profile.getId());
 
@@ -187,6 +202,23 @@ public class FriendsFragment extends Fragment {
     private void setMyStatus(){
         my_status_msg.setText(GlobalInfo.my_profile.getStatus_msg());
         my_name.setText(GlobalInfo.my_profile.getName());
+    }
+
+    public void anim(){
+
+        if (isFabOpen) {
+            fab1.startAnimation(fab_close);
+            fab2.startAnimation(fab_close);
+            fab1.setClickable(false);
+            fab2.setClickable(false);
+            isFabOpen = false;
+        } else {
+            fab1.startAnimation(fab_open);
+            fab2.startAnimation(fab_open);
+            fab1.setClickable(true);
+            fab2.setClickable(true);
+            isFabOpen = true;
+        }
     }
 }
 
