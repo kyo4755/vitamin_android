@@ -1,45 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="문제 : "/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hello"
-            android:id="@+id/exam"/>
-
-    </LinearLayout>
-
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="문제 : "/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxWidth="250dp"
+                android:padding="10dp"
+                android:text="hello"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:id="@+id/question"
+                android:background="@drawable/rounded_ractangle_green"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="50dp"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:id="@+id/num1_layout"
                 android:orientation="vertical">
 
                 <TextView
@@ -48,17 +57,20 @@
                     android:text="보기1"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/exam_num1"
                     android:text="String1"/>
+
+
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:id="@+id/num2_layout"
                 android:orientation="vertical">
 
                 <TextView
@@ -67,7 +79,7 @@
                     android:text="보기2"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/exam_num2"
                     android:text="String2"/>
@@ -87,8 +99,9 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:id="@+id/num3_layout"
                 android:orientation="vertical">
 
                 <TextView
@@ -97,17 +110,19 @@
                     android:text="보기3"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/exam_num3"
                     android:text="String3"/>
+
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:id="@+id/num4_layout"
                 android:orientation="vertical">
 
                 <TextView
@@ -116,16 +131,48 @@
                     android:text="보기4"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/exam_num4"
                     android:text="String4"/>
-
 
             </LinearLayout>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:layout_marginBottom="10dp">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/next_button"
+                android:background="@drawable/next_button" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/end_message"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/quiz_check_animation"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        app:lottie_fileName="purple_tick.json"
+        app:lottie_loop="true"/>
+
+
+</FrameLayout>
+
+
+
