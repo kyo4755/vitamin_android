@@ -14,16 +14,16 @@
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/study_fragment_btn_youglish"
-            android:text="@string/study_fragment_btn_youglish"
+            android:id="@+id/study_fragment_btn_word_cloud"
+            android:text="@string/study_fragment_btn_word_cloud"
             android:background="@color/white"
             android:layout_weight="1"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/study_fragment_btn_word_cloud"
-            android:text="@string/study_fragment_btn_word_cloud"
+            android:id="@+id/study_fragment_btn_youglish"
+            android:text="@string/study_fragment_btn_youglish"
             android:background="@color/white"
             android:layout_weight="1"/>
 

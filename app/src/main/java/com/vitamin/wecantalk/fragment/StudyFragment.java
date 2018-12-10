@@ -45,13 +45,10 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
         youglishFragment = new YouglishFragment();
         wordCloudFragment = new WordCloudFragment();
 
-        settingFragment(youglishFragment);
+        settingFragment(wordCloudFragment);
 
-        youglish.setBackgroundColor(getResources().getColor(R.color.bg_friends));
-        youglish.setTextColor(getResources().getColor(R.color.white));
-
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Config.Server_URL + "Web/Youglish"));
-        startActivity(intent);
+        wordCloud.setBackgroundColor(getResources().getColor(R.color.bg_community));
+        wordCloud.setTextColor(getResources().getColor(R.color.white));
 
         return view;
     }
@@ -83,7 +80,7 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
     }
 
     private void resetButtonColor(int index){
-        Button btn = youglish;
+        Button btn = wordCloud;
         switch (index){
             case 1: btn = youglish;  break;
             case 2: btn = wordCloud;    break;

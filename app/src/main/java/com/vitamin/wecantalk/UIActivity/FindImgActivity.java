@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -108,10 +109,10 @@ public class FindImgActivity extends AppCompatActivity {
                     Map<String, Object> params = new LinkedHashMap<>();
                     params.put("id", GlobalInfo.my_profile.getImage());
                     params.put("image", selectedPhoto);
-
                     aQuery.ajax(url, params, String.class, new AjaxCallback<String>(){
                         @Override
                         public void callback(String url, String result, AjaxStatus status) {
+                            //loading_animation3.setVisibility(View.GONE);
                             try{
                                 JSONObject jsonObject = new JSONObject(result);
                                 String result_value = jsonObject.get("result").toString();
