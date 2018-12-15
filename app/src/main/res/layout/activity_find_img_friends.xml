@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -37,6 +38,15 @@
             android:id="@+id/friends_find_img_button"
             android:background="@drawable/upload_button"
             android:text="사진 업로드"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/find_image_animation"
+            android:layout_width="300dp"
+            android:layout_height="150dp"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            app:lottie_loop="false"/>
+
 
         <ListView
             android:id="@+id/recognition_listview1"

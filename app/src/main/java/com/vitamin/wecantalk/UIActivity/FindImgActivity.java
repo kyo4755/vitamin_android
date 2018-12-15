@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
@@ -59,14 +60,16 @@ public class FindImgActivity extends AppCompatActivity {
     File selectedPhoto;
     ListView listview;
     FriendsRecognitionListViewAdapter adapter;
+    LottieAnimationView loading_animation;
 
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_img_friends);
-        context=FindImgActivity.this;
+        context = FindImgActivity.this;
 
-
+        loading_animation=findViewById(R.id.find_image_animation);
+        loading_animation.setAnimation("spinne.json");
         listview=findViewById(R.id.recognition_listview1);
 
         adapter=new FriendsRecognitionListViewAdapter();
@@ -109,6 +112,8 @@ public class FindImgActivity extends AppCompatActivity {
                     Map<String, Object> params = new LinkedHashMap<>();
                     params.put("id", GlobalInfo.my_profile.getImage());
                     params.put("image", selectedPhoto);
+                    loading_animation.setVisibility(View.VISIBLE);
+                    loading_animation.playAnimation();
                     aQuery.ajax(url, params, String.class, new AjaxCallback<String>(){
                         @Override
                         public void callback(String url, String result, AjaxStatus status) {
@@ -118,7 +123,8 @@ public class FindImgActivity extends AppCompatActivity {
                                 String result_value = jsonObject.get("result").toString();
 
                                 if(result_value.equals("0000")){
-
+                                    loading_animation.setVisibility(View.GONE);
+                                    loading_animation.cancelAnimation();
                                     ArrayList<FriendsRecognitionListViewPOJO> friendsRecognitionListViewPOJO= new ArrayList<>();
                                     JSONArray jsonArray = new JSONArray(jsonObject.get("content").toString());
                                     Log.d("asdf",jsonArray.toString());

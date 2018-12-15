@@ -65,6 +65,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:textSize="20dp"
                     android:gravity="center"
                     android:id="@+id/exam_num1"
                     android:text="String1"/>
@@ -91,7 +92,9 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:gravity="center"
                     android:id="@+id/exam_num2"
                     android:text="String2"/>
 
@@ -126,7 +129,9 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:gravity="center"
                     android:id="@+id/exam_num3"
                     android:text="String3"/>
 
@@ -151,7 +156,9 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textSize="20dp"
+                    android:gravity="center"
                     android:id="@+id/exam_num4"
                     android:text="String4"/>
 
