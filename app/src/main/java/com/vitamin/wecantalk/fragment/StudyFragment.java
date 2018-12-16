@@ -47,7 +47,7 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
 
         settingFragment(wordCloudFragment);
 
-        wordCloud.setBackgroundColor(getResources().getColor(R.color.bg_community));
+        wordCloud.setBackgroundColor(getResources().getColor(R.color.bg_friends));
         wordCloud.setTextColor(getResources().getColor(R.color.white));
 
         return view;
@@ -64,14 +64,14 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
             case R.id.study_fragment_btn_youglish:
                 fragment = youglishFragment;
                 btn = youglish;
-                btnIndex = 1;
+                btnIndex = 2;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(Config.Server_URL + "Web/Youglish"));
                 startActivity(intent);
                 break;
             case R.id.study_fragment_btn_word_cloud:
                 fragment = wordCloudFragment;
                 btn = wordCloud;
-                btnIndex = 2;
+                btnIndex = 1;
                 break;
         }
 
@@ -82,8 +82,8 @@ public class StudyFragment extends Fragment implements View.OnClickListener{
     private void resetButtonColor(int index){
         Button btn = wordCloud;
         switch (index){
-            case 1: btn = youglish;  break;
-            case 2: btn = wordCloud;    break;
+            case 1: btn = wordCloud;  break;
+            case 2: btn = youglish;    break;
         }
 
         btn.setBackgroundColor(getResources().getColor(R.color.white));

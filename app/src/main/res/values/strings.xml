@@ -18,7 +18,7 @@
     <string name="main_fragment_btn_setting">설정</string>
 
     <string name="study_fragment_btn_youglish">Youglish</string>
-    <string name="study_fragment_btn_word_cloud">Word Cloud</string>
+    <string name="study_fragment_btn_word_cloud">Word Quiz</string>
 
     <string name="community_title">대화방</string>
 

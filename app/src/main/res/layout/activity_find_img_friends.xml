@@ -45,7 +45,7 @@
             android:layout_height="150dp"
             android:visibility="gone"
             android:layout_gravity="center"
-            app:lottie_loop="false"/>
+            app:lottie_loop="true"/>
 
 
         <ListView

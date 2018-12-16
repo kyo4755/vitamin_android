@@ -69,28 +69,32 @@ public class WordCloudFragment extends Fragment {
         loading_animation2 = view.findViewById(R.id.quiz_check_animation2);
         loading_animation3 = view.findViewById(R.id.quiz_check_animation3);
 
+        loading_animation.setAnimation("success.json");
+        loading_animation2.setAnimation("error_cross.json");
+
         getExam();
 
         l1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(isEnd.equals("0")&&answer.equals("1")) {
-                    loading_animation.setAnimation("success.json");
                     loading_animation.setVisibility(View.VISIBLE);
                     loading_animation.playAnimation();
+
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             loading_animation.setVisibility(View.GONE);
                             loading_animation2.cancelAnimation();
+                            getExam();
                         }
-                    }, 1000);
-                    getExam();
+                    }, loading_animation.getDuration());
+
                 }else if(isEnd.equals("0")){
-                    loading_animation2.setAnimation("error_cross.json");
                     loading_animation2.setVisibility(View.VISIBLE);
                     loading_animation2.playAnimation();
+
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -98,29 +102,30 @@ public class WordCloudFragment extends Fragment {
                             loading_animation2.setVisibility(View.GONE);
                             loading_animation2.cancelAnimation();
                         }
-                    }, 1000);
+                    }, loading_animation2.getDuration());
                 }
             }
         });l2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(isEnd.equals("0")&&answer.equals("2")) {
-                    loading_animation.setAnimation("success.json");
                     loading_animation.setVisibility(View.VISIBLE);
                     loading_animation.playAnimation();
+
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             loading_animation.setVisibility(View.GONE);
                             loading_animation2.cancelAnimation();
+                            getExam();
                         }
-                    }, 1000);
-                    getExam();
+                    }, loading_animation.getDuration());
+
                 }else if(isEnd.equals("0")){
-                    loading_animation2.setAnimation("error_cross.json");
                     loading_animation2.setVisibility(View.VISIBLE);
                     loading_animation2.playAnimation();
+
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -128,29 +133,30 @@ public class WordCloudFragment extends Fragment {
                             loading_animation2.setVisibility(View.GONE);
                             loading_animation2.cancelAnimation();
                         }
-                    }, 1000);
+                    }, loading_animation2.getDuration());
                 }
             }
         });l3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(isEnd.equals("0")&&answer.equals("3")) {
-                    loading_animation.setAnimation("success.json");
                     loading_animation.setVisibility(View.VISIBLE);
                     loading_animation.playAnimation();
+
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             loading_animation.setVisibility(View.GONE);
                             loading_animation2.cancelAnimation();
+                            getExam();
                         }
-                    }, 1000);
-                    getExam();
+                    }, loading_animation.getDuration());
+
                 }else if(isEnd.equals("0")){
-                    loading_animation2.setAnimation("error_cross.json");
                     loading_animation2.setVisibility(View.VISIBLE);
                     loading_animation2.playAnimation();
+
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -158,29 +164,30 @@ public class WordCloudFragment extends Fragment {
                             loading_animation2.setVisibility(View.GONE);
                             loading_animation2.cancelAnimation();
                         }
-                    }, 1000);
+                    }, loading_animation2.getDuration());
                 }
             }
         });l4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(isEnd.equals("0")&&answer.equals("4")) {
-                    loading_animation.setAnimation("success.json");
                     loading_animation.setVisibility(View.VISIBLE);
                     loading_animation.playAnimation();
+
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
                         public void run() {
                             loading_animation.setVisibility(View.GONE);
                             loading_animation2.cancelAnimation();
+                            getExam();
                         }
-                    }, 1000);
-                    getExam();
+                    }, loading_animation.getDuration());
+
                 }else if(isEnd.equals("0")){
-                    loading_animation2.setAnimation("error_cross.json");
                     loading_animation2.setVisibility(View.VISIBLE);
                     loading_animation2.playAnimation();
+
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -188,7 +195,7 @@ public class WordCloudFragment extends Fragment {
                             loading_animation2.setVisibility(View.GONE);
                             loading_animation2.cancelAnimation();
                         }
-                    }, 1000);
+                    }, loading_animation2.getDuration());
                 }
             }
         });
